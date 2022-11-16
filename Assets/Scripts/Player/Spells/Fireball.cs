@@ -29,4 +29,10 @@ public class Fireball : Spell
 
         _currentLifetime += Time.deltaTime;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Enemy>(out Enemy enemy))
+            enemy.ApplyDamage(_damage);
+    }
 }
