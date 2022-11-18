@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(PlayerCast))]
+[RequireComponent(typeof(PlayerCaster))]
 public class PlayerCastInput : MonoBehaviour
 {
-    private PlayerCast _cast;
+    private PlayerCaster _cast;
     private Camera _camera;
 
     private void Awake()
     {
-        _cast = GetComponent<PlayerCast>();
+        _cast = GetComponent<PlayerCaster>();
         _camera = Camera.main;
     }
 
