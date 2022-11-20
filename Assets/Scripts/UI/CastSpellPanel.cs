@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Outline))]
 public class CastSpellPanel : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private PlayerSpellMaker _spellMaker;
+    [SerializeField] private PlayerElementSelector _spellMaker;
 
     private bool _spellMade;
     private Outline _outline;
@@ -18,16 +18,6 @@ public class CastSpellPanel : MonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         _outline = GetComponent<Outline>();
-    }
-
-    private void OnEnable()
-    {
-        _spellMaker.SpellUpdated += OnSpellMade;
-    }
-
-    private void OnDisable()
-    {
-        _spellMaker.SpellUpdated -= OnSpellMade;
     }
 
     public void OnPointerDown(PointerEventData eventData)

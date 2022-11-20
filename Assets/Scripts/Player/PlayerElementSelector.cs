@@ -3,23 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Player))]
-public class PlayerSpellMaker : MonoBehaviour
+public class PlayerElementSelector : MonoBehaviour
 {
     [SerializeField] private ElementBar _elementBar;
 
     private List<MagicElement> _selectedElements = new List<MagicElement>();
-    private Spell _spell;
-    private Player _player;
 
-    public Spell CurrentSpell => _spell;
-
-    public UnityAction<Spell> SpellUpdated;
-
-    private void Awake()
-    {
-        _player = GetComponent<Player>();
-    }
+    public UnityAction<List<MagicElement>> CombinationUpdated;
 
     private void OnEnable()
     {
@@ -31,14 +21,13 @@ public class PlayerSpellMaker : MonoBehaviour
         _elementBar.ElementAdded -= OnElementAdded;
     }
 
-    public void DestroyElements()
+    public void DestroyCurrentCombination()
     {
         foreach (var element in _selectedElements)
             Destroy(element.gameObject);
 
         _selectedElements.Clear();
-        _spell = null;
-        SpellUpdated?.Invoke(_spell);
+        CombinationUpdated?.Invoke(null);
     }
 
     private void OnElementAdded(MagicElement element)
@@ -60,7 +49,6 @@ public class PlayerSpellMaker : MonoBehaviour
         else
             _selectedElements.Remove(element);
 
-        _spell = _player.GetSpell(_selectedElements);
-        SpellUpdated?.Invoke(_spell);
+        CombinationUpdated?.Invoke(_selectedElements);
     }
 }

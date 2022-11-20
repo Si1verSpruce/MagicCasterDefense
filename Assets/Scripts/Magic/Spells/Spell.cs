@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class Spell : MonoBehaviour
 {
@@ -35,19 +36,18 @@ public abstract class Spell : MonoBehaviour
 
     public bool CompareCombinations(List<MagicElement> combination)
     {
-        if (_combination.Count() == combination.Count())
-        {
-            var spellCombination = _combination.OrderBy(element => element.Type).ToArray();
-            var receivedCombination = combination.OrderBy(element => element.Type).ToArray();
-
-            for (int i = 0; i < spellCombination.Count(); i++)
-                if (spellCombination[i].Type != receivedCombination[i].Type)
-                    return false;
-        }
-        else
-        {
+        if (combination == null)
             return false;
-        }
+
+        if (_combination.Count() != combination.Count())
+            return false;
+
+        var spellCombination = _combination.OrderBy(element => element.Type).ToArray();
+        var receivedCombination = combination.OrderBy(element => element.Type).ToArray();
+
+        for (int i = 0; i < spellCombination.Count(); i++)
+            if (spellCombination[i].Type != receivedCombination[i].Type)
+                return false;
 
         return true;
     }

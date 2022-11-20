@@ -238,10 +238,10 @@ RectTransform:
   m_Father: {fileID: 467270675}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -664.9999}
-  m_SizeDelta: {x: -880, y: -1719.9998}
+  m_AnchorMin: {x: 0.40800002, y: 0.10070834}
+  m_AnchorMax: {x: 0.592, y: 0.20652086}
+  m_AnchoredPosition: {x: 0, y: 0.5001221}
+  m_SizeDelta: {x: 0, y: -0.99975586}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223974228
 MonoBehaviour:
@@ -1177,7 +1177,7 @@ MonoBehaviour:
     m_ActionId: ff5d94d5-93fc-4c23-a8e9-6be924d156a0
     m_ActionName: Player/Cast[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Mouse and Keyboard
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 963194227}

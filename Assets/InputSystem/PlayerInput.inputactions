@@ -18,19 +18,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "1ebaa3d9-0379-443c-8bc0-5ac9e30f09ba",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse and Keyboard",
-                    "action": "Cast",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3bcf3ea1-72dc-46f2-8a73-d6f57e8350e2",
-                    "path": "<Touchscreen>/Press",
+                    "id": "e932f7c4-8ca0-4832-9c09-55dae0d5c386",
+                    "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touchscreen",
@@ -42,22 +31,6 @@
         }
     ],
     "controlSchemes": [
-        {
-            "name": "Mouse and Keyboard",
-            "bindingGroup": "Mouse and Keyboard",
-            "devices": [
-                {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
         {
             "name": "Touchscreen",
             "bindingGroup": "Touchscreen",
