@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -9,7 +10,7 @@ public class PlayerCastInput : MonoBehaviour
 {
     private PlayerCaster _cast;
     private Camera _camera;
-    private bool _castPanelDowned;
+    private bool _isOverUI;
 
     private void Awake()
     {
@@ -17,9 +18,17 @@ public class PlayerCastInput : MonoBehaviour
         _camera = Camera.main;
     }
 
+    private void Update()
+    {
+        _isOverUI = EventSystem.current.IsPointerOverGameObject();
+    }
+
     public void OnCast(InputAction.CallbackContext context)
     {
         if (_cast.CurrentSpell == null)
+            return;
+
+        if (_isOverUI)
             return;
 
         if (context.canceled)
@@ -31,8 +40,6 @@ public class PlayerCastInput : MonoBehaviour
                 transform.position = hit.point;
                 _cast.OnCast(hit.point);
             }
-
-            _castPanelDowned = false;
         }
     }
 }
