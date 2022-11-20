@@ -100,7 +100,7 @@ MonoBehaviour:
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   _damage: 10
-  _duration: 5
+  _duration: 1
   _startForce: 1000
 --- !u!54 &7456842148844959640
 Rigidbody:
