@@ -14,9 +14,7 @@ public class PlayerCaster : MonoBehaviour
 
     public void OnCast(Vector3 targetPosition)
     {
-        Spell spell = _spellMaker.CurrentSpell;
-
-        if (spell != null)
-            Instantiate(spell, targetPosition, Quaternion.identity);
+        Instantiate(_spellMaker.CurrentSpell, targetPosition, Quaternion.identity);
+        _spellMaker.DestroyElements();
     }
 }

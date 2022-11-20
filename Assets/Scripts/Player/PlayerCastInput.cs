@@ -7,8 +7,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerCaster))]
 public class PlayerCastInput : MonoBehaviour
 {
+    [SerializeField] CastSpellPanel _castPanel;
+
     private PlayerCaster _cast;
     private Camera _camera;
+    private bool _castPanelDowned;
 
     private void Awake()
     {
@@ -16,9 +19,22 @@ public class PlayerCastInput : MonoBehaviour
         _camera = Camera.main;
     }
 
+    private void OnEnable()
+    {
+        _castPanel.PointerDowned += OnCastPanelPointerDowned;
+    }
+
+    private void OnDisable()
+    {
+        _castPanel.PointerDowned -= OnCastPanelPointerDowned;
+    }
+
     public void OnCast(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (_castPanelDowned == false)
+            return;
+
+        if (context.canceled)
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -27,6 +43,13 @@ public class PlayerCastInput : MonoBehaviour
                 transform.position = hit.point;
                 _cast.OnCast(hit.point);
             }
+
+            _castPanelDowned = false;
         }
+    }
+
+    private void OnCastPanelPointerDowned()
+    {
+        _castPanelDowned = true;
     }
 }

@@ -15,6 +15,7 @@ public class BoulderThrow : Spell
     {
         _damageArea = GetComponent<BoxCollider>();
         _rigidbody = GetComponent<Rigidbody>();
+        transform.position = new Vector3(transform.position.x, 10, transform.position.y);
         _rigidbody.AddForce(Vector3.down * _startForce, ForceMode.Impulse);
     }
 

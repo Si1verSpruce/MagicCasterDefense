@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Player))]
 public class PlayerSpellMaker : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerSpellMaker : MonoBehaviour
     private Player _player;
 
     public Spell CurrentSpell => _spell;
+
+    public UnityAction<Spell> SpellUpdated;
 
     private void Awake()
     {
@@ -28,15 +31,25 @@ public class PlayerSpellMaker : MonoBehaviour
         _elementBar.ElementAdded -= OnElementAdded;
     }
 
+    public void DestroyElements()
+    {
+        foreach (var element in _selectedElements)
+            Destroy(element.gameObject);
+
+        _selectedElements.Clear();
+        _spell = null;
+        SpellUpdated?.Invoke(_spell);
+    }
+
     private void OnElementAdded(MagicElement element)
     {
-        element.SelectionStatusChanged += OnElementSelectionStatusChanged;
+        element.Toggled += OnElementSelectionStatusChanged;
         element.Destroyed += OnElementDestroyed;
     }
 
     private void OnElementDestroyed(MagicElement element)
     {
-        element.SelectionStatusChanged -= OnElementSelectionStatusChanged;
+        element.Toggled -= OnElementSelectionStatusChanged;
         element.Destroyed -= OnElementDestroyed;
     }
 
@@ -48,5 +61,6 @@ public class PlayerSpellMaker : MonoBehaviour
             _selectedElements.Remove(element);
 
         _spell = _player.GetSpell(_selectedElements);
+        SpellUpdated?.Invoke(_spell);
     }
 }

@@ -15,12 +15,24 @@ public class ElementBar : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < ElementCount; i++)
+        AddMissingElements(ElementCount);
+    }
+
+    private void AddMissingElements(int elementCount)
+    {
+        for (int i = 0; i < elementCount; i++)
         {
             MagicElement element = _generator.GetRandomElement();
-            _elements.Add(element);
             element.transform.SetParent(transform);
+            element.Destroyed += OnElementDestroyed;
+            _elements.Add(element);
             ElementAdded?.Invoke(element);
         }
+    }
+    private void OnElementDestroyed(MagicElement element)
+    {
+        element.Destroyed -= OnElementDestroyed;
+        _elements.Remove(element);
+        AddMissingElements(1);
     }
 }
