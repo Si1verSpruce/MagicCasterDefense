@@ -34,7 +34,7 @@ public class MagicElement : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!gameObject.scene.isLoaded) 
+        if (gameObject.scene.isLoaded == false) 
             return;
 
         Destroyed?.Invoke(this);

@@ -10,18 +10,20 @@ public class Stage : MonoBehaviour
     [SerializeField] private int _number;
     [SerializeField] private float _timer;
     [SerializeField] private Player _player;
-    [SerializeField] private CanvasGroup _defeatScreen;
+    [SerializeField] private DefeatScreen _defeatScreen;
 
     public UnityAction<int> TimeChanged;
 
     private void OnEnable()
     {
         _player.HealthChanged += OnHealthChanged;
+        _defeatScreen.RestartButtonClicked += RestartGame;
     }
 
     private void OnDisable()
     {
         _player.HealthChanged -= OnHealthChanged;
+        _defeatScreen.RestartButtonClicked -= RestartGame;
     }
 
     private void Update()
@@ -37,8 +39,10 @@ public class Stage : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void RestartGame()
     {
+        Time.timeScale = 1;
+        _defeatScreen.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -46,7 +50,8 @@ public class Stage : MonoBehaviour
     {
         if (_health <= 0)
         {
-            _defeatScreen.enabled = enabled;
+            _defeatScreen.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }

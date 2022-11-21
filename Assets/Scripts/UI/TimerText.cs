@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class Timer : MonoBehaviour
+public class TimerText : MonoBehaviour
 {
     [SerializeField] private Stage _stage;
 

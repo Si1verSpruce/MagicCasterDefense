@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Money : MonoBehaviour
+public class MoneyPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _moneyText;
     [SerializeField] private Player _player;

@@ -43,11 +43,5 @@ public class Player : MonoBehaviour
 
             HealthChanged?.Invoke(_health);
         }
-
-        if (_health <= 0)
-        {
-            Time.timeScale = 0;
-            Debug.Log("Game over");
-        }
     }
 }
