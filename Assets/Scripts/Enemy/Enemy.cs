@@ -2,26 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _health;
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private int _damage;
+    [SerializeField] private int _reward;
     [SerializeField] private Rigidbody[] _ragdollRigidbodies;
+    [SerializeField] private Rigidbody[] _weapons;
 
-    private float _stageModifier;
     private Animator _animator;
+    private Player _player;
+    private Collider _collider;
 
     public float MoveSpeed => _moveSpeed;
+    public int Damage => _damage;
+
+    public void Init(Player player)
+    {
+        _player = player;
+    }
 
     private void Awake()
     {
-        _stageModifier = 1;
-        _moveSpeed *= _stageModifier;
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<Collider>();
 
-        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
-            _ragdollRigidbodies[i].isKinematic = true;
+        SetKinematic(true);
     }
 
     public void ApplyDamage(float damage)
@@ -29,15 +38,26 @@ public class Enemy : MonoBehaviour
         _health -= damage;
 
         if (_health <= 0)
-            ActivateRagdoll();
+            Die();
     }
 
-    private void ActivateRagdoll()
+    private void SetKinematic(bool isKinematic)
     {
-        _animator.enabled = false;
-        _moveSpeed = 0;
+        foreach (var ragdollRigidbody in _ragdollRigidbodies)
+            ragdollRigidbody.isKinematic = isKinematic;
 
-        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
-            _ragdollRigidbodies[i].isKinematic = false;
+        foreach (var weapon in _weapons)
+            weapon.isKinematic = isKinematic;
+    }
+
+    private void Die()
+    {
+        _collider.enabled = false;
+        _moveSpeed = 0;
+        _animator.enabled = false;
+
+        SetKinematic(false);
+
+        _player.AddMoney(_reward);
     }
 }

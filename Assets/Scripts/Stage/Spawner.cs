@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private float _interval;
     [SerializeField] private Enemy _unit;
+    [SerializeField] private Player _player;
 
     private float _timeFromSpawn;
 
@@ -18,7 +19,8 @@ public class Spawner : MonoBehaviour
     {
         if (_timeFromSpawn >= _interval)
         {
-            Instantiate(_unit, new Vector3(Random.Range(MinPositionX, MaxPositionX), PositionY, PositionZ), transform.rotation, transform);
+            Enemy enemy = Instantiate(_unit, new Vector3(Random.Range(MinPositionX, MaxPositionX), PositionY, PositionZ), transform.rotation, transform);
+            enemy.Init(_player);
 
             _timeFromSpawn = 0;
         }

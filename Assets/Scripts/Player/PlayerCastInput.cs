@@ -34,12 +34,16 @@ public class PlayerCastInput : MonoBehaviour
         if (context.canceled)
         {
             Ray ray = _camera.ScreenPointToRay(Pointer.current.position.ReadValue());
+            RaycastHit[] hits = Physics.RaycastAll(ray);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                transform.position = hit.point;
-                _cast.OnCast(hit.point);
-            }
+            foreach (var hit in hits)
+                if (hit.transform.TryGetComponent<Ground>(out Ground ground))
+                {
+                    transform.position = hit.point;
+                    _cast.OnCast(hit.point);
+
+                    return;
+                }
         }
     }
 }
