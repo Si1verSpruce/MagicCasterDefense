@@ -13,6 +13,7 @@ public class Stage : MonoBehaviour
     [SerializeField] private DefeatScreen _defeatScreen;
 
     public UnityAction<int> TimeChanged;
+    public UnityAction GameOver;
 
     private void OnEnable()
     {
@@ -50,6 +51,7 @@ public class Stage : MonoBehaviour
     {
         if (_health <= 0)
         {
+            GameOver?.Invoke();
             _defeatScreen.gameObject.SetActive(true);
             Time.timeScale = 0;
         }

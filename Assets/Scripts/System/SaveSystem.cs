@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
-public class SaveSystem : MonoBehaviour
+public static class SaveSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    private const string FileName = "save.txt";
+
+    private static readonly string SaveDirectory = Application.dataPath + "/Saves/";
+
+    public static void Init()
     {
-        
+        if (Directory.Exists(SaveDirectory) == false)
+            Directory.CreateDirectory(SaveDirectory);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void Save(string saveData)
     {
-        
+        File.WriteAllText(SaveDirectory + FileName, saveData);
+    }
+
+    public static string Load()
+    {
+        if (File.Exists(SaveDirectory + FileName))
+            return File.ReadAllText(SaveDirectory + FileName);
+        else
+            return null;
     }
 }

@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public UnityAction<int> MoneyChanged;
     public UnityAction<int> HealthChanged;
 
+    public int Money => _money;
+
     private void Awake()
     {
         AddMoney(0);
