@@ -8,7 +8,7 @@ public class ThrowBoulder : Spell
     {
         float positionY = 10;
         float startForce = 1000;
-        GameObject missle = Instantiate(Missle, new Vector3(position.x, positionY, position.z), Quaternion.identity);
+        GameObject missle = Instantiate(SpawnObject, new Vector3(position.x, positionY, position.z), Quaternion.identity);
         missle.GetComponent<Rigidbody>().AddForce(new Vector3(0, -startForce, 0), ForceMode.Impulse);
     }
 }

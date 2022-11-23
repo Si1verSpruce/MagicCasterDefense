@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Spell : MonoBehaviour
 {
     [SerializeField] private List<MagicElement> _combination = new List<MagicElement>();
-    [SerializeField] protected GameObject Missle;
+    [SerializeField] protected GameObject SpawnObject;
 
     public bool CompareCombinations(List<MagicElement> combination)
     {

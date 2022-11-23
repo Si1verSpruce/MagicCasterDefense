@@ -5400,7 +5400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _moveSpeed: 1
+  _moveSpeed: 2
   _damage: 1
   _reward: 1
   _ragdollRigidbodies:
