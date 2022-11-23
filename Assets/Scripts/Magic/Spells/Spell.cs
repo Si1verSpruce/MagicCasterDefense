@@ -5,8 +5,17 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
 {
-    [SerializeField] private List<MagicElement> _combination = new List<MagicElement>();
+    [SerializeField] private string _label;
+    [SerializeField] private int _buyPrice;
+    [SerializeField] private int _upgradePrice;
+    [SerializeField] private bool _isBought = false;
+    [SerializeField] private MagicElement[] _combination;
     [SerializeField] protected GameObject SpawnObject;
+
+    public string Label => _label;
+    public int BuyPrice => _buyPrice;
+    public int UpgradePrice => _upgradePrice;
+    public MagicElement[] Combination => _combination;
 
     public bool CompareCombinations(List<MagicElement> combination)
     {

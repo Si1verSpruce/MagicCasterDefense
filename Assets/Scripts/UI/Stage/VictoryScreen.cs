@@ -4,24 +4,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class VictoryScreen : MonoBehaviour
+public class VictoryScreen : Screen
 {
     [SerializeField] private Button _nextStageButton;
-    [SerializeField] private Button _shopButton;
 
     public UnityAction NextStageButtonClicked;
-    public UnityAction ShopButtonClicked;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _nextStageButton.onClick.AddListener(NextStageButtonClicked);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         if (gameObject.scene.isLoaded == false)
             return;
 
+        base.OnDisable();
         _nextStageButton.onClick.RemoveListener(NextStageButtonClicked);
     }
 }

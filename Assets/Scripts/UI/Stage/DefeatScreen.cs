@@ -4,24 +4,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class DefeatScreen : MonoBehaviour
+public class DefeatScreen : Screen
 {
     [SerializeField] private Button _restartButton;
-    [SerializeField] private Button _shopButton;
 
     public UnityAction RestartButtonClicked;
-    public UnityAction ShopButtonClicked;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _restartButton.onClick.AddListener(RestartButtonClicked);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         if (gameObject.scene.isLoaded == false)
             return;
 
+        base.OnDisable();
         _restartButton.onClick.RemoveListener(RestartButtonClicked);
     }
 }

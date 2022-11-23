@@ -43,8 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c8919ee728efc4aa40c95e2cd84293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _label: Meteor Rain
+  _buyPrice: 5
+  _upgradePrice: 0
+  _isBought: 0
   _combination:
-  - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}

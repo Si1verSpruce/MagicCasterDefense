@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -12,6 +11,7 @@ public class Stage : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
+    [SerializeField] private ArsenalScreen _arsenalScreen;
 
     private int _number;
     private bool _isGameOver;
@@ -65,6 +65,11 @@ public class Stage : MonoBehaviour
         Time.timeScale = 1;
         _defeatScreen.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OpenArsenal()
+    {
+
     }
 
     private void OnHealthChanged(int _health)
