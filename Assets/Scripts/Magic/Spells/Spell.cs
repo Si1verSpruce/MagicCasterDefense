@@ -5,35 +5,8 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
 {
-    protected const float Lifetime = 10f;
-
     [SerializeField] private List<MagicElement> _combination = new List<MagicElement>();
-    [SerializeField] private float _damage;
-    [SerializeField] private float _duration;
-
-    private float _currentLifetime;
-    private bool _isActive;
-
-    private void Awake()
-    {
-        _currentLifetime = 0;
-    }
-
-    private void Update()
-    {
-        if (_isActive == false)
-            return;
-
-        if (_currentLifetime >= _duration)
-        {
-            Deactivate();
-
-            if (_currentLifetime >= Lifetime)
-                Destroy(gameObject);
-        }
-
-        _currentLifetime += Time.deltaTime;
-    }
+    [SerializeField] protected GameObject Missle;
 
     public bool CompareCombinations(List<MagicElement> combination)
     {
@@ -53,16 +26,5 @@ public abstract class Spell : MonoBehaviour
         return true;
     }
 
-    protected abstract void Deactivate();
-
-    protected virtual void Activate()
-    {
-        _isActive = true;
-    }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.TryGetComponent<Enemy>(out Enemy enemy))
-            enemy.ApplyDamage(_damage);
-    }
+    public abstract void Cast(Vector3 position);
 }

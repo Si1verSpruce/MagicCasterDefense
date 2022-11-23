@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1867655171562185706
 Transform:
   m_ObjectHideFlags: 0
@@ -58,11 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc0ee75f86d9d247b9e533ab22f90b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _combination:
-  - {fileID: 1506516324962693382, guid: 4fceb56253094ba4d86838c0e5921513, type: 3}
-  - {fileID: 1506516324962693382, guid: 4fceb56253094ba4d86838c0e5921513, type: 3}
-  _damage: 10
   _duration: 0.1
+  _damage: 1
 --- !u!1001 &2657847968144326617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,6 +142,18 @@ PrefabInstance:
     - target: {fileID: 2433282508753476426, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433282509598398872, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433282509598398872, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433282509598398872, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2433282509598398873, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Materials.Array.size

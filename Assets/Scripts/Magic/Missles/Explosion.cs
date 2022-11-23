@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class ThrowFireball : Spell
+public class Explosion : Missle
 {
-    [SerializeField] private ParticleSystem _explosion;
+    [SerializeField] private float _damage;
+
     private SphereCollider _damageArea;
 
     private void Awake()
     {
         _damageArea = GetComponent<SphereCollider>();
-    }
-
-    protected override void Activate()
-    {
-        base.Activate();
-        _damageArea.enabled = true;
-        _explosion.Play();
+        Activate();
     }
 
     protected override void Deactivate()
@@ -27,7 +22,7 @@ public class ThrowFireball : Spell
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.TryGetComponent<Ground>(out Ground ground))
-            Activate();
+        if (collider.TryGetComponent<Enemy>(out Enemy enemy))
+            enemy.ApplyDamage(_damage);
     }
 }

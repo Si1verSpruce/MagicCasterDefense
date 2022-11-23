@@ -8,13 +8,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerCaster))]
 public class PlayerCastInput : MonoBehaviour
 {
-    private PlayerCaster _cast;
+    private PlayerCaster _caster;
     private Camera _camera;
     private bool _isOverUI;
 
     private void Awake()
     {
-        _cast = GetComponent<PlayerCaster>();
+        _caster = GetComponent<PlayerCaster>();
         _camera = Camera.main;
     }
 
@@ -25,7 +25,7 @@ public class PlayerCastInput : MonoBehaviour
 
     public void OnCast(InputAction.CallbackContext context)
     {
-        if (_cast.CurrentSpell == null)
+        if (_caster.CurrentSpell == null)
             return;
 
         if (_isOverUI)
@@ -40,7 +40,7 @@ public class PlayerCastInput : MonoBehaviour
                 if (hit.transform.TryGetComponent<Ground>(out Ground ground))
                 {
                     transform.position = hit.point;
-                    _cast.OnCast(hit.point);
+                    _caster.OnCastInput(hit.point);
 
                     return;
                 }

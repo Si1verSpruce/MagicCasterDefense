@@ -5399,7 +5399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c708589d1e09db6499d097f9117f6fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
+  _health: 1
   _moveSpeed: 1
   _damage: 1
   _reward: 1

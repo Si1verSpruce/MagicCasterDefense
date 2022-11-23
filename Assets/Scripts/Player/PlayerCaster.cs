@@ -33,9 +33,9 @@ public class PlayerCaster : MonoBehaviour
         _currentSpell = _player.GetSpell(elements);
     }
 
-    public void OnCast(Vector3 targetPosition)
+    public void OnCastInput(Vector3 targetPosition)
     {
-        Instantiate(_currentSpell, targetPosition, Quaternion.identity);
+        _currentSpell.Cast(targetPosition);
         _spellMaker.DestroyCurrentCombination();
     }
 }
