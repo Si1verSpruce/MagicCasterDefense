@@ -5,4 +5,5 @@ using UnityEngine;
 public class SavedDataContainer
 {
     public int PlayerMoney;
+    public int StageNumber;
 }

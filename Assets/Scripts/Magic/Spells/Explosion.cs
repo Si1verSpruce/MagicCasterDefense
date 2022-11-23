@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Fireball : Spell
+public class Explosion : Spell
 {
     private SphereCollider _damageArea;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
-public class BoulderThrow : Spell
+public class ThrowBoulder : Spell
 {
     [SerializeField] private float _startForce;
 

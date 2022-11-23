@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private StageStoredDataHandler _dataHandler;
     [SerializeField] private int _health;
     [SerializeField] private List<Spell> _spells = new List<Spell>();
 
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        AddMoney(0);
+        AddMoney(_dataHandler.PlayerMoney);
         ApplyDamage(0);
     }
 

@@ -12,8 +12,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float _duration;
 
     private float _currentLifetime;
-
-    protected float Damage => _damage;
+    private bool _isActive;
 
     private void Awake()
     {
@@ -22,6 +21,9 @@ public abstract class Spell : MonoBehaviour
 
     private void Update()
     {
+        if (_isActive == false)
+            return;
+
         if (_currentLifetime >= _duration)
         {
             Deactivate();
@@ -52,6 +54,11 @@ public abstract class Spell : MonoBehaviour
     }
 
     protected abstract void Deactivate();
+
+    protected virtual void Activate()
+    {
+        _isActive = true;
+    }
 
     private void OnTriggerEnter(Collider collider)
     {

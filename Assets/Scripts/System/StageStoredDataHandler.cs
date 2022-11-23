@@ -9,17 +9,18 @@ public class StageStoredDataHandler : MonoBehaviour
 
     private SavedDataContainer _container = new SavedDataContainer();
 
+    public int PlayerMoney => _container.PlayerMoney;
+    public int StageNumber => _container.StageNumber;
+
     private void Awake()
     {
         SaveSystem.Init();
         SavedDataContainer container = JsonUtility.FromJson<SavedDataContainer>(SaveSystem.Load());
 
-        if (container == null)
-            return;
-
-        _container = JsonUtility.FromJson<SavedDataContainer>(SaveSystem.Load());
-
-        _player.AddMoney(_container.PlayerMoney);
+        if (container != null)
+        {
+            _container = JsonUtility.FromJson<SavedDataContainer>(SaveSystem.Load());
+        }
     }
 
     private void OnEnable()
@@ -35,6 +36,7 @@ public class StageStoredDataHandler : MonoBehaviour
     private void OnGameOver()
     {
         _container.PlayerMoney = _player.Money;
+        _container.StageNumber = _stage.Number + 1;
         SaveSystem.Save(JsonUtility.ToJson(_container));
     }
 }
