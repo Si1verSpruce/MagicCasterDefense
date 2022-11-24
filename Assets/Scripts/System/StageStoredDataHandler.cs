@@ -35,8 +35,13 @@ public class StageStoredDataHandler : MonoBehaviour
 
     private void OnGameOver()
     {
+        SaveData();
+    }
+
+    private void SaveData()
+    {
         _container.PlayerMoney = _player.Money;
-        _container.StageNumber = _stage.Number + 1;
+        _container.StageNumber = _stage.Number;
         SaveSystem.Save(JsonUtility.ToJson(_container));
     }
 }

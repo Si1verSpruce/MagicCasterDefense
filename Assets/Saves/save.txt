@@ -1,1 +1,1 @@
-{"PlayerMoney":0,"StageNumber":1}
+{"PlayerMoney":20,"StageNumber":10}

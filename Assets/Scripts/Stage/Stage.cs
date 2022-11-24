@@ -24,15 +24,11 @@ public class Stage : MonoBehaviour
     private void OnEnable()
     {
         _player.HealthChanged += OnHealthChanged;
-        _defeatScreen.RestartButtonClicked += RestartStage;
-        _victoryScreen.NextStageButtonClicked += StartNextStage;
     }
 
     private void OnDisable()
     {
         _player.HealthChanged -= OnHealthChanged;
-        _defeatScreen.RestartButtonClicked -= RestartStage;
-        _victoryScreen.NextStageButtonClicked -= StartNextStage;
     }
 
     private void Start()
@@ -53,23 +49,6 @@ public class Stage : MonoBehaviour
             OnGameOver();
             _victoryScreen.gameObject.SetActive(true);
         }
-    }
-
-    private void StartNextStage()
-    {
-        RestartStage();
-    }
-
-    private void RestartStage()
-    {
-        Time.timeScale = 1;
-        _defeatScreen.gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    private void OpenArsenal()
-    {
-
     }
 
     private void OnHealthChanged(int _health)

@@ -1672,6 +1672,7 @@ GameObject:
   - component: {fileID: 386844798}
   - component: {fileID: 386844800}
   - component: {fileID: 386844799}
+  - component: {fileID: 386844801}
   m_Layer: 5
   m_Name: ArsenalScreen
   m_TagString: Untagged
@@ -1737,6 +1738,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386844797}
   m_CullTransparentMesh: 1
+--- !u!114 &386844801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386844797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4472b5e21bba91a499a5e312139fc05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &401721192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,8 +2792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891e2f4dc367cd64c904241355208bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arsenalButton: {fileID: 0}
   _restartButton: {fileID: 925331535}
+  _arsenalButton: {fileID: 282813018}
+  _arsenalScreen: {fileID: 386844801}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,8 +3133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febb40f74b38c314c80526008033f3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arsenalButton: {fileID: 0}
   _nextStageButton: {fileID: 401721194}
+  _arsenalButton: {fileID: 1122816364}
+  _arsenalScreen: {fileID: 386844801}
 --- !u!114 &883572301
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,27 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DefeatScreen : Screen
+public class DefeatScreen : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _arsenalButton;
+    [SerializeField] private ArsenalScreen _arsenalScreen;
 
-    public UnityAction RestartButtonClicked;
-
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
-        _restartButton.onClick.AddListener(RestartButtonClicked);
+        _restartButton.onClick.AddListener(RestartStage);
+        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
         if (gameObject.scene.isLoaded == false)
             return;
 
-        base.OnDisable();
-        _restartButton.onClick.RemoveListener(RestartButtonClicked);
+        _restartButton.onClick.RemoveListener(RestartStage);
+        _arsenalButton.onClick.RemoveListener(ActivateArsenalScreen);
+    }
+
+    private void RestartStage()
+    {
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void ActivateArsenalScreen()
+    {
+        _arsenalScreen.gameObject.SetActive(true);
     }
 }

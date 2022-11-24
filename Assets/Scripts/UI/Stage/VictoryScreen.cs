@@ -1,27 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class VictoryScreen : Screen
+public class VictoryScreen : MonoBehaviour
 {
     [SerializeField] private Button _nextStageButton;
+    [SerializeField] private Button _arsenalButton;
+    [SerializeField] private ArsenalScreen _arsenalScreen;
 
-    public UnityAction NextStageButtonClicked;
-
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
-        _nextStageButton.onClick.AddListener(NextStageButtonClicked);
+        _nextStageButton.onClick.AddListener(StartNextStage);
+        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
         if (gameObject.scene.isLoaded == false)
             return;
 
-        base.OnDisable();
-        _nextStageButton.onClick.RemoveListener(NextStageButtonClicked);
+        _nextStageButton.onClick.RemoveListener(StartNextStage);
+        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
+    }
+
+    private void StartNextStage()
+    {
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void ActivateArsenalScreen()
+    {
+        _arsenalScreen.gameObject.SetActive(true);
     }
 }
