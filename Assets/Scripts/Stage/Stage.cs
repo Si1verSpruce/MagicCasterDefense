@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class Stage : MonoBehaviour
 {
-    [SerializeField] private StageStoredDataHandler _dataHandler;
+    [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private float _timer;
     [SerializeField] private Player _player;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
-    [SerializeField] private ArsenalScreen _arsenalScreen;
 
     private int _number;
     private bool _isGameOver;
 
     public UnityAction<int> TimeChanged;
-    public UnityAction GameOver;
 
     public int Number => _number;
+
+    private void Awake()
+    {
+        _saveLoadSystem.Load();
+    }
 
     private void OnEnable()
     {
@@ -29,11 +31,6 @@ public class Stage : MonoBehaviour
     private void OnDisable()
     {
         _player.HealthChanged -= OnHealthChanged;
-    }
-
-    private void Start()
-    {
-        _number = _dataHandler.StageNumber;
     }
 
     private void Update()
@@ -62,7 +59,7 @@ public class Stage : MonoBehaviour
 
     private void OnGameOver()
     {
-        GameOver?.Invoke();
+        _saveLoadSystem.Save();
         Time.timeScale = 0;
     }
 }

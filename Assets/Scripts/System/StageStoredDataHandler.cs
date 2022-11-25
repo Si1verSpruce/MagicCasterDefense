@@ -23,16 +23,6 @@ public class StageStoredDataHandler : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        _stage.GameOver += OnGameOver;
-    }
-
-    private void OnDisable()
-    {
-        _stage.GameOver -= OnGameOver;
-    }
-
     private void OnGameOver()
     {
         SaveData();

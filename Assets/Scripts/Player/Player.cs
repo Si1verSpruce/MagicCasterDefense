@@ -4,9 +4,8 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISaveable
 {
-    [SerializeField] private StageStoredDataHandler _dataHandler;
     [SerializeField] private int _health;
     [SerializeField] private List<Spell> _spells = new List<Spell>();
 
@@ -19,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        AddMoney(_dataHandler.PlayerMoney);
+        AddMoney(0);
         ApplyDamage(0);
     }
 
@@ -46,5 +45,25 @@ public class Player : MonoBehaviour
 
             HealthChanged?.Invoke(_health);
         }
+    }
+
+    public object SaveState()
+    {
+        return new SavedData()
+        {
+            money = _money
+        };
+    }
+
+    public void LoadState(object state)
+    {
+        var saveData = (SavedData)state;
+
+        _money = saveData.money;
+    }
+
+    private struct SavedData
+    {
+        public int money;
     }
 }
