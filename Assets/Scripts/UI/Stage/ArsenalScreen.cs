@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArsenalScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Button _back;
+
+    private void OnEnable()
     {
-        
+        _back.onClick.AddListener(Deactivate);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        _back.onClick.RemoveListener(Deactivate);
+    }
+
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
