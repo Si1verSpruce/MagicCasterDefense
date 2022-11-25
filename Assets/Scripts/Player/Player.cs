@@ -47,22 +47,21 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
-    public object SaveState()
+    public string SaveState()
     {
-        return new SavedData()
-        {
-            money = _money
-        };
+        SaveData data = new SaveData() { money = _money };
+
+        return JsonUtility.ToJson(data);
     }
 
-    public void LoadState(object state)
+    public void LoadState(string state)
     {
-        var saveData = (SavedData)state;
+        var savedData = JsonUtility.FromJson<SaveData>(state);
 
-        _money = saveData.money;
+        _money = savedData.money;
     }
 
-    private struct SavedData
+    private struct SaveData
     {
         public int money;
     }

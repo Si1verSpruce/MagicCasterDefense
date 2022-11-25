@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ef103f01adf4546aa36af51111456d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _saveDirectory: /Saves/
+  _localSaveDirectory: /Saves/
   _fileName: save.txt
 --- !u!4 &557256535
 Transform:

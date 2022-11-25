@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Stage : MonoBehaviour
+public class Stage : MonoBehaviour, ISaveable
 {
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private float _timer;
@@ -43,9 +43,24 @@ public class Stage : MonoBehaviour
         else if (_isGameOver == false)
         {
             _isGameOver = true;
+            _number++;
             OnGameOver();
             _victoryScreen.gameObject.SetActive(true);
         }
+    }
+
+    public string SaveState()
+    {
+        SaveData data = new SaveData() { number = _number };
+
+        return JsonUtility.ToJson(data);
+    }
+
+    public void LoadState(string state)
+    {
+        var savedData = JsonUtility.FromJson<SaveData>(state);
+
+        _number = savedData.number;
     }
 
     private void OnHealthChanged(int _health)
@@ -61,5 +76,10 @@ public class Stage : MonoBehaviour
     {
         _saveLoadSystem.Save();
         Time.timeScale = 0;
+    }
+
+    private struct SaveData
+    {
+        public int number;
     }
 }

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,25 +16,25 @@ public class SaveableEntity : MonoBehaviour
         _id = Guid.NewGuid().ToString();
     }
 
-    public object SaveState()
+    public string SaveState()
     {
-        var state = new Dictionary<string, object>();
+        var state = new Dictionary<string, string>();
 
         foreach (var saveable in GetComponents<ISaveable>())
             state[saveable.GetType().ToString()] = saveable.SaveState();
 
-        return state;
+        return JsonConvert.SerializeObject(state);
     }
     
-    public void LoadState(object state)
+    public void LoadState(string state)
     {
-        var stateDictionary = (Dictionary<string, object>)state;
+        Dictionary<string, string> stateDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(state);
 
         foreach (var saveable in GetComponents<ISaveable>())
         {
             var typeName = saveable.GetType().ToString();
 
-            if (stateDictionary.TryGetValue(typeName, out object savedState))
+            if (stateDictionary.TryGetValue(typeName, out string savedState))
                 saveable.LoadState(savedState);
         }
     }
