@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: Meteor Rain
+  _icon: {fileID: 21300000, guid: 609e368643362084c96dfd544c017c75, type: 3}
   _buyPrice: 5
   _upgradePrice: 0
   _isBought: 0

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SpellView : MonoBehaviour
 {
     [SerializeField] private Spell _spell;
+    [SerializeField] private Image _spellIcon;
     [SerializeField] private TextMeshProUGUI _label;
     [SerializeField] private TextMeshProUGUI _buyPrice;
     [SerializeField] private TextMeshProUGUI _upgradePrice;
@@ -15,11 +16,15 @@ public class SpellView : MonoBehaviour
     private void Awake()
     {
         _label.text = _spell.Label;
+        _spellIcon.sprite = _spell.Icon;
         _buyPrice.text = _spell.BuyPrice.ToString();
         _upgradePrice.text = _spell.UpgradePrice.ToString();
         MagicElement[] combination = _spell.Combination;
 
         foreach (var element in combination)
-            Instantiate(element, _combinationView.transform);
+        {
+            var newElement = Instantiate(element, _combinationView.transform);
+            newElement.GetComponent<Image>().raycastTarget = false;
+        }
     }
 }
