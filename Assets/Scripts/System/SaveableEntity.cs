@@ -16,25 +16,25 @@ public class SaveableEntity : MonoBehaviour
         _id = Guid.NewGuid().ToString();
     }
 
-    public string SaveState()
+    public object SaveState()
     {
-        var state = new Dictionary<string, string>();
+        var state = new Dictionary<string, object>();
 
         foreach (var saveable in GetComponents<ISaveable>())
             state[saveable.GetType().ToString()] = saveable.SaveState();
 
-        return JsonConvert.SerializeObject(state);
+        return state;
     }
     
-    public void LoadState(string state)
+    public void LoadState(object state)
     {
-        Dictionary<string, string> stateDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(state);
+        Dictionary<string, object> stateDictionary = (Dictionary<string, object>)state;
 
         foreach (var saveable in GetComponents<ISaveable>())
         {
             var typeName = saveable.GetType().ToString();
 
-            if (stateDictionary.TryGetValue(typeName, out string savedState))
+            if (stateDictionary.TryGetValue(typeName, out object savedState))
                 saveable.LoadState(savedState);
         }
     }

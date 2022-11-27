@@ -50,16 +50,16 @@ public class Stage : MonoBehaviour, ISaveable
         }
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         SaveData data = new SaveData() { number = _number };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
-    public void LoadState(string state)
+    public void LoadState(object state)
     {
-        var savedData = JsonUtility.FromJson<SaveData>(state);
+        var savedData = (SaveData)state;
 
         _number = savedData.number;
     }

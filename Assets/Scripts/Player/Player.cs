@@ -20,9 +20,9 @@ public class Player : MonoBehaviour, ISaveable
     public int Money => _money;
     public int StageCoins => _stageCoins;
 
-    public void LoadState(string state)
+    public void LoadState(object state)
     {
-        var savedData = JsonUtility.FromJson<SaveData>(state);
+        var savedData = (SaveData)state;
 
         _money = savedData.money;
         _stageCoins = savedData.stageCoins;
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, ISaveable
         _spells.Add(spell);
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         SaveData data = new SaveData()
         {
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour, ISaveable
             stageCoins = _stageCoins
         };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
 

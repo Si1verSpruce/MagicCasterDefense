@@ -11,9 +11,9 @@ public class Arsenal : MonoBehaviour, ISaveable
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
 
-    public void LoadState(string state)
+    public void LoadState(object state)
     {
-        var data = JsonUtility.FromJson<SaveData>(state);
+        var data = (SaveData)state;
 
         _spells = data.spells;
 
@@ -38,14 +38,14 @@ public class Arsenal : MonoBehaviour, ISaveable
         _back.onClick.RemoveListener(Deactivate);
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         SaveData data = new SaveData()
         {
             spells = _spells
         };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
 

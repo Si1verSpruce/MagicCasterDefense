@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ISaveable
 {
-    public string SaveState();
-    public void LoadState(string state);
+    public object SaveState();
+    public void LoadState(object state);
 }
