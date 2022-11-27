@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Arsenal : MonoBehaviour, ISaveable
@@ -14,6 +15,9 @@ public class Arsenal : MonoBehaviour, ISaveable
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
 
+    public UnityAction<Spell, int> SpellLevelChanged;
+    public UnityAction<Spell, int> UpgradePriceChanged;
+
     public void LoadState(string state)
     {
         var data = JsonConvert.DeserializeObject<SaveData>(state);
@@ -24,11 +28,18 @@ public class Arsenal : MonoBehaviour, ISaveable
             spell.Init(spellData.isBought, spellData.level);
 
             var spellView = Instantiate(_spellView, _spellContainer);
-            spellView.Init(spell);
-            spellView.BuyButtonClicked += OnBuyButton;
+            spellView.Init(spell, this);
 
             if (spell.IsBought)
+            {
                 _player.AddSpell(spell);
+                spellView.UpgradeButtonClicked += OnUpgradeButton;
+            }
+            else
+            {
+                spellView.BuyButtonClicked += OnBuyButton;
+            }
+
         }
     }
 
@@ -71,9 +82,25 @@ public class Arsenal : MonoBehaviour, ISaveable
         if (_player.StageCoins >= spell.BuyPrice)
         {
             _player.BuySpell(spell);
-            spell.Buy();
             view.UpdateState();
+            view.BuyButtonClicked -= OnBuyButton;
+            view.UpgradeButtonClicked += OnUpgradeButton;
+
             _saveLoadSystem.Save();
+        }
+    }
+
+    private void OnUpgradeButton(Spell spell, SpellView view)
+    {
+        if (_player.Money >= spell.UpgradePrice)
+        {
+            _player.UpgradeSpell(spell);
+
+            SpellLevelChanged?.Invoke(spell.Level);
+            UpgradePriceChanged?.Invoke(spell.UpgradePrice);
+
+            if (spell.Level == int.MaxValue)
+                view.UpgradeButtonClicked -= OnUpgradeButton;
         }
     }
 

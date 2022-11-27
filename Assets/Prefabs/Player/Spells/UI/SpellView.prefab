@@ -752,6 +752,7 @@ GameObject:
   - component: {fileID: 2284440494476322288}
   - component: {fileID: 2284440494476322294}
   - component: {fileID: 2284440494476322295}
+  - component: {fileID: 1836847007}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -833,7 +834,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.1
+  m_fontSize: 49.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -875,6 +876,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1836847007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284440494476322289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f686e50246124c40aa9dfab1f52ccbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2284440494484292099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,8 +1159,8 @@ MonoBehaviour:
   _buyPrice: {fileID: 2284440493904175683}
   _upgradeGroup: {fileID: 2284440494413611561}
   _upgrade: {fileID: 2284440493862459628}
-  _upgradePrice: {fileID: 2284440494476322295}
-  _level: {fileID: 1783699720602662436}
+  _upgradePrice: {fileID: 1836847007}
+  _level: {fileID: 2087516089}
   _combinationView: {fileID: 2284440494235682834}
 --- !u!1 &2284440495099290973
 GameObject:
@@ -1375,7 +1388,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.35
+  m_fontSize: 68.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1504,6 +1517,7 @@ GameObject:
   - component: {fileID: 717000572710486206}
   - component: {fileID: 942812321003206318}
   - component: {fileID: 1783699720602662436}
+  - component: {fileID: 2087516089}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1627,3 +1641,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2087516089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156145759951904764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f991972a136b94588f5da8ebd0051c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

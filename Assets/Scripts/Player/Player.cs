@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
-    
+
     private List<Spell> _spells = new List<Spell>();
     private int _money;
     private int _stageCoins;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, ISaveable
 
         _money = savedData.money;
         _stageCoins = savedData.stageCoins;
-        
+
         AddMoney(0);
     }
 
@@ -62,15 +62,12 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
-    public void UpgradeSpell(int price, Spell spell)
+    public void UpgradeSpell(Spell spell)
     {
-        if (_money >= price)
-        {
-            _money -= price;
+        _money -= spell.UpgradePrice;
+        spell.IncreaseLevel();
 
-            MoneyChanged?.Invoke(_money);
-        }
-
+        MoneyChanged?.Invoke(_money);
     }
 
     public void BuySpell(Spell spell)
@@ -78,6 +75,7 @@ public class Player : MonoBehaviour, ISaveable
         _stageCoins -= spell.BuyPrice;
 
         StageCoinsChanged?.Invoke(_stageCoins);
+        spell.Buy();
         _spells.Add(spell);
     }
 

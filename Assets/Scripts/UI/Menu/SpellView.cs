@@ -15,24 +15,24 @@ public class SpellView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _buyPrice;
     [SerializeField] private GameObject _upgradeGroup;
     [SerializeField] private Button _upgrade;
-    [SerializeField] private TextMeshProUGUI _upgradePrice;
-    [SerializeField] private TextMeshProUGUI _level;
+    [SerializeField] private UpgradePriceText _upgradePrice;
+    [SerializeField] private SpellLevelText _level;
     [SerializeField] private Transform _combinationView;
 
     private Spell _spell;
 
     public UnityAction<Spell, SpellView> BuyButtonClicked;
-    public UnityAction UpgradeButtonClicked;
+    public UnityAction<Spell, SpellView> UpgradeButtonClicked;
     
-    public void Init(Spell spell)
+    public void Init(Spell spell, Arsenal arsenal)
     {
         _spell = spell;
 
         _label.text = _spell.Label;
         _spellIcon.sprite = _spell.Icon;
         _buyPrice.text = _spell.BuyPrice.ToString();
-        _upgradePrice.text = _spell.UpgradePrice.ToString();
-        _level.text = _spell.Level.ToString();
+        _upgradePrice.Init(arsenal, _spell.UpgradePrice.ToString());
+        _level.Init(arsenal, _spell.Level.ToString());
 
         foreach (var element in _spell.GetCombination(_combinationView))
             element.GetComponent<Image>().raycastTarget = false;
@@ -42,8 +42,8 @@ public class SpellView : MonoBehaviour
 
     private void OnEnable()
     {
-        _buy.onClick.AddListener(OnBuyButtonClicked);
-        _upgrade.onClick.AddListener(UpgradeButtonClicked);
+        _buy.onClick.AddListener(OnBuyButtonClick);
+        _upgrade.onClick.AddListener(OnUpgradeButtonClick);
     }
 
     public void UpdateState()
@@ -60,8 +60,13 @@ public class SpellView : MonoBehaviour
         }
     }
 
-    private void OnBuyButtonClicked()
+    private void OnBuyButtonClick()
     {
         BuyButtonClicked?.Invoke(_spell, this);
+    }
+
+    private void OnUpgradeButtonClick()
+    {
+        UpgradeButtonClicked?.Invoke(_spell, this);
     }
 }

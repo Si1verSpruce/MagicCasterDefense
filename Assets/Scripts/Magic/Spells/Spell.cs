@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
@@ -69,5 +70,10 @@ public abstract class Spell : MonoBehaviour
     public void Buy()
     {
         _isBought = true;
+    }
+
+    public void IncreaseLevel()
+    {
+        _level++;
     }
 }
