@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864b899c95180c44eb60fe1631dd2fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _label: Boulder
+  _icon: {fileID: 21300000, guid: f946f7891b2069848bd014bbe9a46766, type: 3}
+  _buyPrice: 0
+  _upgradePrice: 0
+  _isBought: 1
   _combination:
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}

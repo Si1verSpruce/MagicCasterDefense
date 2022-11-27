@@ -1,1 +1,1 @@
-{"ed12ce01-a161-457d-b0dd-1fdf7620b44c":"{\"Player\":\"{\\\"money\\\":33}\"}","f91eeb87-6bd2-4a50-9406-17f1ff4a1686":"{\"Stage\":\"{\\\"number\\\":13}\"}"}
+{"385c0c97-7dff-40f3-9308-cf10e981f170":"{\"Arsenal\":\"{\\\"spells\\\":[{\\\"instanceID\\\":17546},{\\\"instanceID\\\":17548},{\\\"instanceID\\\":17550},{\\\"instanceID\\\":17552}]}\"}","f91eeb87-6bd2-4a50-9406-17f1ff4a1686":"{\"Stage\":\"{\\\"number\\\":6}\"}","ed12ce01-a161-457d-b0dd-1fdf7620b44c":"{\"Player\":\"{\\\"money\\\":66,\\\"stageCoins\\\":6}\"}"}

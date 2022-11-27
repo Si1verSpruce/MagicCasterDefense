@@ -364,7 +364,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.8
+  m_fontSize: 49.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1083,10 +1083,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 287.5, y: -425}
-  m_SizeDelta: {x: 475, y: 750}
+  m_AnchorMin: {x: 0.047333334, y: 0.6}
+  m_AnchorMax: {x: 0.48700002, y: 0.97800004}
+  m_AnchoredPosition: {x: -1.0001221, y: -1.8803711}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2284440495076776853
 CanvasRenderer:
@@ -1138,12 +1138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dfe76ffd51e81540a3cec28fb56544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spell: {fileID: 5999380540119881584, guid: 05998bdfe28f2b34eb57d57c214eda8f, type: 3}
   _spellIcon: {fileID: 2284440493880425292}
   _label: {fileID: 2284440495310112642}
+  _buyGroup: {fileID: 2284440494604948895}
+  _buy: {fileID: 2284440494428080221}
   _buyPrice: {fileID: 2284440493904175683}
+  _upgradeGroup: {fileID: 2284440494413611561}
+  _upgrade: {fileID: 2284440493862459628}
   _upgradePrice: {fileID: 2284440494476322295}
-  _combinationView: {fileID: 2284440494235682833}
+  _combinationView: {fileID: 2284440494235682834}
 --- !u!1 &2284440495099290973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,7 +1373,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.65
+  m_fontSize: 68.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

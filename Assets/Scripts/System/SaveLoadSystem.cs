@@ -14,15 +14,25 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Save()
     {
-        var state = LoadFile();
+        Time.timeScale = 0;
+        Dictionary<string, string> state;
+
+        if (Directory.Exists(_saveDirectory) == false)
+            state = new Dictionary<string, string>();
+        else
+            state = LoadFile();
+
         SaveState(state);
         SaveFile(state);
+        Time.timeScale = 1;
     }
 
     public void Load()
     {
+        Time.timeScale = 0;
         var state = LoadFile();
         LoadState(state);
+        Time.timeScale = 1;
     }
 
     private void SaveFile(object state)
@@ -38,10 +48,7 @@ public class SaveLoadSystem : MonoBehaviour
         _saveDirectory = Application.dataPath + _localSaveDirectory;
 
         if (Directory.Exists(_saveDirectory) == false)
-            return new Dictionary<string, string>();
-
-        if (File.Exists(_saveDirectory + _fileName) == false)
-            return new Dictionary<string, string>();
+            Save();
 
         return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(_saveDirectory + _fileName));
     }

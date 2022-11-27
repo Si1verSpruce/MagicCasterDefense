@@ -18,7 +18,7 @@ public abstract class Spell : MonoBehaviour
     public Sprite Icon => _icon;
     public int BuyPrice => _buyPrice;
     public int UpgradePrice => _upgradePrice;
-    public MagicElement[] Combination => _combination;
+    public bool IsBought => _isBought;
 
     public bool CompareCombinations(List<MagicElement> combination)
     {
@@ -39,4 +39,22 @@ public abstract class Spell : MonoBehaviour
     }
 
     public abstract void Cast(Vector3 position);
+
+    public List<MagicElement> GetCombination(Transform container)
+    {
+        List<MagicElement> elements = new List<MagicElement>();
+
+        foreach (var element in _combination)
+        {
+            var newElement = Instantiate(element, container);
+            newElement.GetComponent<Image>().raycastTarget = false;
+        }
+
+        return elements;
+    }
+
+    public void Buy()
+    {
+        _isBought = true;
+    }
 }

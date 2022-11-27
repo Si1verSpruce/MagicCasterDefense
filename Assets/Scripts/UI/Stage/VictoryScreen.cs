@@ -8,7 +8,7 @@ public class VictoryScreen : MonoBehaviour
 {
     [SerializeField] private Button _nextStageButton;
     [SerializeField] private Button _arsenalButton;
-    [SerializeField] private ArsenalScreen _arsenalScreen;
+    [SerializeField] private GameObject _arsenalScreen;
 
     private void OnEnable()
     {
@@ -34,6 +34,6 @@ public class VictoryScreen : MonoBehaviour
 
     private void ActivateArsenalScreen()
     {
-        _arsenalScreen.gameObject.SetActive(true);
+        _arsenalScreen.SetActive(true);
     }
 }

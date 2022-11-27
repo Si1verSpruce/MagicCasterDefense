@@ -10,6 +10,7 @@ public class HealthPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        OnHealthChanged(_player.Health);
         _player.HealthChanged += OnHealthChanged;
     }
 

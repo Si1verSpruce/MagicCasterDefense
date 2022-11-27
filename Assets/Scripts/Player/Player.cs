@@ -7,19 +7,27 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
-    [SerializeField] private List<Spell> _spells = new List<Spell>();
-
+    
+    private List<Spell> _spells = new List<Spell>();
     private int _money;
+    private int _stageCoins;
 
-    public UnityAction<int> MoneyChanged;
     public UnityAction<int> HealthChanged;
+    public UnityAction<int> MoneyChanged;
+    public UnityAction<int> StageCoinsChanged;
 
+    public int Health => _health;
     public int Money => _money;
+    public int StageCoins => _stageCoins;
 
-    private void Awake()
+    public void LoadState(string state)
     {
+        var savedData = JsonUtility.FromJson<SaveData>(state);
+
+        _money = savedData.money;
+        _stageCoins = savedData.stageCoins;
+        
         AddMoney(0);
-        ApplyDamage(0);
     }
 
     public Spell GetSpell(List<MagicElement> combination)
@@ -37,6 +45,13 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
+    public void AddStageCoin()
+    {
+        _stageCoins++;
+
+        StageCoinsChanged?.Invoke(_stageCoins);
+    }
+
     public void ApplyDamage(int damage)
     {
         if (damage >= 0)
@@ -47,22 +62,45 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
+    public void UpgradeSpell(int price, Spell spell)
+    {
+        if (_money >= price)
+        {
+            _money -= price;
+
+            MoneyChanged?.Invoke(_money);
+        }
+
+    }
+
+    public void BuySpell(Spell spell)
+    {
+        _stageCoins -= spell.BuyPrice;
+
+        StageCoinsChanged?.Invoke(_stageCoins);
+        _spells.Add(spell);
+    }
+
+    public void AddSpell(Spell spell)
+    {
+        _spells.Add(spell);
+    }
+
     public string SaveState()
     {
-        SaveData data = new SaveData() { money = _money };
+        SaveData data = new SaveData()
+        {
+            money = _money,
+            stageCoins = _stageCoins
+        };
 
         return JsonUtility.ToJson(data);
     }
 
-    public void LoadState(string state)
-    {
-        var savedData = JsonUtility.FromJson<SaveData>(state);
-
-        _money = savedData.money;
-    }
 
     private struct SaveData
     {
         public int money;
+        public int stageCoins;
     }
 }

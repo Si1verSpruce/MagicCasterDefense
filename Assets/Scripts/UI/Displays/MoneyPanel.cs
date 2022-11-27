@@ -10,6 +10,7 @@ public class MoneyPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        OnMoneyChanged(_player.Money);
         _player.MoneyChanged += OnMoneyChanged;
     }
 

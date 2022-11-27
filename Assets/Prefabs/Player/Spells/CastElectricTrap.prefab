@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ba7fbab0070e5428a3ec2f26ef59cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _label: Electric Trap
+  _icon: {fileID: 0}
+  _buyPrice: 0
+  _upgradePrice: 0
+  _isBought: 1
   _combination:
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
