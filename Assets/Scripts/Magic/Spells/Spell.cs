@@ -6,19 +6,32 @@ using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
 {
+    private const int UpgradePricePerLevel = 50;
+
     [SerializeField] private string _label;
     [SerializeField] private Sprite _icon;
     [SerializeField] private int _buyPrice;
-    [SerializeField] private int _upgradePrice;
     [SerializeField] private bool _isBought = false;
     [SerializeField] private MagicElement[] _combination;
     [SerializeField] protected GameObject SpawnObject;
+
+    private int _upgradePrice;
+    private int _level = 1;
 
     public string Label => _label;
     public Sprite Icon => _icon;
     public int BuyPrice => _buyPrice;
     public int UpgradePrice => _upgradePrice;
     public bool IsBought => _isBought;
+    public int Level => _level;
+
+    public void Init(bool isBought, int level)
+    {
+        _isBought = isBought;
+        _level = level;
+
+        _upgradePrice = level * UpgradePricePerLevel;
+    }
 
     public bool CompareCombinations(List<MagicElement> combination)
     {

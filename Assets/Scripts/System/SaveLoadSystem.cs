@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -14,28 +15,26 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Save()
     {
-        Time.timeScale = 0;
-        Dictionary<string, string> state;
+        Dictionary<string,string> state;
 
-        if (Directory.Exists(_saveDirectory) == false)
+        if (File.Exists(_saveDirectory + _fileName) == false)
             state = new Dictionary<string, string>();
         else
             state = LoadFile();
 
         SaveState(state);
         SaveFile(state);
-        Time.timeScale = 1;
     }
 
     public void Load()
     {
-        Time.timeScale = 0;
+        _saveDirectory = Application.dataPath + _localSaveDirectory;
+
         var state = LoadFile();
         LoadState(state);
-        Time.timeScale = 1;
     }
 
-    private void SaveFile(object state)
+    private void SaveFile(Dictionary<string, string> state)
     {
         if (Directory.Exists(_saveDirectory) == false)
             Directory.CreateDirectory(_saveDirectory);
@@ -45,9 +44,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     private Dictionary<string, string> LoadFile()
     {
-        _saveDirectory = Application.dataPath + _localSaveDirectory;
-
-        if (Directory.Exists(_saveDirectory) == false)
+        if (File.Exists(_saveDirectory + _fileName) == false)
             Save();
 
         return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(_saveDirectory + _fileName));
@@ -55,14 +52,14 @@ public class SaveLoadSystem : MonoBehaviour
 
     private void SaveState(Dictionary<string, string> state)
     {
-        foreach (var saveable in FindObjectsOfType<SaveableEntity>())
-            state[saveable.Id] = saveable.SaveState();
+        foreach (var saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
+            state[saveable.GetType().ToString()] = saveable.SaveState();
     }
 
     private void LoadState(Dictionary<string, string> state)
     {
-        foreach (var saveable in FindObjectsOfType<SaveableEntity>())
-            if (state.TryGetValue(saveable.Id, out string savedState))
+        foreach (var saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
+            if (state.TryGetValue(saveable.GetType().ToString(), out string savedState))
                 saveable.LoadState(savedState);
     }
 }

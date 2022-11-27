@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,23 @@ using UnityEngine.UI;
 
 public class Arsenal : MonoBehaviour, ISaveable
 {
+    [SerializeField] private SaveLoadSystem _saveLoadSystem;
+    [SerializeField] private GameObject _screen;
     [SerializeField] private Spell[] _spells;
     [SerializeField] private SpellView _spellView;
     [SerializeField] private Transform _spellContainer;
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
 
-    public void LoadState(object state)
+    public void LoadState(string state)
     {
-        var data = (SaveData)state;
-
-        _spells = data.spells;
+        var data = JsonConvert.DeserializeObject<SaveData>(state);
 
         foreach (var spell in _spells)
         {
+            data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
+            spell.Init(spellData.isBought, spellData.level);
+
             var spellView = Instantiate(_spellView, _spellContainer);
             spellView.Init(spell);
             spellView.BuyButtonClicked += OnBuyButton;
@@ -30,28 +34,36 @@ public class Arsenal : MonoBehaviour, ISaveable
 
     private void OnEnable()
     {
-        _back.onClick.AddListener(Deactivate);
+        _back.onClick.AddListener(DeactivateScreen);
     }
 
     private void OnDisable()
     {
-        _back.onClick.RemoveListener(Deactivate);
+        _back.onClick.RemoveListener(DeactivateScreen);
     }
 
-    public object SaveState()
+    public string SaveState()
     {
+        Dictionary<string, SpellData> spellDictionary = new Dictionary<string, SpellData>();
+
+        foreach (var spell in _spells)
+            spellDictionary[spell.GetType().ToString()] = new SpellData()
+            {
+                isBought = spell.IsBought,
+                level = spell.Level
+            };
+
         SaveData data = new SaveData()
         {
-            spells = _spells
+            spells = spellDictionary
         };
 
-        return data;
+        return JsonConvert.SerializeObject(data);
     }
 
-
-    private void Deactivate()
+    private void DeactivateScreen()
     {
-        gameObject.SetActive(false);
+        _screen.SetActive(false);
     }
 
     private void OnBuyButton(Spell spell, SpellView view)
@@ -61,11 +73,18 @@ public class Arsenal : MonoBehaviour, ISaveable
             _player.BuySpell(spell);
             spell.Buy();
             view.UpdateState();
+            _saveLoadSystem.Save();
         }
     }
 
     private struct SaveData
     {
-        public Spell[] spells;
+        public Dictionary<string, SpellData> spells;
+    }
+
+    private struct SpellData
+    {
+        public bool isBought;
+        public int level;
     }
 }

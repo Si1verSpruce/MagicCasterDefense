@@ -16,6 +16,7 @@ public class SpellView : MonoBehaviour
     [SerializeField] private GameObject _upgradeGroup;
     [SerializeField] private Button _upgrade;
     [SerializeField] private TextMeshProUGUI _upgradePrice;
+    [SerializeField] private TextMeshProUGUI _level;
     [SerializeField] private Transform _combinationView;
 
     private Spell _spell;
@@ -31,6 +32,7 @@ public class SpellView : MonoBehaviour
         _spellIcon.sprite = _spell.Icon;
         _buyPrice.text = _spell.BuyPrice.ToString();
         _upgradePrice.text = _spell.UpgradePrice.ToString();
+        _level.text = _spell.Level.ToString();
 
         foreach (var element in _spell.GetCombination(_combinationView))
             element.GetComponent<Image>().raycastTarget = false;
