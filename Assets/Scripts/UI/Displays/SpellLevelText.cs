@@ -6,25 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class SpellLevelText : MonoBehaviour
 {
-    private Arsenal _arsenal;
+    [SerializeField] private SpellView _view;
 
     private TextMeshProUGUI _text;
 
-    public void Init(Arsenal arsenal, string level)
+    public void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-        _text.text = level;
-        _arsenal = arsenal;
     }
 
     private void OnEnable()
     {
-        _arsenal.SpellLevelChanged += OnLevelChange;
+        _view.LevelChanged += OnLevelChange;
+        OnLevelChange(_view.Level);
     }
 
     private void OnDisable()
     {
-        _arsenal.SpellLevelChanged -= OnLevelChange;
+        _view.LevelChanged -= OnLevelChange;
     }
 
     private void OnLevelChange(int level)

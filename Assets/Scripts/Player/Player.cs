@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, ISaveable
     public void UpgradeSpell(Spell spell)
     {
         _money -= spell.UpgradePrice;
-        spell.IncreaseLevel();
+        spell.OnLevelIncrease();
 
         MoneyChanged?.Invoke(_money);
     }

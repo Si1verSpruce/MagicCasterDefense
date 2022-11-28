@@ -364,7 +364,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.1
+  m_fontSize: 49.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -597,7 +597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2284440494413611560
 RectTransform:
   m_ObjectHideFlags: 0
@@ -888,6 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f686e50246124c40aa9dfab1f52ccbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 2284440495076776852}
 --- !u!1 &2284440494484292099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2284440494604948894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1159,8 +1160,6 @@ MonoBehaviour:
   _buyPrice: {fileID: 2284440493904175683}
   _upgradeGroup: {fileID: 2284440494413611561}
   _upgrade: {fileID: 2284440493862459628}
-  _upgradePrice: {fileID: 1836847007}
-  _level: {fileID: 2087516089}
   _combinationView: {fileID: 2284440494235682834}
 --- !u!1 &2284440495099290973
 GameObject:
@@ -1653,3 +1652,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f991972a136b94588f5da8ebd0051c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 2284440495076776852}

@@ -6,25 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class UpgradePriceText : MonoBehaviour
 {
-    private Arsenal _arsenal;
+    [SerializeField] private SpellView _view;
 
     private TextMeshProUGUI _text;
 
-    public void Init(Arsenal arsenal, string price)
+    public void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-        _text.text = price;
-        _arsenal = arsenal;
     }
 
     private void OnEnable()
     {
-        _arsenal.UpgradePriceChanged += OnPriceChange;
+        _view.UpgradePriceChanged += OnPriceChange;
+        OnPriceChange(_view.UpgradePrice);
     }
 
     private void OnDisable()
     {
-        _arsenal.UpgradePriceChanged -= OnPriceChange;
+        _view.UpgradePriceChanged -= OnPriceChange;
     }
 
     private void OnPriceChange(int price)

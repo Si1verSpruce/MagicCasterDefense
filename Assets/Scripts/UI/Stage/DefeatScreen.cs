@@ -8,7 +8,7 @@ public class DefeatScreen : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _arsenalButton;
-    [SerializeField] private GameObject _arsenalScreen;
+    [SerializeField] private Arsenal _arsenal;
 
     private void OnEnable()
     {
@@ -34,6 +34,6 @@ public class DefeatScreen : MonoBehaviour
 
     private void ActivateArsenalScreen()
     {
-        _arsenalScreen.SetActive(true);
+        _arsenal.ActivateScreen();
     }
 }

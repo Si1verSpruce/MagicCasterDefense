@@ -15,9 +15,6 @@ public class Arsenal : MonoBehaviour, ISaveable
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
 
-    public UnityAction<Spell, int> SpellLevelChanged;
-    public UnityAction<Spell, int> UpgradePriceChanged;
-
     public void LoadState(string state)
     {
         var data = JsonConvert.DeserializeObject<SaveData>(state);
@@ -28,7 +25,7 @@ public class Arsenal : MonoBehaviour, ISaveable
             spell.Init(spellData.isBought, spellData.level);
 
             var spellView = Instantiate(_spellView, _spellContainer);
-            spellView.Init(spell, this);
+            spellView.Init(spell);
 
             if (spell.IsBought)
             {
@@ -39,7 +36,6 @@ public class Arsenal : MonoBehaviour, ISaveable
             {
                 spellView.BuyButtonClicked += OnBuyButton;
             }
-
         }
     }
 
@@ -72,6 +68,11 @@ public class Arsenal : MonoBehaviour, ISaveable
         return JsonConvert.SerializeObject(data);
     }
 
+    public void ActivateScreen()
+    {
+        _screen.SetActive(true);
+    }
+
     private void DeactivateScreen()
     {
         _screen.SetActive(false);
@@ -82,7 +83,7 @@ public class Arsenal : MonoBehaviour, ISaveable
         if (_player.StageCoins >= spell.BuyPrice)
         {
             _player.BuySpell(spell);
-            view.UpdateState();
+            view.ActivateUpgradeGroup();
             view.BuyButtonClicked -= OnBuyButton;
             view.UpgradeButtonClicked += OnUpgradeButton;
 
@@ -95,9 +96,9 @@ public class Arsenal : MonoBehaviour, ISaveable
         if (_player.Money >= spell.UpgradePrice)
         {
             _player.UpgradeSpell(spell);
+            view.UpdateUpgradeGroup();
 
-            SpellLevelChanged?.Invoke(spell.Level);
-            UpgradePriceChanged?.Invoke(spell.UpgradePrice);
+            _saveLoadSystem.Save();
 
             if (spell.Level == int.MaxValue)
                 view.UpgradeButtonClicked -= OnUpgradeButton;

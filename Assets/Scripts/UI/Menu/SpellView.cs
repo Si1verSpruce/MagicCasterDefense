@@ -15,29 +15,33 @@ public class SpellView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _buyPrice;
     [SerializeField] private GameObject _upgradeGroup;
     [SerializeField] private Button _upgrade;
-    [SerializeField] private UpgradePriceText _upgradePrice;
-    [SerializeField] private SpellLevelText _level;
     [SerializeField] private Transform _combinationView;
 
     private Spell _spell;
 
+    public int Level => _spell.Level;
+    public int UpgradePrice => _spell.UpgradePrice;
+
     public UnityAction<Spell, SpellView> BuyButtonClicked;
     public UnityAction<Spell, SpellView> UpgradeButtonClicked;
-    
-    public void Init(Spell spell, Arsenal arsenal)
+    public UnityAction<int> LevelChanged;
+    public UnityAction<int> UpgradePriceChanged;
+
+    public void Init(Spell spell)
     {
         _spell = spell;
 
         _label.text = _spell.Label;
         _spellIcon.sprite = _spell.Icon;
         _buyPrice.text = _spell.BuyPrice.ToString();
-        _upgradePrice.Init(arsenal, _spell.UpgradePrice.ToString());
-        _level.Init(arsenal, _spell.Level.ToString());
+        LevelChanged?.Invoke(_spell.Level);
+        UpgradePriceChanged?.Invoke(_spell.UpgradePrice);
 
         foreach (var element in _spell.GetCombination(_combinationView))
             element.GetComponent<Image>().raycastTarget = false;
 
-        UpdateState();
+        if (spell.IsBought)
+            ActivateUpgradeGroup();
     }
 
     private void OnEnable()
@@ -46,18 +50,16 @@ public class SpellView : MonoBehaviour
         _upgrade.onClick.AddListener(OnUpgradeButtonClick);
     }
 
-    public void UpdateState()
+    public void ActivateUpgradeGroup()
     {
-        if (_spell.IsBought)
-        {
-            _buyGroup.SetActive(false);
-            _upgradeGroup.SetActive(true);
-        }
-        else
-        {
-            _buyGroup.SetActive(true);
-            _upgradeGroup.SetActive(false);
-        }
+        _buyGroup.SetActive(false);
+        _upgradeGroup.SetActive(true);
+    }
+
+    public void UpdateUpgradeGroup()
+    {
+        LevelChanged?.Invoke(_spell.Level);
+        UpgradePriceChanged?.Invoke(_spell.UpgradePrice);
     }
 
     private void OnBuyButtonClick()

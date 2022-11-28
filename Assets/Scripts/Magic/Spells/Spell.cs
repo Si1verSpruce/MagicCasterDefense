@@ -31,7 +31,7 @@ public abstract class Spell : MonoBehaviour
         _isBought = isBought;
         _level = level;
 
-        _upgradePrice = level * UpgradePricePerLevel;
+        SetUpgradePrice(_level);
     }
 
     public bool CompareCombinations(List<MagicElement> combination)
@@ -72,8 +72,14 @@ public abstract class Spell : MonoBehaviour
         _isBought = true;
     }
 
-    public void IncreaseLevel()
+    public void OnLevelIncrease()
     {
         _level++;
+        SetUpgradePrice(_level);
+    }
+
+    private void SetUpgradePrice(int level)
+    {
+        _upgradePrice = level * UpgradePricePerLevel;
     }
 }

@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 925331535}
   _arsenalButton: {fileID: 282813018}
-  _arsenalScreen: {fileID: 386844797}
+  _arsenal: {fileID: 545488381}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,7 +2609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextStageButton: {fileID: 401721194}
   _arsenalButton: {fileID: 1122816364}
-  _arsenalScreen: {fileID: 386844797}
+  _arsenal: {fileID: 545488381}
 --- !u!114 &883572301
 MonoBehaviour:
   m_ObjectHideFlags: 0
