@@ -10,7 +10,7 @@ public class MissleSpawner : Spawner
 
     private int _misslesLeft;
 
-    private void Awake()
+    private void Start()
     {
         _misslesLeft = _missleCount;
     }
@@ -19,16 +19,23 @@ public class MissleSpawner : Spawner
     {
         if (_misslesLeft > 0)
         {
-            float positionX = Random.Range(_minOffset.x, _maxOffset.x);
-            float positionY = Random.Range(_minOffset.y, _maxOffset.y);
-            float positionZ = Random.Range(_minOffset.z, _maxOffset.z);
-            SpawnPosition.x = positionX;
-            SpawnPosition.y = positionY;
-            SpawnPosition.z = transform.position.z + positionZ;
-
             base.Spawn();
 
             _misslesLeft--;
         }
+    }
+
+    protected override Vector3 GetSpawnPosition()
+    {
+        float positionX = Random.Range(_minOffset.x, _maxOffset.x);
+        float positionY = Random.Range(_minOffset.y, _maxOffset.y);
+        float positionZ = transform.position.z + Random.Range(_minOffset.z, _maxOffset.z);
+
+        return new Vector3(positionX, positionY, positionZ);
+    }
+
+    protected override Quaternion GetSpawnedObjectRotation()
+    {
+        return transform.rotation;
     }
 }

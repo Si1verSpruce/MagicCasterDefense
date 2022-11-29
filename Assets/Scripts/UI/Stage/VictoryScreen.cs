@@ -8,7 +8,7 @@ public class VictoryScreen : MonoBehaviour
 {
     [SerializeField] private Button _nextStageButton;
     [SerializeField] private Button _shopButton;
-    [SerializeField] private Shop _arsenal;
+    [SerializeField] private Shop _shop;
 
     private void OnEnable()
     {
@@ -34,6 +34,6 @@ public class VictoryScreen : MonoBehaviour
 
     private void ActivateShopScreen()
     {
-        _arsenal.ActivateScreen();
+        _shop.ActivateScreen();
     }
 }

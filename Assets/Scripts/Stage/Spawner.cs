@@ -7,7 +7,6 @@ public abstract class Spawner : MonoBehaviour
 {
     [SerializeField] private float _interval;
 
-    protected GameObject LastSpawnedObject;
     private float _timeFromSpawn;
     private ObjectPool _pool;
 
@@ -45,6 +44,10 @@ public abstract class Spawner : MonoBehaviour
             instance.transform.position = position;
             instance.transform.rotation = rotation;
             instance.SetActive(true);
+
+            OnObjectSpawned(instance);
         }
     }
+
+    protected virtual void OnObjectSpawned(GameObject instance) { }
 }

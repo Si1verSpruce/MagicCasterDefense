@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextStageButton: {fileID: 830450339}
   _shopButton: {fileID: 1448010608}
-  _arsenal: {fileID: 545488381}
+  _shop: {fileID: 545488381}
 --- !u!114 &883572301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3791,6 +3791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1486577801}
   - component: {fileID: 1486577802}
+  - component: {fileID: 1486577803}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -3825,10 +3826,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interval: 0.5
-  _spawnObject: {fileID: 7145656599271534515, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}
+--- !u!114 &1486577803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486577800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b1aa7f91bf9174bae57fa49297ad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pooledObject: {fileID: 7145656599271534515, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
+  _copieCount: 30
+  _container: {fileID: 1486577801}
 --- !u!1 &1557278355
 GameObject:
   m_ObjectHideFlags: 0
