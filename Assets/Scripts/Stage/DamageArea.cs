@@ -11,7 +11,7 @@ public class DamageArea : MonoBehaviour
         if (collider.TryGetComponent<Enemy>(out Enemy enemy))
         {
             _player.ApplyDamage(enemy.Damage);
-            Destroy(enemy.gameObject);
+            enemy.gameObject.SetActive(false);
         }
     }
 }

@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveLoadSystem: {fileID: 557256534}
-  _timer: 10
+  _timer: 60
   _player: {fileID: 1832693274}
   _defeatScreen: {fileID: 678643197}
   _victoryScreen: {fileID: 883572300}
@@ -3825,7 +3825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d5393df2ce1844081a4743325db7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interval: 0.5
+  _interval: 2
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}

@@ -26,7 +26,7 @@ public abstract class Missle : MonoBehaviour
             Deactivate();
 
             if (_currentLifetime >= _lifetime)
-                Destroy(gameObject);
+                gameObject.SetActive(false);
         }
 
         _currentLifetime += Time.deltaTime;
