@@ -17,6 +17,12 @@ public class Boulder : Missle
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    protected override void OnTargetAchieved()
+    {
+        Activate();
+        _rigidbody.isKinematic = true;
+    }
+
     protected override void Deactivate()
     {
         _collider.enabled = false;
@@ -27,11 +33,5 @@ public class Boulder : Missle
     {
         if (collider.TryGetComponent<Enemy>(out Enemy enemy))
             enemy.ApplyDamage(_damage);
-
-        if (collider.TryGetComponent<Ground>(out Ground ground))
-        {
-            Activate();
-            _rigidbody.isKinematic = true;
-        }
     }
 }

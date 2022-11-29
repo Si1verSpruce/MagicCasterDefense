@@ -9759,6 +9759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 10
+  _lifetime: 12
   _damage: 1
   _positionY: 1
   _triggerCount: 5

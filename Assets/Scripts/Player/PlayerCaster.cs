@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerElementSelector))]
 public class PlayerCaster : MonoBehaviour
 {
+    [SerializeField] private Vector3 _castPosition;
+
     private Player _player;
     private PlayerElementSelector _spellMaker;
     private Spell _currentSpell;

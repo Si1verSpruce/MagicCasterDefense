@@ -18,6 +18,8 @@ public class ElectricTrap : Missle
 
     protected override void Deactivate() { }
 
+    protected override void OnTargetAchieved() { }
+
     private void OnTriggerEnter(Collider collider)
     {
         if (_triggerCount > 0)

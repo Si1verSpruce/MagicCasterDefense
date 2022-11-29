@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class VictoryScreen : MonoBehaviour
 {
     [SerializeField] private Button _nextStageButton;
-    [SerializeField] private Button _arsenalButton;
-    [SerializeField] private Arsenal _arsenal;
+    [SerializeField] private Button _shopButton;
+    [SerializeField] private Shop _arsenal;
 
     private void OnEnable()
     {
         _nextStageButton.onClick.AddListener(StartNextStage);
-        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
+        _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
     private void OnDisable()
@@ -22,7 +22,7 @@ public class VictoryScreen : MonoBehaviour
             return;
 
         _nextStageButton.onClick.RemoveListener(StartNextStage);
-        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
+        _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
     private void StartNextStage()
@@ -32,7 +32,7 @@ public class VictoryScreen : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void ActivateArsenalScreen()
+    private void ActivateShopScreen()
     {
         _arsenal.ActivateScreen();
     }

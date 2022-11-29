@@ -5,12 +5,16 @@ using UnityEngine;
 
 public abstract class Missle : MonoBehaviour
 {
-    protected const float Lifetime = 10f;
-
     [SerializeField] private float _duration;
+    [SerializeField] private float _lifetime;
 
     private float _currentLifetime;
     private bool _isActive;
+
+    public void Init(Vector3 targetPosition, float velocity)
+    {
+        StartCoroutine(MoveToTarget(targetPosition, velocity));
+    }
 
     private void Update()
     {
@@ -21,7 +25,7 @@ public abstract class Missle : MonoBehaviour
         {
             Deactivate();
 
-            if (_currentLifetime >= Lifetime)
+            if (_currentLifetime >= _lifetime)
                 Destroy(gameObject);
         }
 
@@ -30,8 +34,24 @@ public abstract class Missle : MonoBehaviour
 
     protected abstract void Deactivate();
 
+    protected abstract void OnTargetAchieved();
+
     protected virtual void Activate()
     {
         _isActive = true;
+    }
+
+    private IEnumerator MoveToTarget(Vector3 targetPosition, float timeToTarget)
+    {
+        float scaledVelocity = Vector3.Distance(transform.position, targetPosition) / timeToTarget * Time.deltaTime;
+
+        while (transform.position != targetPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, scaledVelocity);
+
+            yield return null;
+        }
+
+        OnTargetAchieved();
     }
 }

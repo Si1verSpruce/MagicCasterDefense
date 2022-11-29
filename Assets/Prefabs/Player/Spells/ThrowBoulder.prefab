@@ -46,9 +46,12 @@ MonoBehaviour:
   _label: Boulder
   _icon: {fileID: 21300000, guid: f946f7891b2069848bd014bbe9a46766, type: 3}
   _buyPrice: 0
-  _upgradePrice: 0
   _isBought: 1
   _combination:
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
+  StartPosition: {x: 0, y: 0, z: 0}
+  TimeToTarget: 0.2
   SpawnObject: {fileID: 2233041305654456503, guid: 849cd305db5a22a4da4aac56adf66c74, type: 3}
+  _yPositionOffset: 15
+  _zPositionOffset: -15

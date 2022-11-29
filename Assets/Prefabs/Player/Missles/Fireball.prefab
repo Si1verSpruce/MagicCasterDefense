@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010bebae8fba3c441a9b1ce2fbfb1fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0
+  _duration: 0.1
+  _lifetime: 5
   _explosion: {fileID: 342360476136299566}
   _fireEffects:
   - {fileID: 1206498299488098448}

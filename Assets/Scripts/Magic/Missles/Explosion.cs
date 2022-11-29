@@ -25,4 +25,9 @@ public class Explosion : Missle
         if (collider.TryGetComponent<Enemy>(out Enemy enemy))
             enemy.ApplyDamage(_damage);
     }
+
+    protected override void OnTargetAchieved()
+    {
+
+    }
 }

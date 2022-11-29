@@ -14,6 +14,9 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private int _buyPrice;
     [SerializeField] private bool _isBought = false;
     [SerializeField] private MagicElement[] _combination;
+
+    [SerializeField] protected Vector3 StartPosition;
+    [SerializeField] protected float TimeToTarget;
     [SerializeField] protected GameObject SpawnObject;
 
     private int _upgradePrice;
@@ -52,7 +55,7 @@ public abstract class Spell : MonoBehaviour
         return true;
     }
 
-    public abstract void Cast(Vector3 position);
+    public abstract void Cast(Vector3 targetPosition);
 
     public List<MagicElement> GetCombination(Transform container)
     {

@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class DefeatScreen : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
-    [SerializeField] private Button _arsenalButton;
-    [SerializeField] private Arsenal _arsenal;
+    [SerializeField] private Button _shopButton;
+    [SerializeField] private Shop _shop;
 
     private void OnEnable()
     {
         _restartButton.onClick.AddListener(RestartStage);
-        _arsenalButton.onClick.AddListener(ActivateArsenalScreen);
+        _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
     private void OnDisable()
@@ -22,7 +22,7 @@ public class DefeatScreen : MonoBehaviour
             return;
 
         _restartButton.onClick.RemoveListener(RestartStage);
-        _arsenalButton.onClick.RemoveListener(ActivateArsenalScreen);
+        _shopButton.onClick.RemoveListener(ActivateShopScreen);
     }
 
     private void RestartStage()
@@ -32,8 +32,8 @@ public class DefeatScreen : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void ActivateArsenalScreen()
+    private void ActivateShopScreen()
     {
-        _arsenal.ActivateScreen();
+        _shop.ActivateScreen();
     }
 }

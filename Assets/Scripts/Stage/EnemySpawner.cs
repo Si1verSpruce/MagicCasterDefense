@@ -8,13 +8,22 @@ public class EnemySpawner : Spawner
     [SerializeField] private Vector3 _maxWorldPosition;
     [SerializeField] private Player _player;
 
-    protected override void Spawn()
+    protected override Quaternion GetSpawnedObjectRotation()
+    {
+        return transform.rotation;
+    }
+
+    protected override Vector3 GetSpawnPosition()
     {
         float positionX = Random.Range(_minWorldPosition.x, _maxWorldPosition.x);
         float positionY = Random.Range(_minWorldPosition.y, _maxWorldPosition.y);
         float positionZ = Random.Range(_minWorldPosition.z, _maxWorldPosition.z);
-        SpawnPosition = new Vector3(positionX, positionY, positionZ);
 
+        return new Vector3(positionX, positionY, positionZ);
+    }
+
+    protected override void Spawn()
+    {
         base.Spawn();
         LastSpawnedObject.GetComponent<Enemy>().Init(_player);
     }

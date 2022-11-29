@@ -43,4 +43,9 @@ public class Fireball : Missle
         if (collider.TryGetComponent<Ground>(out Ground ground))
             Activate();
     }
+
+    protected override void OnTargetAchieved()
+    {
+
+    }
 }

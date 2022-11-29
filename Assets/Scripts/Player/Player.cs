@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, ISaveable
 
     public UnityAction<int> HealthChanged;
     public UnityAction<int> MoneyChanged;
-    public UnityAction<int> StageCoinsChanged;
+    public UnityAction<int> GemsChanged;
 
     public int Health => _health;
     public int Money => _money;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, ISaveable
     {
         _stageCoins++;
 
-        StageCoinsChanged?.Invoke(_stageCoins);
+        GemsChanged?.Invoke(_stageCoins);
     }
 
     public void ApplyDamage(int damage)
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour, ISaveable
     {
         _stageCoins -= spell.BuyPrice;
 
-        StageCoinsChanged?.Invoke(_stageCoins);
+        GemsChanged?.Invoke(_stageCoins);
         spell.Buy();
         _spells.Add(spell);
     }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ThrowBoulder : Spell
 {
-    public override void Cast(Vector3 position)
+    [SerializeField] private float _yPositionOffset;
+    [SerializeField] private float _zPositionOffset;
+
+    public override void Cast(Vector3 targetPosition)
     {
-        float positionY = 10;
-        float startForce = 3000;
-        GameObject missle = Instantiate(SpawnObject, new Vector3(position.x, positionY, position.z), Quaternion.identity);
-        missle.GetComponent<Rigidbody>().AddForce(new Vector3(0, -startForce, 0), ForceMode.Impulse);
+        Vector3 castPosition = new Vector3(targetPosition.x, targetPosition.y + _yPositionOffset, targetPosition.z + _zPositionOffset);
+
+        GameObject missle = Instantiate(SpawnObject, castPosition, Quaternion.identity);
+        missle.GetComponent<Boulder>().Init(targetPosition, TimeToTarget);
     }
 }
