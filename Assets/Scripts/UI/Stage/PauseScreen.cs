@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseScreen : Screen
+public class PauseScreen : Screen, ISaveable
 {
     [SerializeField] private Button _continue;
     [SerializeField] private Toggle _sound;
@@ -32,6 +32,18 @@ public class PauseScreen : Screen
         ToggleSound(_sound.isOn);
     }
 
+    public string SaveState()
+    {
+        var data = new SaveData() { isSoundOn = _sound.isOn };
+
+        return JsonUtility.ToJson(data);
+    }
+
+    public void LoadState(string jsonString)
+    {
+        var data = JsonUtility.FromJson<SaveData>(jsonString);
+    }
+
     private void CloseScreen()
     {
         Time.timeScale = 1;
@@ -41,5 +53,10 @@ public class PauseScreen : Screen
     private void ToggleSound(bool isOn)
     {
         AudioListener.pause = !isOn;
+    }
+
+    private struct SaveData
+    {
+        public bool isSoundOn;
     }
 }
