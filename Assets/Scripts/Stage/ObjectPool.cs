@@ -25,6 +25,11 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetObject()
     {
-        return _pool.FirstOrDefault(instance => instance.activeSelf == false);
+        var instance = _pool.FirstOrDefault(instance => instance.activeSelf == false);
+
+        if (instance == null)
+            return Instantiate(_pooledObject, _container);
+        else
+            return instance;
     }
 }

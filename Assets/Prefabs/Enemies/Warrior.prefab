@@ -5419,7 +5419,7 @@ MonoBehaviour:
   - {fileID: 6679351361479643510}
   - {fileID: 4900535097689673502}
   _fallUndergroundDelay: 2
-  _deactivateDelay: 2.1
+  _deactivateDelay: 2.2
 --- !u!114 &7145656599271534524
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class Boulder : Missle
 
     protected override void OnTargetAchieved()
     {
-        Activate();
+        IsActive = true;
         _rigidbody.isKinematic = true;
     }
 

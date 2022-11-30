@@ -13,6 +13,8 @@ public abstract class Spawner : MonoBehaviour
     private void Awake()
     {
         _pool = GetComponent<ObjectPool>();
+
+        _timeFromSpawn = _interval;
     }
 
     private void Update()

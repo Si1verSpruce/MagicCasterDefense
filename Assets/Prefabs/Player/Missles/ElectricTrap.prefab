@@ -9758,10 +9758,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357b66faefef21b409c64ce51273eb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 10
+  Duration: 0
   _lifetime: 12
   _damage: 1
-  _positionY: 1
+  _positionY: 0.5
   _triggerCount: 5
   _spark: {fileID: 4179480625687712900}
 --- !u!1 &4179480624902585071

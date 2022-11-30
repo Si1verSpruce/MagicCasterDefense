@@ -12,7 +12,10 @@ public class Explosion : Missle
     private void Awake()
     {
         _damageArea = GetComponent<SphereCollider>();
-        Activate();
+        IsActive = true;
+
+        if (Duration <= 0.1f)
+            Duration = 0.1f;
     }
 
     protected override void Deactivate()
@@ -26,8 +29,9 @@ public class Explosion : Missle
             enemy.ApplyDamage(_damage);
     }
 
-    protected override void OnTargetAchieved()
+    protected override void ResetState()
     {
-
+        base.ResetState();
+        _damageArea.enabled = true;
     }
 }

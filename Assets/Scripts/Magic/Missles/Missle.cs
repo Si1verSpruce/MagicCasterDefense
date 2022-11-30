@@ -5,23 +5,28 @@ using UnityEngine;
 
 public abstract class Missle : MonoBehaviour
 {
-    [SerializeField] private float _duration;
+    [SerializeField] protected float Duration;
     [SerializeField] private float _lifetime;
 
+    protected bool IsActive;
     private float _currentLifetime;
-    private bool _isActive;
 
     public void Init(Vector3 targetPosition, float velocity)
     {
         StartCoroutine(MoveToTarget(targetPosition, velocity));
     }
 
+    private void OnEnable()
+    {
+        ResetState();
+    }
+
     private void Update()
     {
-        if (_isActive == false)
+        if (IsActive == false)
             return;
 
-        if (_currentLifetime >= _duration)
+        if (_currentLifetime >= Duration)
         {
             Deactivate();
 
@@ -34,11 +39,11 @@ public abstract class Missle : MonoBehaviour
 
     protected abstract void Deactivate();
 
-    protected abstract void OnTargetAchieved();
+    protected virtual void OnTargetAchieved() { }
 
-    protected virtual void Activate()
+    protected virtual void ResetState()
     {
-        _isActive = true;
+        _currentLifetime = 0;
     }
 
     private IEnumerator MoveToTarget(Vector3 targetPosition, float timeToTarget)

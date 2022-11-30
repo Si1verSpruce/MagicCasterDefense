@@ -21,18 +21,16 @@ public class Fireball : Missle
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    protected override void Activate()
+    private void Activate()
     {
-        base.Activate();
+        IsActive = true;
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         _explosion.gameObject.SetActive(true);
     }
 
     protected override void Deactivate()
     {
-        _renderer.enabled = false;
-        _collider.enabled = false;
-        _rigidbody.isKinematic = true;
+        UpdateState(false);
 
         foreach (var effect in _fireEffects)
             effect.Stop();
@@ -47,5 +45,23 @@ public class Fireball : Missle
     protected override void OnTargetAchieved()
     {
 
+    }
+
+    protected override void ResetState()
+    {
+        base.ResetState();
+        IsActive = false;
+        UpdateState(true);
+        _explosion.gameObject.SetActive(false);
+
+        foreach (var effect in _fireEffects)
+            effect.Play();
+    }
+
+    private void UpdateState(bool isResetted)
+    {
+        _renderer.enabled = isResetted;
+        _collider.enabled = isResetted;
+        _rigidbody.isKinematic = !isResetted;
     }
 }
