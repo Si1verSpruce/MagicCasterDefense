@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuScreen : Screen
+public class PauseScreen : Screen
 {
-    [SerializeField] private Button _play;
-    [SerializeField] private Button _back;
+    [SerializeField] private Button _continue;
     [SerializeField] private Toggle _sound;
+    [SerializeField] private SaveLoadSystem _saveLoad;
 
     private void OnEnable()
     {
+        _saveLoad.Save();
         Time.timeScale = 0;
         RestartSceneButton.onClick.AddListener(RestartScene);
-        _play.onClick.AddListener(RestartScene);
-        _back.onClick.AddListener(CloseScreen);
+        _continue.onClick.AddListener(CloseScreen);
         _sound.onValueChanged.AddListener(ToggleSound);
     }
 
@@ -23,12 +23,13 @@ public class MenuScreen : Screen
     {
         Time.timeScale = 1;
         RestartSceneButton.onClick.RemoveListener(RestartScene);
-        _play.onClick.RemoveListener(RestartScene);
-        _back.onClick.RemoveListener(CloseScreen);
+        _continue.onClick.RemoveListener(CloseScreen);
         _sound.onValueChanged.RemoveListener(ToggleSound);
+    }
 
-        _play.gameObject.SetActive(false);
-        _back.gameObject.SetActive(true);
+    private void Start()
+    {
+        ToggleSound(_sound.isOn);
     }
 
     private void CloseScreen()
@@ -37,8 +38,8 @@ public class MenuScreen : Screen
         gameObject.SetActive(false);
     }
 
-    private void ToggleSound(bool isActive)
+    private void ToggleSound(bool isOn)
     {
-        AudioListener.volume = Convert.ToInt32(isActive);
+        AudioListener.pause = !isOn;
     }
 }
