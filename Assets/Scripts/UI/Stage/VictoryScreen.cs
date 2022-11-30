@@ -4,15 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class VictoryScreen : MonoBehaviour
+public class VictoryScreen : Screen
 {
-    [SerializeField] private Button _nextStageButton;
     [SerializeField] private Button _shopButton;
     [SerializeField] private Shop _shop;
 
     private void OnEnable()
     {
-        _nextStageButton.onClick.AddListener(StartNextStage);
+        RestartSceneButton.onClick.AddListener(RestartScene);
         _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
@@ -21,15 +20,8 @@ public class VictoryScreen : MonoBehaviour
         if (gameObject.scene.isLoaded == false)
             return;
 
-        _nextStageButton.onClick.RemoveListener(StartNextStage);
+        RestartSceneButton.onClick.RemoveListener(RestartScene);
         _shopButton.onClick.AddListener(ActivateShopScreen);
-    }
-
-    private void StartNextStage()
-    {
-        Time.timeScale = 1;
-        gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void ActivateShopScreen()
