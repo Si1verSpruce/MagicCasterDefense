@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2145bd37d946f541ad05e3975775c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interval: 0.5
+  Interval: 0.5
   _minOffset: {x: -3, y: 10, z: -3}
   _maxOffset: {x: 3, y: 10, z: 3}
   _missleCount: 10

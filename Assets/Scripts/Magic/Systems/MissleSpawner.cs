@@ -19,9 +19,8 @@ public class MissleSpawner : Spawner
     {
         if (_misslesLeft > 0)
         {
-            base.Spawn();
-
             _misslesLeft--;
+            base.Spawn();
         }
     }
 
@@ -37,5 +36,18 @@ public class MissleSpawner : Spawner
     protected override Quaternion GetSpawnedObjectRotation()
     {
         return transform.rotation;
+    }
+
+    protected override void OnObjectSpawned(GameObject instance)
+    {
+        if (_misslesLeft == 0)
+            StartCoroutine(DisableAfterMissleDisabled(instance));
+    }
+
+    private IEnumerator DisableAfterMissleDisabled(GameObject missle)
+    {
+        yield return new WaitUntil(() => missle.gameObject.activeSelf != true);
+
+        gameObject.SetActive(false);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectPool))]
 public abstract class Spawner : MonoBehaviour
 {
-    [SerializeField] private float _interval;
+    [SerializeField] protected float Interval;
 
     private float _timeFromSpawn;
     private ObjectPool _pool;
@@ -14,12 +14,12 @@ public abstract class Spawner : MonoBehaviour
     {
         _pool = GetComponent<ObjectPool>();
 
-        _timeFromSpawn = _interval;
+        _timeFromSpawn = Interval;
     }
 
     private void Update()
     {
-        if (_timeFromSpawn >= _interval)
+        if (_timeFromSpawn >= Interval)
         {
             Spawn();
 
@@ -39,16 +39,13 @@ public abstract class Spawner : MonoBehaviour
     {
         var instance = _pool.GetObject();
 
-        if (instance != null)
-        {
-            var position = GetSpawnPosition();
-            var rotation = GetSpawnedObjectRotation();
-            instance.transform.position = position;
-            instance.transform.rotation = rotation;
-            instance.SetActive(true);
+        var position = GetSpawnPosition();
+        var rotation = GetSpawnedObjectRotation();
+        instance.transform.position = position;
+        instance.transform.rotation = rotation;
+        instance.SetActive(true);
 
-            OnObjectSpawned(instance);
-        }
+        OnObjectSpawned(instance);
     }
 
     protected virtual void OnObjectSpawned(GameObject instance) { }

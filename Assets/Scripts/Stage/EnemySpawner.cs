@@ -7,6 +7,13 @@ public class EnemySpawner : Spawner
     [SerializeField] private Vector3 _minWorldPosition;
     [SerializeField] private Vector3 _maxWorldPosition;
     [SerializeField] private Player _player;
+    [SerializeField] private Stage _stage;
+    [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
+
+    private void Start()
+    {
+        Interval /= 1 + _stage.Number * _perStageSpawnFrequencyDivider;
+    }
 
     protected override Quaternion GetSpawnedObjectRotation()
     {
