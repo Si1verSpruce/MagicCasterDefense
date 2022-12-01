@@ -192,7 +192,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66
+  m_fontSize: 31.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 8113690559835816491}
   - component: {fileID: 8113690559835816489}
   - component: {fileID: 8113690559835816490}
+  - component: {fileID: 8352783334731585152}
   m_Layer: 5
   m_Name: SpellCombinationView
   m_TagString: Untagged
@@ -311,3 +312,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8352783334731585152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113690559835816492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a1ed7a7f0452543adf776d15658e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _label: {fileID: 2378958062381710956}
+  _combination: []
+  _combinationContainer: {fileID: 757489626972838063}

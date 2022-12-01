@@ -11,9 +11,11 @@ public class Shop : MonoBehaviour, ISaveable
     [SerializeField] private GameObject _screen;
     [SerializeField] private Spell[] _spells;
     [SerializeField] private SpellView _spellView;
-    [SerializeField] private Transform _spellContainer;
+    [SerializeField] private Transform _buyContainer;
+    [SerializeField] private Transform _upgradeContainer;
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
+    [SerializeField] private Button _switch;
 
     public void LoadState(string state)
     {
@@ -24,29 +26,34 @@ public class Shop : MonoBehaviour, ISaveable
             data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
             spell.Init(spellData.isBought, spellData.level);
 
-            var spellView = Instantiate(_spellView, _spellContainer);
-            spellView.Init(spell);
+            SpellView spellView;
 
             if (spell.IsBought)
             {
+                spellView = Instantiate(_spellView, _upgradeContainer);
                 _player.AddSpell(spell);
                 spellView.UpgradeButtonClicked += OnUpgradeButton;
             }
             else
             {
+                spellView = Instantiate(_spellView, _buyContainer);
                 spellView.BuyButtonClicked += OnBuyButton;
             }
+
+            spellView.Init(spell);
         }
     }
 
     private void OnEnable()
     {
         _back.onClick.AddListener(DeactivateScreen);
+        _switch.onClick.AddListener(SwitchScreen);
     }
 
     private void OnDisable()
     {
         _back.onClick.RemoveListener(DeactivateScreen);
+        _switch.onClick.RemoveListener(SwitchScreen);
     }
 
     public string SaveState()
@@ -86,6 +93,7 @@ public class Shop : MonoBehaviour, ISaveable
             view.ActivateUpgradeGroup();
             view.BuyButtonClicked -= OnBuyButton;
             view.UpgradeButtonClicked += OnUpgradeButton;
+            view.transform.SetParent(_upgradeContainer);
 
             _saveLoadSystem.Save();
         }
@@ -102,6 +110,20 @@ public class Shop : MonoBehaviour, ISaveable
 
             if (spell.Level == int.MaxValue)
                 view.UpgradeButtonClicked -= OnUpgradeButton;
+        }
+    }
+
+    private void SwitchScreen()
+    {
+        if (_buyContainer.gameObject.activeSelf)
+        {
+            _buyContainer.gameObject.SetActive(false);
+            _upgradeContainer.gameObject.SetActive(true);
+        }
+        else
+        {
+            _buyContainer.gameObject.SetActive(true);
+            _upgradeContainer.gameObject.SetActive(false);
         }
     }
 

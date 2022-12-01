@@ -10,22 +10,23 @@ public class Player : MonoBehaviour, ISaveable
 
     private List<Spell> _spells = new List<Spell>();
     private int _money;
-    private int _stageCoins;
+    private int _gems;
 
     public UnityAction<int> HealthChanged;
     public UnityAction<int> MoneyChanged;
     public UnityAction<int> GemsChanged;
+    public UnityAction<Spell> SpellAdded;
 
     public int Health => _health;
     public int Money => _money;
-    public int StageCoins => _stageCoins;
+    public int StageCoins => _gems;
 
     public void LoadState(string state)
     {
         var savedData = JsonUtility.FromJson<SaveData>(state);
 
         _money = savedData.money;
-        _stageCoins = savedData.stageCoins;
+        _gems = savedData.gems;
 
         AddMoney(0);
     }
@@ -47,9 +48,9 @@ public class Player : MonoBehaviour, ISaveable
 
     public void AddStageCoin()
     {
-        _stageCoins++;
+        _gems++;
 
-        GemsChanged?.Invoke(_stageCoins);
+        GemsChanged?.Invoke(_gems);
     }
 
     public void ApplyDamage(int damage)
@@ -72,9 +73,9 @@ public class Player : MonoBehaviour, ISaveable
 
     public void BuySpell(Spell spell)
     {
-        _stageCoins -= spell.BuyPrice;
+        _gems -= spell.BuyPrice;
 
-        GemsChanged?.Invoke(_stageCoins);
+        GemsChanged?.Invoke(_gems);
         spell.Buy();
         _spells.Add(spell);
     }
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour, ISaveable
     public void AddSpell(Spell spell)
     {
         _spells.Add(spell);
+
+        SpellAdded?.Invoke(spell);
     }
 
     public string SaveState()
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour, ISaveable
         SaveData data = new SaveData()
         {
             money = _money,
-            stageCoins = _stageCoins
+            gems = _gems
         };
 
         return JsonUtility.ToJson(data);
@@ -98,6 +101,6 @@ public class Player : MonoBehaviour, ISaveable
     private struct SaveData
     {
         public int money;
-        public int stageCoins;
+        public int gems;
     }
 }

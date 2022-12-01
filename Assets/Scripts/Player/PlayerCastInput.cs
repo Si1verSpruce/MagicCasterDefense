@@ -25,9 +25,6 @@ public class PlayerCastInput : MonoBehaviour
 
     public void OnCast(InputAction.CallbackContext context)
     {
-        if (_caster.CurrentSpell == null)
-            return;
-
         if (_isOverUI)
             return;
 

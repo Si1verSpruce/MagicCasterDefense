@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerElementSelector : MonoBehaviour
+public class PlayerSpellMaker : MonoBehaviour
 {
     [SerializeField] private ElementBar _elementBar;
 
@@ -27,6 +27,14 @@ public class PlayerElementSelector : MonoBehaviour
             Destroy(element.gameObject);
 
         _selectedElements.Clear();
+        CombinationUpdated?.Invoke(null);
+    }
+
+    public void UnselectCurrentCombination()
+    {
+        while (_selectedElements.Count > 0)
+            _selectedElements[0].ToggleSelectionStatus();
+
         CombinationUpdated?.Invoke(null);
     }
 
