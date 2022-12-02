@@ -32,7 +32,6 @@ public class Fireball : Missle
 
     protected override void OnTargetAchieved()
     {
-        Debug.Log(transform.position);
         Activate();
     }
 
