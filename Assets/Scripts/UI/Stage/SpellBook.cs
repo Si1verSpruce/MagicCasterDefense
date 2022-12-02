@@ -27,21 +27,19 @@ public class SpellBook : MonoBehaviour
 
     public void ActivateScreen()
     {
-        Time.timeScale = 0;
         _screen.SetActive(true);
     }
 
     private void InstantiateSpellView(Spell spell)
     {
-        var view = Instantiate(_view, _container);
+        var newView = Instantiate(_view, _container);
 
-        _views.Add(view);
-        view.Init(spell);
+        _views.Add(newView);
+        newView.Init(spell);
     }
 
     private void DeactivateScreen()
     {
-        Time.timeScale = 1;
         _screen.SetActive(false);
     }
 }

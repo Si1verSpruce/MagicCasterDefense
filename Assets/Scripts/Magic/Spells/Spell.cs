@@ -15,6 +15,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private bool _isBought = false;
     [SerializeField] private MagicElement[] _combination;
 
+    [SerializeField] protected Vector3 StartPosition;
     [SerializeField] protected float TimeToTarget;
     [SerializeField] protected GameObject SpawnedObject;
 

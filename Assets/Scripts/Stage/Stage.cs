@@ -18,6 +18,11 @@ public class Stage : MonoBehaviour, ISaveable
 
     public int Number => _number;
 
+    private void Awake()
+    {
+        _saveLoadSystem.Load();
+    }
+
     private void OnEnable()
     {
         _player.HealthChanged += OnHealthChanged;
@@ -26,11 +31,6 @@ public class Stage : MonoBehaviour, ISaveable
     private void OnDisable()
     {
         _player.HealthChanged -= OnHealthChanged;
-    }
-
-    private void Start()
-    {
-        _saveLoadSystem.Load();
     }
 
     private void Update()
