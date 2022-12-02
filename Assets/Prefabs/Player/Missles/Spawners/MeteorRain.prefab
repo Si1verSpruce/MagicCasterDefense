@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 0.5
-  _minOffset: {x: -3, y: 10, z: -3}
-  _maxOffset: {x: 3, y: 10, z: 3}
+  _startPositionOffset: {x: 5, y: 10, z: 0}
+  _minLocalTargetPosition: {x: -3, y: 0, z: -3}
+  _maxLocalTargetPosition: {x: 3, y: 0, z: 3}
   _missleCount: 10
+  _timeToTarget: 0.5
 --- !u!114 &7108165137845026979
 MonoBehaviour:
   m_ObjectHideFlags: 0

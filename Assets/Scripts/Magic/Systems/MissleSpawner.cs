@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MissleSpawner : Spawner
 {
-    [SerializeField] private Vector3 _minOffset;
-    [SerializeField] private Vector3 _maxOffset;
+    [SerializeField] private Vector3 _startPositionOffset;
+    [SerializeField] private Vector3 _minLocalTargetPosition;
+    [SerializeField] private Vector3 _maxLocalTargetPosition;
     [SerializeField] private int _missleCount;
+    [SerializeField] private float _timeToTarget;
 
     private int _misslesLeft;
+    private Vector3 _lastTargetPosition;
 
     private void Start()
     {
@@ -26,20 +29,24 @@ public class MissleSpawner : Spawner
 
     protected override Vector3 GetSpawnPosition()
     {
-        float positionX = Random.Range(_minOffset.x, _maxOffset.x);
-        float positionY = Random.Range(_minOffset.y, _maxOffset.y);
-        float positionZ = transform.position.z + Random.Range(_minOffset.z, _maxOffset.z);
+        float positionX = Random.Range(_minLocalTargetPosition.x, _maxLocalTargetPosition.x);
+        float positionY = Random.Range(_minLocalTargetPosition.y, _maxLocalTargetPosition.y);
+        float positionZ = transform.position.z + Random.Range(_minLocalTargetPosition.z, _maxLocalTargetPosition.z);
+        _lastTargetPosition = new Vector3(positionX, positionY, positionZ);
 
-        return new Vector3(positionX, positionY, positionZ);
+        return _lastTargetPosition + _startPositionOffset;
     }
 
     protected override Quaternion GetSpawnedObjectRotation()
     {
-        return transform.rotation;
+        return Quaternion.identity;
     }
 
     protected override void OnObjectSpawned(GameObject instance)
     {
+        instance.GetComponent<Missle>().Init(_lastTargetPosition, _timeToTarget);
+        instance.transform.LookAt(_lastTargetPosition);
+
         if (_misslesLeft == 0)
             StartCoroutine(DisableAfterMissleDisabled(instance));
     }

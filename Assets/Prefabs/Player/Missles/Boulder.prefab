@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 0
-  _lifetime: 5
+  _lifetime: 1
   _damage: 1
-  _glideDistance: 6
-  _glideTime: 0.25
+  _glideDistance: 4
+  _glideTime: 0.18
   _groundHitEffect: {fileID: 4783578993747366899}
 --- !u!1 &4783578993747366909
 GameObject:

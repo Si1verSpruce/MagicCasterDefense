@@ -27,6 +27,7 @@ public class SpellBook : MonoBehaviour
 
     public void ActivateScreen()
     {
+        Time.timeScale = 0;
         _screen.SetActive(true);
     }
 
@@ -40,6 +41,7 @@ public class SpellBook : MonoBehaviour
 
     private void DeactivateScreen()
     {
+        Time.timeScale = 1;
         _screen.SetActive(false);
     }
 }

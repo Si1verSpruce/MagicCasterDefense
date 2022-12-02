@@ -9758,8 +9758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357b66faefef21b409c64ce51273eb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 0
-  _lifetime: 12
+  Duration: 5
+  _lifetime: 5
   _damage: 1
   _positionY: 0.5
   _triggerCount: 5

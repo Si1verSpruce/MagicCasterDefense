@@ -50,8 +50,8 @@ MonoBehaviour:
   _combination:
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
   - {fileID: 2694052926940512901, guid: 4beaa356eedc894419314e7653a8effd, type: 3}
-  StartPosition: {x: 0, y: 0, z: 0}
   TimeToTarget: 0.4
   SpawnObject: {fileID: 2233041305654456503, guid: 849cd305db5a22a4da4aac56adf66c74, type: 3}
   _worldPositionY: 10
   _worldPositionZ: -50
+  _positionZOffset: -1

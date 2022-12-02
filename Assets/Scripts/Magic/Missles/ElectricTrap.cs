@@ -14,11 +14,10 @@ public class ElectricTrap : Missle
     private void Awake()
     {
         transform.position = new Vector3(transform.position.x, _positionY, transform.position.z);
+        IsActive = true;
     }
 
     protected override void Deactivate() { }
-
-    protected override void OnTargetAchieved() { }
 
     private void OnTriggerEnter(Collider collider)
     {

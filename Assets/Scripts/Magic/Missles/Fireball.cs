@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(SphereCollider))]
-[RequireComponent(typeof(Rigidbody))]
 public class Fireball : Missle
 {
     [SerializeField] private Explosion _explosion;
     [SerializeField] private ParticleSystem[] _fireEffects;
 
     private MeshRenderer _renderer;
-    private SphereCollider _collider;
-    private Rigidbody _rigidbody;
 
     private void Awake()
     {
         _renderer = GetComponent<MeshRenderer>();
-        _collider = GetComponent<SphereCollider>();
-        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Activate()
@@ -36,15 +30,10 @@ public class Fireball : Missle
             effect.Stop();
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.TryGetComponent<Ground>(out Ground ground))
-            Activate();
-    }
-
     protected override void OnTargetAchieved()
     {
-
+        Debug.Log(transform.position);
+        Activate();
     }
 
     protected override void ResetState()
@@ -61,7 +50,5 @@ public class Fireball : Missle
     private void UpdateState(bool isResetted)
     {
         _renderer.enabled = isResetted;
-        _collider.enabled = isResetted;
-        _rigidbody.isKinematic = !isResetted;
     }
 }
