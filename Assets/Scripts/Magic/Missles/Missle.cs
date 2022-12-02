@@ -11,9 +11,9 @@ public abstract class Missle : MonoBehaviour
     protected bool IsActive;
     private float _currentLifetime;
 
-    public void Init(Vector3 targetPosition, float velocity)
+    public void Init(Vector3 targetPosition, float timeToTarget)
     {
-        StartCoroutine(MoveToTarget(targetPosition, velocity));
+        StartCoroutine(MoveToTarget(targetPosition, timeToTarget));
     }
 
     private void OnEnable()
@@ -46,7 +46,7 @@ public abstract class Missle : MonoBehaviour
         _currentLifetime = 0;
     }
 
-    private IEnumerator MoveToTarget(Vector3 targetPosition, float timeToTarget)
+    protected IEnumerator MoveToTarget(Vector3 targetPosition, float timeToTarget)
     {
         float scaledVelocity = Vector3.Distance(transform.position, targetPosition) / timeToTarget * Time.deltaTime;
 
