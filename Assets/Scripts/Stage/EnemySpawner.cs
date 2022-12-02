@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class EnemySpawner : Spawner
 {
-    [SerializeField] private Enemy _enemy;
     [SerializeField] private Vector3 _minWorldPosition;
     [SerializeField] private Vector3 _maxWorldPosition;
     [SerializeField] private Player _player;
     [SerializeField] private Stage _stage;
     [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
 
-    private void Awake()
+    private void Start()
     {
-        Init(_enemy.gameObject);
-
         Interval /= 1 + _stage.Number * _perStageSpawnFrequencyDivider;
-    }
-
-    private void Update()
-    {
-        SpawnPerInterval<Enemy>(_enemy.gameObject);
     }
 
     protected override Quaternion GetSpawnedObjectRotation()

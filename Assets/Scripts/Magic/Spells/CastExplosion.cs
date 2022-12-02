@@ -6,6 +6,6 @@ public class CastExplosion : Spell
 {
     public override void Cast(Vector3 position)
     {
-        Instantiate(SpawnedObject, position, Quaternion.identity);
+        Instantiate(SpawnObject, position, Quaternion.identity);
     }
 }

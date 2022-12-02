@@ -17,7 +17,7 @@ public abstract class Spell : MonoBehaviour
 
     [SerializeField] protected Vector3 StartPosition;
     [SerializeField] protected float TimeToTarget;
-    [SerializeField] protected GameObject SpawnedObject;
+    [SerializeField] protected GameObject SpawnObject;
 
     private int _upgradePrice;
     private int _level = 1;
@@ -28,7 +28,6 @@ public abstract class Spell : MonoBehaviour
     public int UpgradePrice => _upgradePrice;
     public bool IsBought => _isBought;
     public int Level => _level;
-    public GameObject ObjectForSpawn => SpawnedObject;
 
     public void Init(bool isBought, int level)
     {

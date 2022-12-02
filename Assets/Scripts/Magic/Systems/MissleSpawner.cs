@@ -15,14 +15,14 @@ public class MissleSpawner : Spawner
         _misslesLeft = _missleCount;
     }
 
-    /*protected override void Spawn()
+    protected override void Spawn()
     {
         if (_misslesLeft > 0)
         {
             _misslesLeft--;
             base.Spawn();
         }
-    }*/
+    }
 
     protected override Vector3 GetSpawnPosition()
     {
