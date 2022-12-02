@@ -16,7 +16,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private MagicElement[] _combination;
 
     [SerializeField] protected float TimeToTarget;
-    [SerializeField] protected GameObject SpawnObject;
+    [SerializeField] protected GameObject SpawnedObject;
 
     private int _upgradePrice;
     private int _level = 1;
@@ -27,6 +27,7 @@ public abstract class Spell : MonoBehaviour
     public int UpgradePrice => _upgradePrice;
     public bool IsBought => _isBought;
     public int Level => _level;
+    public GameObject ObjectForSpawn => SpawnedObject;
 
     public void Init(bool isBought, int level)
     {

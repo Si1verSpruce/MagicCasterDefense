@@ -10,18 +10,22 @@ public abstract class Spawner : MonoBehaviour
     private float _timeFromSpawn;
     private ObjectPool _pool;
 
-    private void Awake()
+    protected void Init(GameObject spawnedObject)
     {
         _pool = GetComponent<ObjectPool>();
-
+        _pool.ExpandPool(spawnedObject);
         _timeFromSpawn = Interval;
     }
 
-    private void Update()
+    protected abstract Vector3 GetSpawnPosition();
+
+    protected abstract Quaternion GetSpawnedObjectRotation();
+
+    protected void SpawnPerInterval<TComponent>(GameObject spawnedObject)
     {
         if (_timeFromSpawn >= Interval)
         {
-            Spawn();
+            Spawn<TComponent>(spawnedObject);
 
             _timeFromSpawn = 0;
         }
@@ -31,13 +35,9 @@ public abstract class Spawner : MonoBehaviour
         }
     }
 
-    protected abstract Vector3 GetSpawnPosition();
-
-    protected abstract Quaternion GetSpawnedObjectRotation();
-
-    protected virtual void Spawn()
+    protected virtual void Spawn<TComponent>(GameObject spawnedObject)
     {
-        var instance = _pool.GetObject();
+        var instance = _pool.GetObject<TComponent>(spawnedObject);
 
         var position = GetSpawnPosition();
         var rotation = GetSpawnedObjectRotation();

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(ObjectPool))]
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour, ISaveable
     private List<Spell> _spells = new List<Spell>();
     private int _money;
     private int _gems;
+    private ObjectPool _pool;
 
     public UnityAction<int> HealthChanged;
     public UnityAction<int> MoneyChanged;
@@ -20,6 +22,11 @@ public class Player : MonoBehaviour, ISaveable
     public int Health => _health;
     public int Money => _money;
     public int StageCoins => _gems;
+
+    private void Awake()
+    {
+        _pool = GetComponent<ObjectPool>();
+    }
 
     public void LoadState(string state)
     {
@@ -83,6 +90,7 @@ public class Player : MonoBehaviour, ISaveable
     public void AddSpell(Spell spell)
     {
         _spells.Add(spell);
+        _pool.ExpandPool(spell.ObjectForSpawn);
 
         SpellAdded?.Invoke(spell);
     }

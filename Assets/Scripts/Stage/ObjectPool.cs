@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,30 +6,28 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject _pooledObject;
     [SerializeField] private int _copieCount;
     [SerializeField] private Transform _container;
 
-    private GameObject[] _pool;
+    private List<GameObject> _pool = new List<GameObject>();
 
-    private void Awake()
+    public void ExpandPool(GameObject pooledObject)
     {
-        _pool = new GameObject[_copieCount];
-
         for (int i = 0; i < _copieCount; i++)
         {
-            var instance = Instantiate(_pooledObject, _container);
+            var instance = Instantiate(pooledObject, _container);
+            _pool.Add(instance);
             instance.SetActive(false);
             _pool[i] = instance;
         }
     }
 
-    public GameObject GetObject()
+    public GameObject GetObject<TComponent>(GameObject requestedObject)
     {
-        var instance = _pool.FirstOrDefault(instance => instance.activeSelf == false);
+        var instance = _pool.FirstOrDefault(instance => instance.activeSelf == false && instance.TryGetComponent<TComponent>(out TComponent component));
 
         if (instance == null)
-            return Instantiate(_pooledObject, _container);
+            return Instantiate(requestedObject, _container);
         else
             return instance;
     }
