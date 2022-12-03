@@ -6,9 +6,12 @@ using UnityEngine;
 public abstract class Spawner : MonoBehaviour
 {
     [SerializeField] protected float Interval;
+    [SerializeField] private GameObject _spawnedObject;
 
     private float _timeFromSpawn;
     private ObjectPool _pool;
+
+    public GameObject SpawnedObject => _spawnedObject;
 
     private void Awake()
     {
@@ -37,7 +40,7 @@ public abstract class Spawner : MonoBehaviour
 
     protected virtual void Spawn()
     {
-        var instance = _pool.GetObject();
+        var instance = _pool.GetObject(SpawnedObject);
 
         var position = GetSpawnPosition();
         var rotation = GetSpawnedObjectRotation();
