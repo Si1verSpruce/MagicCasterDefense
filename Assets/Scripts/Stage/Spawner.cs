@@ -16,7 +16,7 @@ public abstract class Spawner : MonoBehaviour
     private void Awake()
     {
         _pool = GetComponent<ObjectPool>();
-
+        _pool.Expand(SpawnedObject);
         _timeFromSpawn = Interval;
     }
 

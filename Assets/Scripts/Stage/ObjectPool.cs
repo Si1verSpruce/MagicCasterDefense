@@ -10,7 +10,7 @@ public class ObjectPool : MonoBehaviour
 
     private GameObject[] _pool;
 
-    public void CreatePool(GameObject pooledObject)
+    public void Expand(GameObject pooledObject)
     {
         _pool = new GameObject[_copieCount];
 
