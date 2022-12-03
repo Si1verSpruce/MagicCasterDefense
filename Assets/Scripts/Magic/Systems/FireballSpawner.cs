@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissleSpawner : Spawner
+public class FireballSpawner : Spawner, IScaleble
 {
     [SerializeField] private Vector3 _startPositionOffset;
     [SerializeField] private Vector3 _minLocalTargetPosition;
@@ -16,6 +16,12 @@ public class MissleSpawner : Spawner
     private void Start()
     {
         _misslesLeft = _missleCount;
+    }
+
+    public void Scale(int modifier)
+    {
+        if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
+            scaleble.Scale(modifier);
     }
 
     protected override void Spawn()
@@ -44,7 +50,7 @@ public class MissleSpawner : Spawner
 
     protected override void OnObjectSpawned(GameObject instance)
     {
-        instance.GetComponent<Missle>().Init(_lastTargetPosition, _timeToTarget);
+        instance.GetComponent<Missle>().Launch(_lastTargetPosition, _timeToTarget);
         instance.transform.LookAt(_lastTargetPosition);
 
         if (_misslesLeft == 0)

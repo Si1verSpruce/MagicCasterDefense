@@ -1891,7 +1891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveLoadSystem: {fileID: 557256534}
-  _timer: 60
+  _timer: 1
   _player: {fileID: 1832693274}
   _defeatScreen: {fileID: 678643197}
   _victoryScreen: {fileID: 883572300}
@@ -8930,6 +8930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 1
+  _spawnedObject: {fileID: 7145656599271534515, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}
@@ -8947,7 +8948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b1aa7f91bf9174bae57fa49297ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pooledObject: {fileID: 7145656599271534515, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
   _copieCount: 50
   _container: {fileID: 1486577801}
 --- !u!4 &1492323332 stripped

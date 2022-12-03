@@ -22,6 +22,12 @@ public class Boulder : Missle
         _collider.enabled = false;
     }
 
+    public override void Scale(int modifier)
+    {
+        _glideDistance *= modifier;
+        _glideTime *= modifier;
+    }
+
     protected override void OnTargetAchieved()
     {
         _collider.enabled = true;

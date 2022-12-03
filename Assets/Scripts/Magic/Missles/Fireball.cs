@@ -15,6 +15,11 @@ public class Fireball : Missle
         _renderer = GetComponent<MeshRenderer>();
     }
 
+    public override void Scale(int modifier)
+    {
+        _explosion.Scale(modifier);
+    }
+
     private void Activate()
     {
         IsActive = true;
@@ -24,7 +29,7 @@ public class Fireball : Missle
 
     protected override void Deactivate()
     {
-        UpdateState(false);
+        _renderer.enabled =false;
 
         foreach (var effect in _fireEffects)
             effect.Stop();
@@ -39,15 +44,10 @@ public class Fireball : Missle
     {
         base.ResetState();
         IsActive = false;
-        UpdateState(true);
+        _renderer.enabled = true;
         _explosion.gameObject.SetActive(false);
 
         foreach (var effect in _fireEffects)
             effect.Play();
-    }
-
-    private void UpdateState(bool isResetted)
-    {
-        _renderer.enabled = isResetted;
     }
 }

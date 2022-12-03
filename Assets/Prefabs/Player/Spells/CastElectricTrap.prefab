@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: Electric Trap
+  _upgradeDescription: Increase lifetime
   _icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   _buyPrice: 0
-  _upgradePrice: 0
   _isBought: 1
   _combination:
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
+  TimeToTarget: 0
   SpawnObject: {fileID: 3879480194115318186, guid: ccef94f11d37436449082c103fca04ea, type: 3}

@@ -18,6 +18,11 @@ public class Explosion : Missle
             Duration = 0.1f;
     }
 
+    public override void Scale(int modifier)
+    {
+        transform.localScale *= modifier;
+    }
+
     protected override void Deactivate()
     {
         _damageArea.enabled = false;

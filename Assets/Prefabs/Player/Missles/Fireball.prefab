@@ -58,9 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc0ee75f86d9d247b9e533ab22f90b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 0
-  Lifetime: 0
-  LevelModifier: 0
+  Duration: 2
+  Lifetime: 2
   _damage: 1
 --- !u!1 &8072917513134765056
 GameObject:
@@ -160,8 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 0
-  Lifetime: 1.5
-  LevelModifier: 0
+  Lifetime: 2
   _explosion: {fileID: 342360476136299566}
   _fireEffects:
   - {fileID: 1206498299488098448}

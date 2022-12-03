@@ -17,6 +17,11 @@ public class ElectricTrap : Missle
         IsActive = true;
     }
 
+    public override void Scale(int modifier)
+    {
+        Lifetime *= modifier;
+    }
+
     protected override void Deactivate() { }
 
     private void OnTriggerEnter(Collider collider)

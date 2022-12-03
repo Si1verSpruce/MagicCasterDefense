@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Missle : MonoBehaviour
+public abstract class Missle : MonoBehaviour, IScaleble
 {
     [SerializeField] protected float Duration;
-    [SerializeField] private float _lifetime;
+    [SerializeField] protected float Lifetime;
 
     protected bool IsActive;
     private float _currentLifetime;
 
-    public void Init(Vector3 targetPosition, float timeToTarget)
+    public void Launch(Vector3 targetPosition, float timeToTarget)
     {
         StartCoroutine(MoveToTarget(targetPosition, timeToTarget));
     }
@@ -20,6 +20,8 @@ public abstract class Missle : MonoBehaviour
     {
         ResetState();
     }
+
+    public abstract void Scale(int modifier);
 
     private void Update()
     {
@@ -30,7 +32,7 @@ public abstract class Missle : MonoBehaviour
         {
             Deactivate();
 
-            if (_currentLifetime >= _lifetime)
+            if (_currentLifetime >= Lifetime)
                 gameObject.SetActive(false);
         }
 

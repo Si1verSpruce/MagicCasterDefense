@@ -13,6 +13,6 @@ public class ThrowBoulder : Spell
         Vector3 castPosition = new Vector3(targetPosition.x, _worldPositionY, _worldPositionZ);
 
         GameObject missle = Instantiate(SpawnObject, castPosition, Quaternion.identity);
-        missle.GetComponent<Boulder>().Init(targetPosition, TimeToTarget);
+        missle.GetComponent<Boulder>().Launch(targetPosition, TimeToTarget);
     }
 }

@@ -10,6 +10,7 @@ public class SpellView : MonoBehaviour
 {
     [SerializeField] private Image _spellIcon;
     [SerializeField] private TextMeshProUGUI _label;
+    [SerializeField] private TextMeshProUGUI _upgradeDescription;
     [SerializeField] private GameObject _buyGroup;
     [SerializeField] private Button _buy;
     [SerializeField] private TextMeshProUGUI _buyPrice;
@@ -32,6 +33,7 @@ public class SpellView : MonoBehaviour
         _spell = spell;
 
         _label.text = _spell.Label;
+        _upgradeDescription.text = _spell.UpgradeDescription;
         _spellIcon.sprite = _spell.Icon;
         _buyPrice.text = _spell.BuyPrice.ToString();
         LevelChanged?.Invoke(_spell.Level);
