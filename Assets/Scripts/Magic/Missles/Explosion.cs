@@ -10,7 +10,7 @@ public class Explosion : Missle
     private SphereCollider _damageArea;
     private Vector3 _baseSizeScale;
 
-    public void Init()
+    private void Awake()
     {
         _damageArea = GetComponent<SphereCollider>();
         IsActive = true;

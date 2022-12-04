@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Missle : MonoBehaviour, IScaleble
+public abstract class Missle : Instance, IScaleble
 {
     [SerializeField] protected float Duration;
     [SerializeField] protected float Lifetime;

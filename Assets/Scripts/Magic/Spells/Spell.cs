@@ -18,7 +18,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float _scalePerLevel;
 
     [SerializeField] protected float TimeToTarget;
-    [SerializeField] protected GameObject SpawnedObject;
+    [SerializeField] protected Instance CreatedInstance;
 
     private int _upgradePrice;
     private int _level = 1;
@@ -31,6 +31,7 @@ public abstract class Spell : MonoBehaviour
     public int UpgradePrice => _upgradePrice;
     public bool IsBought => _isBought;
     public int Level => _level;
+    public Instance InstanceToCreate => CreatedInstance;
 
     public void Init(bool isBought, int level)
     {
@@ -63,7 +64,7 @@ public abstract class Spell : MonoBehaviour
 
     public void ScaleParameters(float modifier)
     {
-        if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
+        if (CreatedInstance.TryGetComponent<IScaleble>(out IScaleble scaleble))
             scaleble.Scale(modifier);
     }
 

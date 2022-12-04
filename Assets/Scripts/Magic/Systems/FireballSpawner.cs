@@ -48,7 +48,7 @@ public class FireballSpawner : Spawner, IScaleble
         return Quaternion.identity;
     }
 
-    protected override void OnObjectSpawned(GameObject instance)
+    protected override void OnInstantiated(Instance instance)
     {
         instance.GetComponent<Missle>().Launch(_lastTargetPosition, _timeToTarget);
         instance.transform.LookAt(_lastTargetPosition);
@@ -57,7 +57,7 @@ public class FireballSpawner : Spawner, IScaleble
             StartCoroutine(DisableAfterMissleDisabled(instance));
     }
 
-    private IEnumerator DisableAfterMissleDisabled(GameObject missle)
+    private IEnumerator DisableAfterMissleDisabled(Instance missle)
     {
         yield return new WaitUntil(() => missle.gameObject.activeSelf != true);
 

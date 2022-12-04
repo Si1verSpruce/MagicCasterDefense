@@ -6,6 +6,6 @@ public class CastMeteorRain : Spell
 {
     public override void Cast(Vector3 position)
     {
-        Instantiate(SpawnedObject, position, Quaternion.identity);
+        Instantiate(CreatedInstance, position, Quaternion.identity);
     }
 }

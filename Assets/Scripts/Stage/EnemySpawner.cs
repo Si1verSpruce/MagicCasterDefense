@@ -29,7 +29,7 @@ public class EnemySpawner : Spawner
         return new Vector3(positionX, positionY, positionZ);
     }
 
-    protected override void OnObjectSpawned(GameObject instance)
+    protected override void OnInstantiated(Instance instance)
     {
         instance.GetComponent<Enemy>().Init(_player);
     }

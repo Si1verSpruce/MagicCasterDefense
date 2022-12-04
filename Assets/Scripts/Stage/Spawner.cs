@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ObjectPool))]
-public abstract class Spawner : MonoBehaviour
+[RequireComponent(typeof(InstancePool))]
+public abstract class Spawner : Instance
 {
     [SerializeField] protected float Interval;
-    [SerializeField] private GameObject _spawnedObject;
+    [SerializeField] private Instance _spawnedObject;
 
     private float _timeFromSpawn;
-    private ObjectPool _pool;
+    private InstancePool _pool;
 
-    public GameObject SpawnedObject => _spawnedObject;
+    public Instance SpawnedObject => _spawnedObject;
 
     private void Awake()
     {
-        _pool = GetComponent<ObjectPool>();
+        _pool = GetComponent<InstancePool>();
         _pool.Expand(SpawnedObject);
         _timeFromSpawn = Interval;
     }
@@ -46,10 +46,10 @@ public abstract class Spawner : MonoBehaviour
         var rotation = GetSpawnedObjectRotation();
         instance.transform.position = position;
         instance.transform.rotation = rotation;
-        instance.SetActive(true);
+        instance.gameObject.SetActive(true);
 
-        OnObjectSpawned(instance);
+        OnInstantiated(instance);
     }
 
-    protected virtual void OnObjectSpawned(GameObject instance) { }
+    protected virtual void OnInstantiated(Instance instance) { }
 }

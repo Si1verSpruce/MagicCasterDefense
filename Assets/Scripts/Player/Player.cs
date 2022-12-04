@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(InstancePool))]
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour, ISaveable
     private List<Spell> _spells = new List<Spell>();
     private int _money;
     private int _gems;
+    private InstancePool _pool;
 
     public UnityAction<int> HealthChanged;
     public UnityAction<int> MoneyChanged;
@@ -82,7 +84,10 @@ public class Player : MonoBehaviour, ISaveable
 
     public void AddSpell(Spell spell)
     {
+        _pool = GetComponent<InstancePool>();
+
         _spells.Add(spell);
+        _pool.Expand(spell.InstanceToCreate);
 
         SpellAdded?.Invoke(spell);
     }

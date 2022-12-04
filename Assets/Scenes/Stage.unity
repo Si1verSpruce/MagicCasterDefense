@@ -8897,7 +8897,7 @@ GameObject:
   - component: {fileID: 1486577802}
   - component: {fileID: 1486577803}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -8930,7 +8930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 1
-  _spawnedObject: {fileID: 7145656599271534515, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
+  _spawnedObject: {fileID: 7145656599271534525, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}
@@ -10715,6 +10715,7 @@ GameObject:
   - component: {fileID: 1832693277}
   - component: {fileID: 1832693276}
   - component: {fileID: 1832693279}
+  - component: {fileID: 1832693280}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -10833,6 +10834,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _elementBar: {fileID: 851026602}
+--- !u!114 &1832693280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832693273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b1aa7f91bf9174bae57fa49297ad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _copieCount: 3
+  _container: {fileID: 873499417}
 --- !u!1001 &1844136554
 PrefabInstance:
   m_ObjectHideFlags: 0

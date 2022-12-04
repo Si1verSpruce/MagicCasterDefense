@@ -55,4 +55,4 @@ MonoBehaviour:
   - {fileID: 1506516324962693382, guid: 4fceb56253094ba4d86838c0e5921513, type: 3}
   _scalePerLevel: 1.1
   TimeToTarget: 0
-  SpawnObject: {fileID: 6753165354502432781, guid: 8a8317cc21a788e40ae4558bb26cf643, type: 3}
+  CreatedInstance: {fileID: 6753165354502432780, guid: 8a8317cc21a788e40ae4558bb26cf643, type: 3}
