@@ -30,7 +30,6 @@ public class InstancePool : MonoBehaviour
     {
         var instance = _pool.FirstOrDefault(instance => instance.gameObject.activeSelf == false && 
         requestedInstance.GetType() == instance.GetType());
-        Debug.Log(requestedInstance.GetType() + " " + instance.GetType());
 
         if (instance == null)
             return Instantiate(requestedInstance, _container);

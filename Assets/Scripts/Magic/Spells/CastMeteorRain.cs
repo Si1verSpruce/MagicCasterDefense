@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CastMeteorRain : Spell
 {
-    public override void Cast(Vector3 position)
+    public override void Cast(Instance createdInstance, Vector3 targetPosition)
     {
-        Instantiate(CreatedInstance, position, Quaternion.identity);
+        ResetInstance(createdInstance, targetPosition, Quaternion.identity);
     }
 }

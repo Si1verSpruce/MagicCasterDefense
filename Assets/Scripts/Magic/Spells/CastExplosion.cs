@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CastExplosion : Spell
 {
-    public override void Cast(Vector3 position)
+    public override void Cast(Instance createdInstance, Vector3 targetPosition)
     {
-        Instantiate(CreatedInstance, position, Quaternion.identity);
-    }
-
-    public void Cast(Vector3 position, Instance instance)
-    {
-        instance.transform.position = position;
-        instance.transform.rotation = Quaternion.identity;
-        instance.gameObject.SetActive(true);
+        ResetInstance(createdInstance, targetPosition, Quaternion.identity);
     }
 }

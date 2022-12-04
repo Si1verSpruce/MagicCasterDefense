@@ -60,7 +60,7 @@ public abstract class Spell : MonoBehaviour
         return true;
     }
 
-    public abstract void Cast(Vector3 targetPosition);
+    public abstract void Cast(Instance createdInstance, Vector3 targetPosition);
 
     public void ScaleParameters(float modifier)
     {
@@ -91,6 +91,13 @@ public abstract class Spell : MonoBehaviour
         _level++;
         ScaleParameters(_scaleModifier);
         SetUpgradePrice(_level);
+    }
+
+    protected void ResetInstance(Instance instance, Vector3 startPosition, Quaternion startRotation)
+    {
+        instance.transform.position = startPosition;
+        instance.transform.rotation = startRotation;
+        instance.gameObject.SetActive(true);
     }
 
     private void SetUpgradePrice(int level)

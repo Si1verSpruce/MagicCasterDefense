@@ -36,7 +36,6 @@ public class PlayerCastInput : MonoBehaviour
             foreach (var hit in hits)
                 if (hit.transform.TryGetComponent<Ground>(out Ground ground))
                 {
-                    transform.position = hit.point;
                     _caster.OnCastInput(hit.point);
 
                     return;
