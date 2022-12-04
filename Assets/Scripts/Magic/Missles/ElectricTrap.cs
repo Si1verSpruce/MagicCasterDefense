@@ -17,7 +17,7 @@ public class ElectricTrap : Missle
         IsActive = true;
     }
 
-    public override void Scale(int modifier)
+    public override void Scale(float modifier)
     {
         Lifetime *= modifier;
     }

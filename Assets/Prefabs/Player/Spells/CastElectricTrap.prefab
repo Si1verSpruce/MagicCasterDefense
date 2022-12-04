@@ -51,5 +51,6 @@ MonoBehaviour:
   _combination:
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
   - {fileID: 1938073172496403836, guid: 20ade5d0d07a9f84e916dcdcfec305da, type: 3}
+  _scalePerLevel: 1.1
   TimeToTarget: 0
   SpawnObject: {fileID: 3879480194115318186, guid: ccef94f11d37436449082c103fca04ea, type: 3}

@@ -46,7 +46,7 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
-    public void AddStageCoin()
+    public void AddGem()
     {
         _gems++;
 

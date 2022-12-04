@@ -15,12 +15,14 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private int _buyPrice;
     [SerializeField] private bool _isBought = false;
     [SerializeField] private MagicElement[] _combination;
+    [SerializeField] private float _scalePerLevel;
 
     [SerializeField] protected float TimeToTarget;
-    [SerializeField] protected GameObject SpawnObject;
+    [SerializeField] protected GameObject SpawnedObject;
 
     private int _upgradePrice;
     private int _level = 1;
+    private float _scaleModifier;
 
     public string Label => _label;
     public string UpgradeDescription => _upgradeDescription;
@@ -34,6 +36,7 @@ public abstract class Spell : MonoBehaviour
     {
         _isBought = isBought;
         _level = level;
+        _scaleModifier = (_level - 1) * _scalePerLevel;
 
         SetUpgradePrice(_level);
     }
@@ -58,9 +61,9 @@ public abstract class Spell : MonoBehaviour
 
     public abstract void Cast(Vector3 targetPosition);
 
-    public void ScaleParameters(int modifier)
+    public void ScaleParameters(float modifier)
     {
-        if (SpawnObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
+        if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
             scaleble.Scale(modifier);
     }
 
@@ -85,6 +88,7 @@ public abstract class Spell : MonoBehaviour
     public void OnLevelIncrease()
     {
         _level++;
+        ScaleParameters(_scaleModifier);
         SetUpgradePrice(_level);
     }
 

@@ -2,7 +2,4 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IScaleble
-{
-    public void Scale(float modifier);
-}
+public abstract class Instance : MonoBehaviour { }

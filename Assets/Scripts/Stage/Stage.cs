@@ -44,7 +44,7 @@ public class Stage : MonoBehaviour, ISaveable
         {
             _isGameOver = true;
             _number++;
-            _player.AddStageCoin();
+            _player.AddGem();
             OnGameOver();
             _victoryScreen.gameObject.SetActive(true);
         }

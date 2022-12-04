@@ -15,7 +15,7 @@ public class Fireball : Missle
         _renderer = GetComponent<MeshRenderer>();
     }
 
-    public override void Scale(int modifier)
+    public override void Scale(float modifier)
     {
         _explosion.Scale(modifier);
     }

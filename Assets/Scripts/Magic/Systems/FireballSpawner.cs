@@ -18,7 +18,7 @@ public class FireballSpawner : Spawner, IScaleble
         _misslesLeft = _missleCount;
     }
 
-    public void Scale(int modifier)
+    public void Scale(float modifier)
     {
         if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
             scaleble.Scale(modifier);

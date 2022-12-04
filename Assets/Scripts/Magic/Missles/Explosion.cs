@@ -8,8 +8,9 @@ public class Explosion : Missle
     [SerializeField] private float _damage;
 
     private SphereCollider _damageArea;
+    private Vector3 _baseSizeScale;
 
-    private void Awake()
+    public void Init()
     {
         _damageArea = GetComponent<SphereCollider>();
         IsActive = true;
@@ -18,14 +19,20 @@ public class Explosion : Missle
             Duration = 0.1f;
     }
 
-    public override void Scale(int modifier)
+    public override void Scale(float modifier)
     {
+        ResetParameters();
         transform.localScale *= modifier;
     }
 
     protected override void Deactivate()
     {
         _damageArea.enabled = false;
+    }
+
+    private void ResetParameters()
+    {
+        transform.localScale = _baseSizeScale;
     }
 
     private void OnTriggerEnter(Collider collider)

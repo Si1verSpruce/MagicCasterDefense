@@ -22,7 +22,7 @@ public class Boulder : Missle
         _collider.enabled = false;
     }
 
-    public override void Scale(int modifier)
+    public override void Scale(float modifier)
     {
         _glideDistance *= modifier;
         _glideTime *= modifier;
@@ -50,6 +50,9 @@ public class Boulder : Missle
     {
         _collider.enabled = false;
         _rigidbody.isKinematic = false;
+        _groundHitEffect.transform.position = transform.position;
+        _groundHitEffect.transform.SetParent(transform);
+        _groundHitEffect.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider collider)

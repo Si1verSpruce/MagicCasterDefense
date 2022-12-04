@@ -21,7 +21,7 @@ public abstract class Missle : MonoBehaviour, IScaleble
         ResetState();
     }
 
-    public abstract void Scale(int modifier);
+    public abstract void Scale(float modifier);
 
     private void Update()
     {
