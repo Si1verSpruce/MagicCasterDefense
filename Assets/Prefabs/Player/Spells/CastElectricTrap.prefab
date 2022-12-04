@@ -54,3 +54,4 @@ MonoBehaviour:
   _scalePerLevel: 1.1
   TimeToTarget: 0
   CreatedInstance: {fileID: 3879480194115318191, guid: ccef94f11d37436449082c103fca04ea, type: 3}
+  _positionY: 0.5

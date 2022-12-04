@@ -13,7 +13,7 @@ public class FireballSpawner : Spawner, IScaleble
     private int _misslesLeft;
     private Vector3 _lastTargetPosition;
 
-    private void Start()
+    private void OnEnable()
     {
         _misslesLeft = _missleCount;
     }

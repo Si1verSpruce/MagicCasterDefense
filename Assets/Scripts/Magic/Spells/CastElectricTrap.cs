@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CastElectricTrap : Spell
 {
+    [SerializeField] private float _positionY;
+
     public override void Cast(Instance createdInstance, Vector3 targetPosition)
     {
-        ResetInstance(createdInstance, targetPosition, Quaternion.identity);
+        var position = new Vector3(targetPosition.x, _positionY, targetPosition.z);
+        ResetInstance(createdInstance, position, Quaternion.identity);
     }
 }

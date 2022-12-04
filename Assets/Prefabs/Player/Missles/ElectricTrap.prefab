@@ -9759,9 +9759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 5
-  _lifetime: 5
+  Lifetime: 0
   _damage: 1
-  _positionY: 0.5
   _triggerCount: 5
   _spark: {fileID: 4179480625687712900}
 --- !u!1 &4179480624902585071
@@ -14660,7 +14659,7 @@ GameObject:
   - component: {fileID: 4179480625687712903}
   - component: {fileID: 8247333646919888353}
   m_Layer: 0
-  m_Name: CFXR3 Hit Electric C (Air)
+  m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,40 +7,45 @@ public class ElectricTrap : Missle
     private const float _delayAfterAllTriggers = 1;
 
     [SerializeField] private int _damage;
-    [SerializeField] private float _positionY;
     [SerializeField] private int _triggerCount;
     [SerializeField] private ParticleSystem _spark;
 
-    private void Awake()
-    {
-        transform.position = new Vector3(transform.position.x, _positionY, transform.position.z);
-        IsActive = true;
-    }
+    private int _currentTriggerCount;
 
     public override void Scale(float modifier)
     {
         Lifetime *= modifier;
     }
 
+    protected override void ResetState()
+    {
+        base.ResetState();
+        IsActive = true;
+        _currentTriggerCount = _triggerCount;
+        _spark.time = 0;
+        _spark.Stop();
+        _spark.gameObject.SetActive(false);
+    }
+
     protected override void Deactivate() { }
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (_triggerCount > 0)
+        if (_currentTriggerCount > 0)
             if (collider.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.ApplyDamage(_damage);
                 _spark.gameObject.SetActive(true);
                 _spark.time = 0;
                 _spark.Play();
-                _triggerCount--;
+                _currentTriggerCount--;
 
-                if (_triggerCount <= 0)
-                    StartCoroutine(DestroyAfterDelay());
+                if (_currentTriggerCount <= 0)
+                    StartCoroutine(DeactivateAfterDelay());
             }
     }
 
-    private IEnumerator DestroyAfterDelay()
+    private IEnumerator DeactivateAfterDelay()
     {
         float time = 0;
 
@@ -51,6 +56,6 @@ public class ElectricTrap : Missle
             time += Time.deltaTime;
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

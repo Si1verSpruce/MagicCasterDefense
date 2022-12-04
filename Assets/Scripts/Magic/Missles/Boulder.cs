@@ -19,13 +19,21 @@ public class Boulder : Missle
     {
         _collider = GetComponent<BoxCollider>();
         _rigidbody = GetComponent<Rigidbody>();
-        _collider.enabled = false;
     }
 
     public override void Scale(float modifier)
     {
         _glideDistance *= modifier;
         _glideTime *= modifier;
+    }
+
+    protected override void ResetState()
+    {
+        base.ResetState();
+        IsActive = false;
+        _isGrounded = false;
+        _rigidbody.isKinematic = true;
+        _groundHitEffect.gameObject.SetActive(false);
     }
 
     protected override void OnTargetAchieved()
@@ -52,7 +60,6 @@ public class Boulder : Missle
         _rigidbody.isKinematic = false;
         _groundHitEffect.transform.position = transform.position;
         _groundHitEffect.transform.SetParent(transform);
-        _groundHitEffect.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider collider)
