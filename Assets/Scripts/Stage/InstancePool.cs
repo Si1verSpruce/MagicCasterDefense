@@ -10,20 +10,19 @@ public class InstancePool : MonoBehaviour
 
     private List<Instance> _pool = new List<Instance>();
 
-    public void Expand(Instance pooledInstance)
+    public Instance[] Expand(Instance pooledInstance)
     {
+        Instance[] instances = new Instance[_copieCount];
+
         for (int i = 0; i < _copieCount; i++)
         {
             var instance = Instantiate(pooledInstance, _container);
             instance.gameObject.SetActive(false);
             _pool.Add(instance);
+            instances[i] = instance;
         }
-    }
 
-    public void ExpandMultiple(IEnumerable pooledInstances)
-    {
-        foreach (Instance pooledInstance in pooledInstances)
-            Expand(pooledInstance);
+        return instances;
     }
 
     public Instance GetObject(Instance requestedInstance)

@@ -32,12 +32,13 @@ public abstract class Spell : MonoBehaviour
     public bool IsBought => _isBought;
     public int Level => _level;
     public Instance InstanceToCreate => CreatedInstance;
+    public float ScaleModifier => _scaleModifier;
 
     public void Init(bool isBought, int level)
     {
         _isBought = isBought;
         _level = level;
-        _scaleModifier = (_level - 1) * _scalePerLevel;
+        _scaleModifier = 1 + (_level - 1) * _scalePerLevel;
 
         SetUpgradePrice(_level);
     }
@@ -62,12 +63,6 @@ public abstract class Spell : MonoBehaviour
 
     public abstract void Cast(Instance createdInstance, Vector3 targetPosition);
 
-    public void ScaleParameters(float modifier)
-    {
-        if (CreatedInstance.TryGetComponent<IScaleble>(out IScaleble scaleble))
-            scaleble.Scale(modifier);
-    }
-
     public List<MagicElement> GetCombination(Transform container)
     {
         List<MagicElement> elements = new List<MagicElement>();
@@ -89,7 +84,6 @@ public abstract class Spell : MonoBehaviour
     public void OnLevelIncrease()
     {
         _level++;
-        ScaleParameters(_scaleModifier);
         SetUpgradePrice(_level);
     }
 

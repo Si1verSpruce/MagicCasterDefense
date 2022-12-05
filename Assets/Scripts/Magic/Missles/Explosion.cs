@@ -21,18 +21,12 @@ public class Explosion : Missle
 
     public override void Scale(float modifier)
     {
-        ResetParameters();
         transform.localScale *= modifier;
     }
 
     protected override void Deactivate()
     {
         _damageArea.enabled = false;
-    }
-
-    private void ResetParameters()
-    {
-        transform.localScale = _baseSizeScale;
     }
 
     private void OnTriggerEnter(Collider collider)

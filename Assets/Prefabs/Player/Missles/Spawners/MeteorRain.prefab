@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2145bd37d946f541ad05e3975775c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interval: 0.5
+  Interval: 0.7
   _spawnedObject: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
   _startPositionOffset: {x: 5, y: 10, z: 0}
   _minLocalTargetPosition: {x: -3, y: 0, z: -3}
