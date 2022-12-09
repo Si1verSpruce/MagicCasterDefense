@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class SpellLevelText : MonoBehaviour
 {
-    [SerializeField] private SpellView _view;
+    [SerializeField] private SpellShortView _view;
 
     private TextMeshProUGUI _text;
 
@@ -17,16 +17,16 @@ public class SpellLevelText : MonoBehaviour
 
     private void OnEnable()
     {
-        _view.LevelChanged += OnLevelChange;
-        OnLevelChange(_view.Level);
+        _view.LevelChanged += OnLevelChanged;
+        OnLevelChanged(_view.Level);
     }
 
     private void OnDisable()
     {
-        _view.LevelChanged -= OnLevelChange;
+        _view.LevelChanged -= OnLevelChanged;
     }
 
-    private void OnLevelChange(int level)
+    private void OnLevelChanged(int level)
     {
         _text.text = level.ToString();
     }

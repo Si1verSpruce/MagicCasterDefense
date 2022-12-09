@@ -390,7 +390,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2284440495076776855}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.135, y: 0.46933338}
   m_AnchorMax: {x: 0.8671053, y: 0.9373334}
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 2284440494235682832}
   - component: {fileID: 2284440494235682833}
   m_Layer: 5
-  m_Name: CombinationView
+  m_Name: CombinationContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2284440495076776855}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.082368426, y: 0.16266668}
   m_AnchorMax: {x: 0.9187895, y: 0.26062217}
@@ -701,7 +701,7 @@ RectTransform:
   - {fileID: 1022047928141345356}
   - {fileID: 8291549531871011151}
   m_Father: {fileID: 2284440495076776855}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -860,7 +860,7 @@ RectTransform:
   - {fileID: 2284440494428080222}
   - {fileID: 2284440493688766753}
   m_Father: {fileID: 2284440495076776855}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -898,10 +898,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2284440495310112643}
-  - {fileID: 2284440494235682834}
   - {fileID: 2284440493880425293}
   - {fileID: 2284440494604948894}
   - {fileID: 2284440494413611560}
+  - {fileID: 2284440494235682834}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -960,15 +960,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dfe76ffd51e81540a3cec28fb56544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spellIcon: {fileID: 2284440493880425292}
   _label: {fileID: 2284440495310112642}
+  _combinationContainer: {fileID: 2284440494235682834}
+  _spellIcon: {fileID: 2284440493880425292}
   _upgradeDescription: {fileID: 9117029137465313076}
   _buyGroup: {fileID: 2284440494604948895}
   _buy: {fileID: 2284440494428080221}
   _buyPrice: {fileID: 2284440493904175683}
   _upgradeGroup: {fileID: 2284440494413611561}
   _upgrade: {fileID: 2917406402910202808}
-  _combinationView: {fileID: 2284440494235682834}
 --- !u!1 &2284440495099290973
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class Shop : MonoBehaviour, ISaveable
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private GameObject _screen;
     [SerializeField] private Spell[] _spells;
-    [SerializeField] private SpellView _spellView;
+    [SerializeField] private SpellFullView _spellView;
     [SerializeField] private Transform _buyContainer;
     [SerializeField] private Transform _upgradeContainer;
     [SerializeField] private Button _back;
@@ -26,7 +26,7 @@ public class Shop : MonoBehaviour, ISaveable
             data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
             spell.Init(spellData.isBought, spellData.level);
 
-            SpellView spellView;
+            SpellFullView spellView;
 
             if (spell.IsBought)
             {
@@ -85,7 +85,7 @@ public class Shop : MonoBehaviour, ISaveable
         _screen.SetActive(false);
     }
 
-    private void OnBuyButton(Spell spell, SpellView view)
+    private void OnBuyButton(Spell spell, SpellFullView view)
     {
         if (_player.StageCoins >= spell.BuyPrice)
         {
@@ -99,7 +99,7 @@ public class Shop : MonoBehaviour, ISaveable
         }
     }
 
-    private void OnUpgradeButton(Spell spell, SpellView view)
+    private void OnUpgradeButton(Spell spell, SpellFullView view)
     {
         if (_player.Money >= spell.UpgradePrice)
         {

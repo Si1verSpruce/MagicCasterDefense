@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class SpellBook : MonoBehaviour
 {
-    [SerializeField] private SpellCombinationView _view;
+    [SerializeField] private SpellShortView _view;
     [SerializeField] private GameObject _screen;
     [SerializeField] private Player _player;
     [SerializeField] private Transform _container;
     [SerializeField] private Button _back;
 
-    private List<SpellCombinationView> _views = new List<SpellCombinationView>();
+    private List<SpellShortView> _views = new List<SpellShortView>();
 
     private void OnEnable()
     {

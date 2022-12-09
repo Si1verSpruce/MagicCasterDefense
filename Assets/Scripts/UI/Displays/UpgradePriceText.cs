@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class UpgradePriceText : MonoBehaviour
 {
-    [SerializeField] private SpellView _view;
+    [SerializeField] private SpellFullView _view;
 
     private TextMeshProUGUI _text;
 

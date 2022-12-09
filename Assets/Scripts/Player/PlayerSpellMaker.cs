@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,10 +24,14 @@ public class PlayerSpellMaker : MonoBehaviour
 
     public void DeactivateCurrentCombination()
     {
-        while (_selectedElements.Count > 0)
+        int count = _selectedElements.Count;
+        
+        for (int i = 0; i < count; i++)
         {
-            _selectedElements[0].ToggleSelectionStatus();
-            _selectedElements[0].Deactivate();
+            var element = _selectedElements[0];
+            element.Deactivate();
+            element.ToggleSelectionStatus();
+            element.Toggled -= OnElementSelectionStatusChanged;
         }
     }
 
@@ -39,13 +44,6 @@ public class PlayerSpellMaker : MonoBehaviour
     private void OnElementAdd(MagicElement element)
     {
         element.Toggled += OnElementSelectionStatusChanged;
-        element.Deactivated += OnElementDeactivate;
-    }
-
-    private void OnElementDeactivate(MagicElement element)
-    {
-        element.Toggled -= OnElementSelectionStatusChanged;
-        element.Deactivated -= OnElementDeactivate;
     }
 
     private void OnElementSelectionStatusChanged(MagicElement element, bool isSelected)

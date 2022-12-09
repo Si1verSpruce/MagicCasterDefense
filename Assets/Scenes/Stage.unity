@@ -2654,7 +2654,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -133.0048, y: -1634.5892}
+  m_SizeDelta: {x: -133.0048, y: -1414.5892}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &359621555
 MonoBehaviour:
@@ -2687,10 +2687,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 475, y: 220}
+  m_CellSize: {x: 460, y: 220}
   m_Spacing: {x: 30, y: 30}
   m_Constraint: 1
   m_ConstraintCount: 2
@@ -7868,6 +7868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144394785}
   - component: {fileID: 1144394784}
+  - component: {fileID: 1144394786}
   m_Layer: 0
   m_Name: Magic Element Generator
   m_TagString: Untagged
@@ -7905,6 +7906,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144394786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144394783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f422cfc29d4428944b018a435b6c2a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _copieCount: 7
+  _container: {fileID: 1144394785}
 --- !u!4 &1145909571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3356751432537613521, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
