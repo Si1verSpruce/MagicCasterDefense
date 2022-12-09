@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 0
-  Lifetime: 2
+  _lifetime: 2
   _damage: 1
 --- !u!1001 &2657847968144326617
 PrefabInstance:

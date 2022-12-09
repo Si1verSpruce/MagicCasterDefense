@@ -21,7 +21,7 @@ public class FireballSpawner : Spawner, IScaleble
     public void Scale(float modifier)
     {
         if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
-            scaleble.Scale(modifier);
+            _missleCount += (int)Mathf.Round(_missleCount / modifier);
     }
 
     protected override void Spawn()

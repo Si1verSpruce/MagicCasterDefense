@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Missle : Instance, IScaleble
 {
     [SerializeField] protected float Duration;
-    [SerializeField] protected float Lifetime;
+    [SerializeField] private float _lifetime;
 
     protected bool IsActive;
     private float _currentLifetime;
@@ -32,7 +32,7 @@ public abstract class Missle : Instance, IScaleble
         {
             Deactivate();
 
-            if (_currentLifetime >= Lifetime)
+            if (_currentLifetime >= _lifetime)
                 gameObject.SetActive(false);
         }
 

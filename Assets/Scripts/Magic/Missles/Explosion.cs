@@ -8,7 +8,6 @@ public class Explosion : Missle
     [SerializeField] private float _damage;
 
     private SphereCollider _damageArea;
-    private Vector3 _baseSizeScale;
 
     private void Awake()
     {

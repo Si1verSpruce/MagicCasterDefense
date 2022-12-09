@@ -13,7 +13,7 @@ public enum ElementType
 }
 
 [RequireComponent(typeof(Outline))]
-public class MagicElement : MonoBehaviour
+public class MagicElement : Instance
 {
     [SerializeField] private ElementType _type;
 
@@ -23,7 +23,7 @@ public class MagicElement : MonoBehaviour
     public ElementType Type => _type;
 
     public UnityAction<MagicElement, bool> Toggled;
-    public UnityAction<MagicElement> Destroyed;
+    public UnityAction<MagicElement> Deactivated;
 
     private void Awake()
     {
@@ -46,11 +46,8 @@ public class MagicElement : MonoBehaviour
         Toggled?.Invoke(this, _isSelected);
     }
 
-    private void OnDestroy()
+    public void Deactivate()
     {
-        if (gameObject.scene.isLoaded == false) 
-            return;
-
-        Destroyed?.Invoke(this);
+        Deactivated?.Invoke(this);
     }
 }

@@ -13,41 +13,39 @@ public class PlayerSpellMaker : MonoBehaviour
 
     private void OnEnable()
     {
-        _elementBar.ElementAdded += OnElementAdded;
+        _elementBar.ElementAdded += OnElementAdd;
     }
 
     private void OnDisable()
     {
-        _elementBar.ElementAdded -= OnElementAdded;
+        _elementBar.ElementAdded -= OnElementAdd;
     }
 
-    public void DestroyCurrentCombination()
+    public void DeactivateCurrentCombination()
     {
-        foreach (var element in _selectedElements)
-            Destroy(element.gameObject);
-
-        _selectedElements.Clear();
-        CombinationUpdated?.Invoke(null);
+        while (_selectedElements.Count > 0)
+        {
+            _selectedElements[0].ToggleSelectionStatus();
+            _selectedElements[0].Deactivate();
+        }
     }
 
     public void UnselectCurrentCombination()
     {
         while (_selectedElements.Count > 0)
             _selectedElements[0].ToggleSelectionStatus();
-
-        CombinationUpdated?.Invoke(null);
     }
 
-    private void OnElementAdded(MagicElement element)
+    private void OnElementAdd(MagicElement element)
     {
         element.Toggled += OnElementSelectionStatusChanged;
-        element.Destroyed += OnElementDestroyed;
+        element.Deactivated += OnElementDeactivate;
     }
 
-    private void OnElementDestroyed(MagicElement element)
+    private void OnElementDeactivate(MagicElement element)
     {
         element.Toggled -= OnElementSelectionStatusChanged;
-        element.Destroyed -= OnElementDestroyed;
+        element.Deactivated -= OnElementDeactivate;
     }
 
     private void OnElementSelectionStatusChanged(MagicElement element, bool isSelected)

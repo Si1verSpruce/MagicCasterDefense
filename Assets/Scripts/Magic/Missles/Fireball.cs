@@ -29,7 +29,7 @@ public class Fireball : Missle
 
     protected override void Deactivate()
     {
-        _renderer.enabled =false;
+        _renderer.enabled = false;
 
         foreach (var effect in _fireEffects)
             effect.Stop();

@@ -14,7 +14,7 @@ public class ElectricTrap : Missle
 
     public override void Scale(float modifier)
     {
-        Lifetime *= modifier;
+        Duration *= modifier;
     }
 
     protected override void ResetState()

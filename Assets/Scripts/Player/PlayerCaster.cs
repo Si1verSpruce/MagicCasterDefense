@@ -39,8 +39,8 @@ public class PlayerCaster : MonoBehaviour
         }
         else
         {
-            _currentSpell.Cast(_pool.GetObject(_currentSpell.InstanceToCreate), targetPosition);
-            _spellMaker.DestroyCurrentCombination();
+            _currentSpell.Cast(_pool.GetInstance(_currentSpell.InstanceToCreate), targetPosition);
+            _spellMaker.DeactivateCurrentCombination();
         }
     }
 

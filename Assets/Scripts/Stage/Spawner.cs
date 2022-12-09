@@ -40,7 +40,7 @@ public abstract class Spawner : Instance
 
     protected virtual void Spawn()
     {
-        var instance = _pool.GetObject(SpawnedObject);
+        var instance = _pool.GetInstance(SpawnedObject);
 
         var position = GetSpawnPosition();
         var rotation = GetSpawnedObjectRotation();
