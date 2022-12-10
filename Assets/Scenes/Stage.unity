@@ -8950,7 +8950,7 @@ MonoBehaviour:
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}
   _stage: {fileID: 276486214}
-  _perStageSpawnFrequencyDivider: 0.03
+  _perStageSpawnFrequencyDivider: 0.04
 --- !u!114 &1486577803
 MonoBehaviour:
   m_ObjectHideFlags: 0

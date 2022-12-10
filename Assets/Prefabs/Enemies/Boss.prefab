@@ -5345,7 +5345,7 @@ GameObject:
   - component: {fileID: 7145656599271534527}
   - component: {fileID: 7145656599271534526}
   m_Layer: 0
-  m_Name: Warrior
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5399,7 +5399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c708589d1e09db6499d097f9117f6fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
+  _health: 50
   _parameters: {fileID: 11400000, guid: 9a31d2d58d1178641a4068fb4d3615b5, type: 2}
   _ragdollRigidbodies:
   - {fileID: 642837218385704395}

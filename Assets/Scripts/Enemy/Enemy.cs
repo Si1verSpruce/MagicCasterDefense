@@ -9,14 +9,9 @@ using UnityEngine;
 public class Enemy : Instance
 {
     [SerializeField] private float _health;
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private int _damage;
-    [SerializeField] private int _reward;
+    [SerializeField] private EnemyParameters _parameters;
     [SerializeField] private Rigidbody[] _ragdollRigidbodies;
     [SerializeField] private Rigidbody[] _weapons;
-
-    [SerializeField] private float _fallUndergroundDelay;
-    [SerializeField] private float _deactivateDelay;
 
     private Animator _animator;
     private Player _player;
@@ -27,7 +22,7 @@ public class Enemy : Instance
     private Quaternion[] _weaponStartRotations;
 
     public float MoveSpeed => _currentMoveSpeed;
-    public int Damage => _damage;
+    public int Damage => _parameters.Damage;
 
     public void Init(Player player)
     {
@@ -84,10 +79,10 @@ public class Enemy : Instance
     {
         UpdateState(false);
 
-        StartCoroutine(DoAfterDelay(FallUnderground, _fallUndergroundDelay));
-        StartCoroutine(DoAfterDelay(DisableThis, _deactivateDelay));
+        StartCoroutine(DoAfterDelay(FallUnderground, _parameters.FallUndergroundDelay));
+        StartCoroutine(DoAfterDelay(DisableThis, _parameters.DeactivateDelay));
 
-        _player.AddMoney(_reward);
+        _player.AddMoney(_parameters.Reward);
     }
 
     private IEnumerator DoAfterDelay(Action action, float delay)
@@ -118,7 +113,7 @@ public class Enemy : Instance
     private void UpdateState(bool isActive)
     {
         _collider.enabled = isActive;
-        _currentMoveSpeed = _moveSpeed * Convert.ToInt32(isActive);
+        _currentMoveSpeed = _parameters.MoveSpeed * Convert.ToInt32(isActive);
         _animator.enabled = isActive;
         SetRagdollKinematic(isActive);
     }
