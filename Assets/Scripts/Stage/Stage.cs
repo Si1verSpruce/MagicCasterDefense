@@ -10,13 +10,16 @@ public class Stage : MonoBehaviour, ISaveable
     [SerializeField] private Player _player;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
+    [SerializeField] private int _stageCountBeforeBoss;
 
     private int _number;
+    private int _bossNumber;
     private bool _isGameOver;
 
     public UnityAction<int> TimeChanged;
 
     public int Number => _number;
+    public int BossNumber => _bossNumber;
 
     private void OnEnable()
     {
@@ -31,6 +34,7 @@ public class Stage : MonoBehaviour, ISaveable
     private void Start()
     {
         _saveLoadSystem.Load();
+        _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
     }
 
     private void Update()
