@@ -11,7 +11,7 @@ public class EnemySpawner : Spawner
     [SerializeField] private Stage _stage;
     [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
 
-    private Dictionary<Instance, float> _spawnMaxNumbersByInstances;
+    private Dictionary<Instance, Vector2> _spawnNumbersByInstances = new Dictionary<Instance, Vector2>();
 
     private void Start()
     {
@@ -21,14 +21,24 @@ public class EnemySpawner : Spawner
 
         foreach (var spawnedObject in SpawnedObjects)
         {
-            _spawnMaxNumbersByInstances[spawnedObject.Instance] = lastMaxNumber + spawnedObject.BaseChance;
-            lastMaxNumber = _spawnMaxNumbersByInstances[spawnedObject.Instance];
+            _spawnNumbersByInstances[spawnedObject.Instance] = new Vector2(lastMaxNumber, lastMaxNumber + spawnedObject.BaseChance);
+            lastMaxNumber = _spawnNumbersByInstances[spawnedObject.Instance].y;
         }
+/*
+        foreach (var maxNumber in _spawnNumbersByInstances)
+            Debug.Log(maxNumber);*/
     }
 
     protected override Instance GetSpawnedInstance()
     {
-        throw new System.NotImplementedException();
+        float value = Random.Range(0f, 1f);
+        Debug.Log(value);
+
+        foreach (var spawnNumbers in _spawnNumbersByInstances)
+            if (value >= spawnNumbers.Value.x && value <= spawnNumbers.Value.y)
+                return spawnNumbers.Key;
+
+        return null;
     }
 
     protected override Quaternion GetSpawnedObjectRotation()

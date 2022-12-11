@@ -7996,6 +7996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1144394785}
+  _copyCount: 5
 --- !u!4 &1145909571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3356751432537613521, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
@@ -9169,7 +9170,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 1
-  _spawnedObject: {fileID: 7145656599271534525, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
+  SpawnedObjects:
+  - Instance: {fileID: 3306338946893371813, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
+    CopyCount: 50
+    BaseChance: 0.5
+    ChanceChange: 0
+    ChancePerStageModifier: 0
+  - Instance: {fileID: -6493834438542299642, guid: 84fddebd45fcfcd478f894d2f2dac837, type: 3}
+    CopyCount: 20
+    BaseChance: 0.5
+    ChanceChange: 2
+    ChancePerStageModifier: 0.02
+  _boss: {fileID: 6716042562889546053, guid: 368673a0474ac7444aed692da5db0485, type: 3}
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}
   _player: {fileID: 1832693274}
