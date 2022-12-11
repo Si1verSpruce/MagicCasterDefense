@@ -20,17 +20,22 @@ public class FireballSpawner : Spawner, IScaleble
 
     public void Scale(float modifier)
     {
-        if (SpawnedObject.TryGetComponent<IScaleble>(out IScaleble scaleble))
+        if (SpawnedObjects[0].Instance.TryGetComponent<IScaleble>(out IScaleble scaleble))
             _missleCount += (int)Mathf.Round(_missleCount / modifier);
     }
 
-    protected override void Spawn()
+    protected override void SpawnPerInterval()
     {
         if (_misslesLeft > 0)
         {
             _misslesLeft--;
-            base.Spawn();
+            base.SpawnPerInterval();
         }
+    }
+
+    protected override Instance GetSpawnedInstance()
+    {
+        return SpawnedObjects[0].Instance;
     }
 
     protected override Vector3 GetSpawnPosition()

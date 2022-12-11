@@ -86,12 +86,12 @@ public class Player : MonoBehaviour, ISaveable
     {
         _pool = GetComponent<InstancePool>();
 
-        _spells.Add(spell);
+        _spells.Add(spell);/*
         var instances = _pool.Expand(spell.InstanceToCreate);
 
         foreach (var instance in instances)
             if (instance.TryGetComponent<IScaleble>(out IScaleble scaleble))
-                scaleble.Scale(spell.ScaleModifier);
+                scaleble.Scale(spell.ScaleModifier);*/
 
         SpellAdded?.Invoke(spell);
     }

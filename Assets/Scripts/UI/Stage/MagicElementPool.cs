@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class MagicElementPool : InstancePool
 {
+    [SerializeField] private int _copyCount;
+
     private List<MagicElement> _elementPool = new List<MagicElement>();
+
+    public Instance[] Expand(Instance pooledInstance)
+    {
+        return base.Expand(pooledInstance, _copyCount);
+    }
 
     public MagicElement GetInstance(ElementType elementType)
     {

@@ -6,17 +6,14 @@ using UnityEngine;
 public class InstancePool : MonoBehaviour
 {
     [SerializeField] private Transform _container;
-    [SerializeField] private Dictionary<Instance, int> _copyCountByInstances;
 
     protected List<Instance> Pool = new List<Instance>();
 
-    public Instance[] Expand(Instance pooledInstance)   
+    public Instance[] Expand(Instance pooledInstance, int copyCount)   
     {
-        _copyCountByInstances.TryGetValue(pooledInstance, out int copieCount);
+        Instance[] instances = new Instance[copyCount];
 
-        Instance[] instances = new Instance[copieCount];
-
-        for (int i = 0; i < copieCount; i++)
+        for (int i = 0; i < copyCount; i++)
         {
             var instance = Instantiate(pooledInstance, _container);
             instance.gameObject.SetActive(false);
