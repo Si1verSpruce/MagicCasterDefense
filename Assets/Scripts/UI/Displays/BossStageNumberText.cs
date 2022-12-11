@@ -9,6 +9,6 @@ public class BossStageNumberText : StageNumberText
         if (Stage.Number == Stage.BossNumber)
             SetText("Boss Stage!");
         else
-            SetText($"Boss on {Stage.BossNumber + 1}");
+            SetText($"Boss on stage {Stage.BossNumber + 1}");
     }
 }

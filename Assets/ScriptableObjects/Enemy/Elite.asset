@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef4b8c4226e6b44dacf22513817c678, type: 3}
   m_Name: Elite
   m_EditorClassIdentifier: 
-  _moveSpeed: 1
-  _damage: 5
-  _reward: 50
+  _moveSpeed: 2
+  _damage: 2
+  _reward: 5
   _fallUndergroundDelay: 2
   _deactivateDelay: 2.2
+  _baseSpawnChance: 0
+  _spawnChanceChange: 2
+  _spawnChancePerStageModifier: 0.02

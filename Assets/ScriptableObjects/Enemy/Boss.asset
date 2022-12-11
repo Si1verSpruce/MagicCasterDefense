@@ -17,3 +17,6 @@ MonoBehaviour:
   _reward: 50
   _fallUndergroundDelay: 2
   _deactivateDelay: 2.2
+  _baseSpawnChance: 0
+  _spawnChanceChange: 1
+  _spawnChancePerStageModifier: 0
