@@ -11,13 +11,13 @@ public class MagicElementPool : InstancePool
 
     public Instance[] Expand(Instance pooledInstance)
     {
-        return base.Expand(pooledInstance, _copyCount);
+        return Expand(pooledInstance, _copyCount);
     }
 
     public MagicElement GetInstance(ElementType elementType)
     {
         if (_elementPool.Count != Pool.Count)
-            _elementPool = Pool.ConvertAll<MagicElement>(instance => (MagicElement)instance);
+            _elementPool = Pool.ConvertAll(instance => (MagicElement)instance);
 
         MagicElement element = _elementPool.FirstOrDefault(element => element.gameObject.activeSelf == false &&
         elementType == element.Type);

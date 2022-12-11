@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 0.7
-  _spawnedObject: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
+  SpawnedObjects:
+  - Instance: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
+    CopyCount: 7
+    BaseChance: 1
+    ChanceChange: 1
+    ChancePerStageModifier: 0
   _startPositionOffset: {x: 5, y: 10, z: 0}
   _minLocalTargetPosition: {x: -3, y: 0, z: -3}
   _maxLocalTargetPosition: {x: 3, y: 0, z: 3}
@@ -63,5 +68,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b1aa7f91bf9174bae57fa49297ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _copieCount: 5
   _container: {fileID: 6753165354502432783}

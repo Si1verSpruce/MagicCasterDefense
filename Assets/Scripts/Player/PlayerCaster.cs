@@ -4,13 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(PlayerSpellMaker))]
-[RequireComponent(typeof(InstancePool))]
+[RequireComponent(typeof(SpellPool))]
 public class PlayerCaster : MonoBehaviour
 {
     private Player _player;
     private PlayerSpellMaker _spellMaker;
     private Spell _currentSpell;
-    private InstancePool _pool;
+    private SpellPool _pool;
 
     public Spell CurrentSpell => _currentSpell;
 
@@ -18,7 +18,7 @@ public class PlayerCaster : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _spellMaker = GetComponent<PlayerSpellMaker>();
-        _pool = GetComponent<InstancePool>();
+        _pool = GetComponent<SpellPool>();
     }
 
     private void OnEnable()

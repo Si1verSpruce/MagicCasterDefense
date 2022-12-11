@@ -53,9 +53,7 @@ public abstract class Spawner : Instance
         }
     }
 
-    protected virtual void OnInstantiated(Instance instance) { }
-
-    private void Spawn()
+    protected virtual void Spawn()
     {
         var instance = _pool.GetInstance(GetSpawnedInstance());
         var position = GetSpawnPosition();
@@ -66,6 +64,8 @@ public abstract class Spawner : Instance
 
         OnInstantiated(instance);
     }
+
+    protected virtual void OnInstantiated(Instance instance) { }
 
     [System.Serializable]
     public class SpawnedObject

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 0
-  Lifetime: 0.2
+  _lifetime: 0.2
   _damage: 1
   _glideDistance: 4
   _glideTime: 0.18

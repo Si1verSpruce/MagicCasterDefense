@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(InstancePool))]
+[RequireComponent(typeof(SpellPool))]
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, ISaveable
     private List<Spell> _spells = new List<Spell>();
     private int _money;
     private int _gems;
-    private InstancePool _pool;
+    private SpellPool _pool;
 
     public UnityAction<int> HealthChanged;
     public UnityAction<int> MoneyChanged;
@@ -84,14 +84,14 @@ public class Player : MonoBehaviour, ISaveable
 
     public void AddSpell(Spell spell)
     {
-        _pool = GetComponent<InstancePool>();
+        _pool = GetComponent<SpellPool>();
 
-        _spells.Add(spell);/*
+        _spells.Add(spell);
         var instances = _pool.Expand(spell.InstanceToCreate);
 
         foreach (var instance in instances)
             if (instance.TryGetComponent<IScaleble>(out IScaleble scaleble))
-                scaleble.Scale(spell.ScaleModifier);*/
+                scaleble.Scale(spell.ScaleModifier);
 
         SpellAdded?.Invoke(spell);
     }

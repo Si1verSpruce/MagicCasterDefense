@@ -28,9 +28,14 @@ public class FireballSpawner : Spawner, IScaleble
     {
         if (_misslesLeft > 0)
         {
-            _misslesLeft--;
             base.SpawnPerInterval();
         }
+    }
+
+    protected override void Spawn()
+    {
+        _misslesLeft--;
+        base.Spawn();
     }
 
     protected override Instance GetSpawnedInstance()
