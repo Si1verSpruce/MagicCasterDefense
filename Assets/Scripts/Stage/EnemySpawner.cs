@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static EnemySpawner;
 
 public class EnemySpawner : Spawner
 {
@@ -11,6 +10,7 @@ public class EnemySpawner : Spawner
     [SerializeField] private Instance _boss;
     [SerializeField] private Vector3 _minWorldPosition;
     [SerializeField] private Vector3 _maxWorldPosition;
+    [SerializeField] private Vector3 _bossSpawnPosition;
     [SerializeField] private Player _player;
     [SerializeField] private Stage _stage;
     [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
@@ -35,6 +35,12 @@ public class EnemySpawner : Spawner
         Interval /= 1 + _stage.Number * _perStageSpawnFrequencyDivider;
 
         FillSpawnNumberDictionary();
+
+        if (_stage.Number == _stage.BossNumber)
+        {
+            var boss = Instantiate(_boss, _bossSpawnPosition, GetSpawnedObjectRotation(), transform);
+            ((Enemy)boss).Init(_player);
+        }
     }
 
     protected override Instance GetSpawnedInstance()

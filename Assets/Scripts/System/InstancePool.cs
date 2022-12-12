@@ -7,17 +7,20 @@ public class InstancePool : MonoBehaviour
 {
     [SerializeField] private Transform _container;
 
-    protected List<Instance> Pool = new List<Instance>();
+    protected Dictionary<Instance, List<Instance>> Pool = new Dictionary<Instance, List<Instance>>();
 
     public Instance[] Expand(Instance pooledInstance, int copyCount)   
     {
         Instance[] instances = new Instance[copyCount];
 
+        if (Pool.ContainsKey(pooledInstance) == false)
+            Pool.Add(pooledInstance, new List<Instance>());
+
         for (int i = 0; i < copyCount; i++)
         {
             var instance = Instantiate(pooledInstance, _container);
             instance.gameObject.SetActive(false);
-            Pool.Add(instance);
+            Pool[pooledInstance].Add(instance);
             instances[i] = instance;
         }
 
@@ -26,8 +29,8 @@ public class InstancePool : MonoBehaviour
 
     public Instance GetInstance(Instance requestedInstance)
     {
-        var instance = Pool.FirstOrDefault(instance => instance.gameObject.activeSelf == false &&
-        requestedInstance.GetType() == instance.GetType());
+        var instances = Pool[requestedInstance];
+        var instance = instances.FirstOrDefault(instance => instance.gameObject.activeSelf == false);
 
         if (instance == null)
             return Instantiate(requestedInstance, _container);
