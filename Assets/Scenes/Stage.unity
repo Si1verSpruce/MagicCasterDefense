@@ -9140,17 +9140,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 1
-  SpawnedObjects:
-  - Instance: {fileID: 3306338946893371813, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
+  _baseEnemy:
+    Instance: {fileID: 3306338946893371813, guid: d96a09ea9ed1c2541ac02afca9b6d974, type: 3}
     CopyCount: 50
-    BaseChance: 0.5
-    ChanceChange: 0
-    ChancePerStageModifier: 0
+  _advancedEnemies:
   - Instance: {fileID: -6493834438542299642, guid: 84fddebd45fcfcd478f894d2f2dac837, type: 3}
     CopyCount: 20
-    BaseChance: 0.5
-    ChanceChange: 2
-    ChancePerStageModifier: 0.02
+    SpawnChancePerStageModifier: 0.2
+  - Instance: {fileID: 6716042562889546053, guid: 368673a0474ac7444aed692da5db0485, type: 3}
+    CopyCount: 20
+    SpawnChancePerStageModifier: 0.1
+  - Instance: {fileID: 9136963064037050526, guid: 45868b2a559c1f040a7629615948a5c8, type: 3}
+    CopyCount: 20
+    SpawnChancePerStageModifier: 0.1
   _boss: {fileID: 6716042562889546053, guid: 368673a0474ac7444aed692da5db0485, type: 3}
   _minWorldPosition: {x: -3, y: 0, z: 0}
   _maxWorldPosition: {x: 3, y: 0, z: 0}

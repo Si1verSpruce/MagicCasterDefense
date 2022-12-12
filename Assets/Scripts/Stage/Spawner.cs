@@ -2,27 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ProbabilityChange
-{
-    Decrease,
-    Constant,
-    Increase
-}
-
 [RequireComponent(typeof(InstancePool))]
 public abstract class Spawner : Instance
 {
     [SerializeField] protected float Interval;
-    [SerializeField] protected SpawnedObject[] SpawnedObjects;
 
     private float _timeFromSpawn;
     private InstancePool _pool;
 
-    private void Awake()
+    protected void Init(SpawnedObject[] spawnedObjects)
     {
         _pool = GetComponent<InstancePool>();
 
-        foreach (var spawnedObject in SpawnedObjects)
+        foreach (var spawnedObject in spawnedObjects)
             _pool.Expand(spawnedObject.Instance, spawnedObject.CopyCount);
 
         _timeFromSpawn = Interval;
@@ -72,8 +64,5 @@ public abstract class Spawner : Instance
     {
         public Instance Instance;
         public int CopyCount;
-        [Range(0, 1)] public float BaseChance;
-        public ProbabilityChange ChanceChange;
-        [Range(0, 1)] public float ChancePerStageModifier;
     }
 }

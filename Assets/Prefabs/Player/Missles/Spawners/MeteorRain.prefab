@@ -45,12 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 0.7
-  SpawnedObjects:
-  - Instance: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
+  _fireball:
+    Instance: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
     CopyCount: 7
-    BaseChance: 1
-    ChanceChange: 1
-    ChancePerStageModifier: 0
   _startPositionOffset: {x: 5, y: 10, z: 0}
   _minLocalTargetPosition: {x: -3, y: 0, z: -3}
   _maxLocalTargetPosition: {x: 3, y: 0, z: 3}

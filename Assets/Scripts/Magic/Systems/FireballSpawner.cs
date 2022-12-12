@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireballSpawner : Spawner, IScaleble
 {
+    [SerializeField] private SpawnedObject _fireball;
     [SerializeField] private Vector3 _startPositionOffset;
     [SerializeField] private Vector3 _minLocalTargetPosition;
     [SerializeField] private Vector3 _maxLocalTargetPosition;
@@ -13,6 +14,11 @@ public class FireballSpawner : Spawner, IScaleble
     private int _misslesLeft;
     private Vector3 _lastTargetPosition;
 
+    private void Awake()
+    {
+        Init(new SpawnedObject[1] { _fireball });
+    }
+
     private void OnEnable()
     {
         _misslesLeft = _missleCount;
@@ -20,8 +26,7 @@ public class FireballSpawner : Spawner, IScaleble
 
     public void Scale(float modifier)
     {
-        if (SpawnedObjects[0].Instance.TryGetComponent<IScaleble>(out IScaleble scaleble))
-            _missleCount += (int)Mathf.Round(_missleCount / modifier);
+        _missleCount = (int)Mathf.Round(_missleCount * modifier);
     }
 
     protected override void SpawnPerInterval()
@@ -40,7 +45,7 @@ public class FireballSpawner : Spawner, IScaleble
 
     protected override Instance GetSpawnedInstance()
     {
-        return SpawnedObjects[0].Instance;
+        return _fireball.Instance;
     }
 
     protected override Vector3 GetSpawnPosition()
