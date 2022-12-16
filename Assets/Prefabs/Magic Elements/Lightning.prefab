@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7583730649391478216}
   - component: {fileID: 6675698709503593933}
   - component: {fileID: 1938073172496403836}
-  - component: {fileID: 4668399828395300812}
   - component: {fileID: -3678627956076529765}
+  - component: {fileID: 6522797836958374781}
   m_Layer: 5
   m_Name: Lightning
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7583730649391478216
 CanvasRenderer:
@@ -91,21 +91,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: {fileID: 11400000, guid: 0c76205d428abd14e994b6089cd0954d, type: 2}
---- !u!114 &4668399828395300812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3785906674843044039}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 8, y: 8}
-  m_UseGraphicAlpha: 0
 --- !u!114 &-3678627956076529765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,3 +103,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a4365797b60e84f8de418a32204c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6522797836958374781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3785906674843044039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc91f1f629599147a27aafe7c6d8c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outline: {fileID: 2100000, guid: 92787734536c88547adc28b662230307, type: 2}
+  _image: {fileID: 6675698709503593933}

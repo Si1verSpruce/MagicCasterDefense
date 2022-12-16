@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Outline))]
+[RequireComponent(typeof(UIOutline))]
 public class MagicElement : Instance
 {
     [SerializeField] private MagicElementType _type;
 
     private bool _isSelected;
-    private Outline _outline;
+    private UIOutline _outline;
 
     public ElementType Type => _type.Type;
 
@@ -20,7 +20,7 @@ public class MagicElement : Instance
 
     private void Awake()
     {
-        _outline = GetComponent<Outline>();
+        _outline = GetComponent<UIOutline>();
     }
 
     public void ToggleSelectionStatus()
@@ -28,12 +28,12 @@ public class MagicElement : Instance
         if (_isSelected)
         {
             _isSelected = false;
-            _outline.enabled = false;
+            _outline.Disable();
         }
         else
         {
             _isSelected = true;
-            _outline.enabled = true;
+            _outline.Enable();
         }
 
         Toggled?.Invoke(this, _isSelected);
