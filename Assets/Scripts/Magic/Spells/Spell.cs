@@ -63,12 +63,12 @@ public abstract class Spell : MonoBehaviour
 
     public abstract void Cast(Instance createdInstance, Vector3 targetPosition);
 
-    public List<MagicElement> GetCombination(Transform container)
+    public List<MagicElement> GetCombination()
     {
         List<MagicElement> elements = new List<MagicElement>();
 
         foreach (var element in _combination)
-            Instantiate(element.View, container);
+            elements.Add(element);
 
         return elements;
     }

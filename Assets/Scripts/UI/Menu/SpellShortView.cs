@@ -9,6 +9,7 @@ public class SpellShortView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _label;
     [SerializeField] private Transform _combinationContainer;
+    [SerializeField] private Image _magicElementView;
 
     protected Spell Spell;
 
@@ -21,5 +22,12 @@ public class SpellShortView : MonoBehaviour
 
         _label.text = Spell.Label;
         LevelChanged?.Invoke(Spell.Level);
+        var combination = Spell.GetCombination();
+
+        foreach (var element in combination)
+        {
+            var view = Instantiate(_magicElementView, _combinationContainer);
+            view.sprite = element.Sprite;
+        }
     }
 }
