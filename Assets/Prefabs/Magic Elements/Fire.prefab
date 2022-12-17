@@ -115,5 +115,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc91f1f629599147a27aafe7c6d8c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outline: {fileID: 2100000, guid: 93aed985770e3fe428f18457c0408319, type: 2}
-  _image: {fileID: 1506516324962693376}
+  _outline: {fileID: 21300000, guid: 7ee9f544a7facbe4abfc94ec4de42940, type: 3}

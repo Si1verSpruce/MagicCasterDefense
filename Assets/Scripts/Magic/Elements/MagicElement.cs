@@ -28,12 +28,12 @@ public class MagicElement : Instance
         if (_isSelected)
         {
             _isSelected = false;
-            _outline.Disable();
+            //_outline.Disable();
         }
         else
         {
             _isSelected = true;
-            _outline.Enable();
+            //_outline.Enable();
         }
 
         Toggled?.Invoke(this, _isSelected);

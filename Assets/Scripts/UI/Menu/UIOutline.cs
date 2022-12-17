@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class UIOutline : MonoBehaviour
 {
-    [SerializeField] private Material _outline;
-    [SerializeField] private Image _image;
+    [SerializeField] private Sprite _outline;
 
+    private Sprite _image;
+
+    private void Awake()
+    {
+        //_image = Instantiate(, transform);
+    }
+/*
     public void Enable()
     {
-        _image.material = _outline;
+        _image. = _outline;
     }
 
     public void Disable()
     {
         _image.material = null;
-    }
+    }*/
 }
