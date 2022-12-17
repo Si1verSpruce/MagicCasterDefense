@@ -14,9 +14,9 @@ public class MagicElementCell : MonoBehaviour
     private MagicElement _currentElement;
     private bool _isSelected;
 
-    public MagicElement CurrentElement => _currentElement;
+    public UnityAction<MagicElementCell, bool> Toggled;
 
-    public UnityAction<MagicElement, bool> Toggled;
+    public ElementType CurrentElement => _currentElement.Type;
 
     private void Awake()
     {
@@ -32,14 +32,19 @@ public class MagicElementCell : MonoBehaviour
         else
             UpdateSelection(true);
 
-        Toggled?.Invoke(_currentElement, _isSelected);
+        Toggled?.Invoke(this, _isSelected);
+    }
+
+    public void ChangeElement()
+    {
+        SetRandomElement();
     }
 
     private void SetRandomElement()
     {
         int number = Random.Range(0, _elements.Length);
         _currentElement = _elements[number];
-        _element.sprite = _currentElement.GetComponent<Image>().sprite;
+        _element.sprite = _currentElement.Sprite;
     }
 
     private void UpdateSelection(bool isSelected)

@@ -49,8 +49,8 @@ MonoBehaviour:
   _buyPrice: 0
   _isBought: 1
   _combination:
-  - {fileID: 1506516324962693382, guid: 4fceb56253094ba4d86838c0e5921513, type: 3}
-  - {fileID: 1506516324962693382, guid: 4fceb56253094ba4d86838c0e5921513, type: 3}
+  - {fileID: 11400000, guid: f483e64302ff69f4c98120e83dc8287c, type: 2}
+  - {fileID: 11400000, guid: f483e64302ff69f4c98120e83dc8287c, type: 2}
   _scalePerLevel: 0.1
   TimeToTarget: 0
   CreatedInstance: {fileID: 1867655171562185704, guid: 6ab021e63d406ed44bfb9b55d3752346, type: 3}

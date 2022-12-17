@@ -43,7 +43,7 @@ public abstract class Spell : MonoBehaviour
         SetUpgradePrice(_level);
     }
 
-    public bool CompareCombinations(List<MagicElement> combination)
+    public bool CompareCombinations(List<ElementType> combination)
     {
         if (combination == null)
             return false;
@@ -52,10 +52,10 @@ public abstract class Spell : MonoBehaviour
             return false;
 
         var spellCombination = _combination.OrderBy(element => element.Type).ToArray();
-        var receivedCombination = combination.OrderBy(element => element.Type).ToArray();
+        var receivedCombination = combination.OrderBy(element => element).ToArray();
 
         for (int i = 0; i < spellCombination.Count(); i++)
-            if (spellCombination[i].Type != receivedCombination[i].Type)
+            if (spellCombination[i].Type != receivedCombination[i])
                 return false;
 
         return true;
@@ -68,10 +68,7 @@ public abstract class Spell : MonoBehaviour
         List<MagicElement> elements = new List<MagicElement>();
 
         foreach (var element in _combination)
-        {
-            var newElement = Instantiate(element, container);
-            newElement.GetComponent<Image>().raycastTarget = false;
-        }
+            Instantiate(element.View, container);
 
         return elements;
     }

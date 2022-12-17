@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, ISaveable
         AddMoney(0);
     }
 
-    public Spell GetSpell(List<MagicElement> combination)
+    public Spell GetSpell(List<ElementType> combination)
     {
         return _spells.FirstOrDefault(spell => spell.CompareCombinations(combination));
     }

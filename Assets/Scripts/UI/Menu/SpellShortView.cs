@@ -21,8 +21,5 @@ public class SpellShortView : MonoBehaviour
 
         _label.text = Spell.Label;
         LevelChanged?.Invoke(Spell.Level);
-
-        foreach (var element in Spell.GetCombination(_combinationContainer))
-            element.GetComponent<Image>().raycastTarget = false;
     }
 }

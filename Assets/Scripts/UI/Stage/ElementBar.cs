@@ -5,27 +5,17 @@ using UnityEngine.Events;
 
 public class ElementBar : MonoBehaviour
 {
-    private const int ElementCount = 5;
+    [SerializeField] private MagicElementCell _cell;
+    [SerializeField] private int _elementCount;
 
-    [SerializeField] private MagicElementGenerator _generator;
-
-    private List<MagicElement> _elements = new List<MagicElement>();
-
-    public UnityAction<MagicElement> ElementAdded;
+    public UnityAction<MagicElementCell> CellAdded;
 
     private void Start()
     {
-        AddMissingElements(ElementCount);
-    }
-
-    private void AddMissingElements(int elementCount)
-    {
-        for (int i = 0; i < elementCount; i++)
+        for (int i = 0; i < _elementCount; i++)
         {
-            MagicElement element = _generator.GetRandomElement();
-            element.transform.SetParent(transform);
-            _elements.Add(element);
-            ElementAdded?.Invoke(element);
+            var cell = Instantiate(_cell, transform);
+            CellAdded?.Invoke(cell);
         }
     }
 }

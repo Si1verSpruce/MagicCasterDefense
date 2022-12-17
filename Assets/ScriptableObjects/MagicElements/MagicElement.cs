@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ElementType
 {
@@ -10,9 +11,13 @@ public enum ElementType
 }
 
 [CreateAssetMenu(fileName = "Magic Element", menuName = "Scriptable Objects/Magic Element")]
-public class MagicElementType : ScriptableObject
+public class MagicElement : ScriptableObject
 {
     [SerializeField] private ElementType _type;
+    [SerializeField] private Sprite _sprite;
+    [SerializeField] private Image _view;
 
     public ElementType Type => _type;
+    public Sprite Sprite => _sprite;
+    public Image View => _view;
 }
