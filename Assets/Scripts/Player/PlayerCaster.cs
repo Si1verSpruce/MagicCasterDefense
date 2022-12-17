@@ -23,12 +23,12 @@ public class PlayerCaster : MonoBehaviour
 
     private void OnEnable()
     {
-        _spellMaker.CombinationUpdated += OnCombinationUpdated;
+        //_spellMaker.CombinationUpdated += OnCombinationUpdated;
     }
 
     private void OnDisable()
     {
-        _spellMaker.CombinationUpdated -= OnCombinationUpdated;
+        //_spellMaker.CombinationUpdated -= OnCombinationUpdated;
     }
 
     public void OnCastInput(Vector3 targetPosition)

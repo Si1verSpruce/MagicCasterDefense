@@ -22,14 +22,14 @@ public class MagicElementGenerator : MonoBehaviour
         var elementType = _elementTypes[Random.Range(0, _elementTypes.Count)].Type;
         var element = _pool.GetInstance(elementType);
         element.gameObject.SetActive(true);
-        element.Deactivated += OnElementDeactivate;
+        //element.Deactivated += OnElementDeactivate;
 
         return element;
     }
 
     private void OnElementDeactivate(MagicElement element)
     {
-        element.Deactivated -= OnElementDeactivate;
+        //element.Deactivated -= OnElementDeactivate;
         element.transform.SetParent(transform);
         element.gameObject.SetActive(false);
     }

@@ -24,16 +24,8 @@ public class ElementBar : MonoBehaviour
         {
             MagicElement element = _generator.GetRandomElement();
             element.transform.SetParent(transform);
-            element.Deactivated += OnElementDeactivated;
             _elements.Add(element);
             ElementAdded?.Invoke(element);
         }
-    }
-
-    private void OnElementDeactivated(MagicElement element)
-    {
-        element.Deactivated -= OnElementDeactivated;
-        _elements.Remove(element);
-        AddMissingElements(1);
     }
 }
