@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
 public class MagicElementCell : MonoBehaviour
 {
     [SerializeField] private MagicElement[] _elements;
     [SerializeField] private Image _element;
+    [SerializeField] private Image _frame;
 
-    private Image _image;
     private MagicElement _currentElement;
     private bool _isSelected;
 
@@ -20,8 +19,7 @@ public class MagicElementCell : MonoBehaviour
 
     private void Awake()
     {
-        _image = GetComponent<Image>();
-        _image.enabled = false;
+        _frame.enabled = false;
         SetRandomElement();
     }
 
@@ -50,6 +48,6 @@ public class MagicElementCell : MonoBehaviour
     private void UpdateSelection(bool isSelected)
     {
         _isSelected = isSelected;
-        _image.enabled = isSelected;
+        _frame.enabled = isSelected;
     }
 }

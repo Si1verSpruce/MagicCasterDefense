@@ -29,9 +29,9 @@ public class PlayerSpellMaker : MonoBehaviour
         
         for (int i = 0; i < count; i++)
         {
-            var element = _selectedCells[0];
-            element.ChangeElement();
-            element.ToggleSelection();
+            var cell = _selectedCells[0];
+            cell.ToggleSelection();
+            cell.ChangeElement();
         }
 
         _selectedElements.Clear();

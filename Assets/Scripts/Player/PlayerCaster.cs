@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(PlayerSpellMaker))]
@@ -11,6 +12,8 @@ public class PlayerCaster : MonoBehaviour
     private PlayerSpellMaker _spellMaker;
     private Spell _currentSpell;
     private SpellPool _pool;
+
+    public UnityAction<bool> SpellDone;
 
     public Spell CurrentSpell => _currentSpell;
 
@@ -47,5 +50,7 @@ public class PlayerCaster : MonoBehaviour
     private void OnCombinationUpdated(List<ElementType> elements)
     {
         _currentSpell = _player.GetSpell(elements);
+        bool isSpellDone = _currentSpell != null;
+        SpellDone?.Invoke(isSpellDone);
     }
 }
