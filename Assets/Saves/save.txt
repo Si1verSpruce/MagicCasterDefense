@@ -1,1 +1,0 @@
-{"Stage":"{\"number\":5}","Shop":"{\"spells\":{\"CastElectricTrap\":{\"isBought\":true,\"level\":1},\"CastExplosion\":{\"isBought\":true,\"level\":2},\"CastMeteorRain\":{\"isBought\":true,\"level\":1},\"ThrowBoulder\":{\"isBought\":true,\"level\":1}}}","Player":"{\"money\":32,\"gems\":0}","PauseScreen":"{\"isSoundOn\":true}","Pause":"{\"isSoundOn\":false}"}
