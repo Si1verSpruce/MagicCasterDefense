@@ -17,6 +17,8 @@ public class Shop : MonoBehaviour, ISaveable
     [SerializeField] private Player _player;
     [SerializeField] private Button _switch;
 
+    private List<Spell> _spellInstances = new List<Spell>();
+
     public void LoadState(string state)
     {
         var data = JsonConvert.DeserializeObject<SaveData>(state);
@@ -24,14 +26,16 @@ public class Shop : MonoBehaviour, ISaveable
         foreach (var spell in _spells)
         {
             data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
-            spell.Init(spellData.isBought, spellData.level);
+            var spellInstance = Instantiate(spell, transform);
+            spellInstance.Init(spellData.isBought, spellData.level);
+            _spellInstances.Add(spellInstance);
 
             SpellFullView spellView;
 
-            if (spell.IsBought)
+            if (spellInstance.IsBought)
             {
                 spellView = Instantiate(_spellView, _upgradeContainer);
-                _player.AddSpell(spell);
+                _player.AddSpell(spellInstance);
                 spellView.UpgradeButtonClicked += OnUpgradeButton;
             }
             else
@@ -40,7 +44,7 @@ public class Shop : MonoBehaviour, ISaveable
                 spellView.BuyButtonClicked += OnBuyButton;
             }
 
-            spellView.Init(spell);
+            spellView.Init(spellInstance);
         }
     }
 
@@ -60,7 +64,7 @@ public class Shop : MonoBehaviour, ISaveable
     {
         Dictionary<string, SpellData> spellDictionary = new Dictionary<string, SpellData>();
 
-        foreach (var spell in _spells)
+        foreach (var spell in _spellInstances)
             spellDictionary[spell.GetType().ToString()] = new SpellData()
             {
                 isBought = spell.IsBought,
