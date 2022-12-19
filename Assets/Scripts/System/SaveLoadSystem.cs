@@ -13,23 +13,35 @@ public class SaveLoadSystem : MonoBehaviour
 
     private string _saveDirectory;
 
-    public void Save()
+    public void SaveAll()
     {
-        Dictionary<string,string> state;
+        Dictionary<string, string> state;
 
         if (File.Exists(_saveDirectory + _fileName) == false)
             state = new Dictionary<string, string>();
         else
             state = LoadFile();
 
-        SaveState(state);
+        SaveStates(state);
+        SaveFile(state);
+    }
+    
+    public void Save(ISaveable saveableObject)
+    {
+        Dictionary<string, string> state;
+
+        if (File.Exists(_saveDirectory + _fileName) == false)
+            state = new Dictionary<string, string>();
+        else
+            state = LoadFile();
+
+        SaveState(state, saveableObject);
         SaveFile(state);
     }
 
     public void Load()
     {
         _saveDirectory = Application.dataPath + _localSaveDirectory;
-
         var state = LoadFile();
         LoadState(state);
     }
@@ -45,21 +57,37 @@ public class SaveLoadSystem : MonoBehaviour
     private Dictionary<string, string> LoadFile()
     {
         if (File.Exists(_saveDirectory + _fileName) == false)
-            Save();
+            return null;
 
         return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(_saveDirectory + _fileName));
     }
 
-    private void SaveState(Dictionary<string, string> state)
+    private void SaveStates(Dictionary<string, string> state)
     {
         foreach (var saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
             state[saveable.GetType().ToString()] = saveable.SaveState();
     }
 
+    private void SaveState(Dictionary<string, string> state, ISaveable saveable)
+    {
+        state[saveable.GetType().ToString()] = saveable.SaveState();
+    }
+
     private void LoadState(Dictionary<string, string> state)
     {
         foreach (var saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
-            if (state.TryGetValue(saveable.GetType().ToString(), out string savedState))
-                saveable.LoadState(savedState);
+        {
+            if (state != null)
+            {
+                if (state.TryGetValue(saveable.GetType().ToString(), out string savedState))
+                    saveable.LoadState(savedState);
+                else
+                    saveable.LoadByDefault();
+            }
+            else
+            {
+                saveable.LoadByDefault();
+            }
+        }
     }
 }

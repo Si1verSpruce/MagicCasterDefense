@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour, ISaveable
 {
     [SerializeField] private int _health;
+    [SerializeField] private SaveLoadSystem _saveLoadSystem;
 
     private List<Spell> _spells = new List<Spell>();
     private int _money;
@@ -30,6 +31,11 @@ public class Player : MonoBehaviour, ISaveable
         _money = savedData.money;
         _gems = savedData.gems;
 
+        AddMoney(0);
+    }
+
+    public void LoadByDefault()
+    {
         AddMoney(0);
     }
 
@@ -69,17 +75,19 @@ public class Player : MonoBehaviour, ISaveable
     {
         _money -= spell.UpgradePrice;
         spell.OnLevelIncrease();
-
         MoneyChanged?.Invoke(_money);
+
+        _saveLoadSystem.Save(this);
     }
 
     public void BuySpell(Spell spell)
     {
         _gems -= spell.BuyPrice;
-
         GemsChanged?.Invoke(_gems);
         spell.Buy();
         _spells.Add(spell);
+
+        _saveLoadSystem.Save(this);
     }
 
     public void AddSpell(Spell spell)

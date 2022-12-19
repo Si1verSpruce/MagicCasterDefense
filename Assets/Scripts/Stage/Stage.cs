@@ -68,6 +68,8 @@ public class Stage : MonoBehaviour, ISaveable
         _number = savedData.number;
     }
 
+    public void LoadByDefault() { }
+
     private void OnHealthChanged(int _health)
     {
         if (_health <= 0)
@@ -79,7 +81,7 @@ public class Stage : MonoBehaviour, ISaveable
 
     private void OnGameOver()
     {
-        _saveLoadSystem.Save();
+        _saveLoadSystem.SaveAll();
         Time.timeScale = 0;
     }
 

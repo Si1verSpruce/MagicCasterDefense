@@ -19,32 +19,22 @@ public class Shop : MonoBehaviour, ISaveable
 
     private List<Spell> _spellInstances = new List<Spell>();
 
-    public void LoadState(string state)
+    public void LoadState(string stateJson)
     {
-        var data = JsonConvert.DeserializeObject<SaveData>(state);
+        var data = JsonConvert.DeserializeObject<SaveData>(stateJson);
 
         foreach (var spell in _spells)
         {
             data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
-            var spellInstance = Instantiate(spell, transform);
-            spellInstance.Init(spellData.isBought, spellData.level);
-            _spellInstances.Add(spellInstance);
+            InitSpell(spell, spellData.isBought, spellData.level);
+        }
+    }
 
-            SpellFullView spellView;
-
-            if (spellInstance.IsBought)
-            {
-                spellView = Instantiate(_spellView, _upgradeContainer);
-                _player.AddSpell(spellInstance);
-                spellView.UpgradeButtonClicked += OnUpgradeButton;
-            }
-            else
-            {
-                spellView = Instantiate(_spellView, _buyContainer);
-                spellView.BuyButtonClicked += OnBuyButton;
-            }
-
-            spellView.Init(spellInstance);
+    public void LoadByDefault()
+    {
+        foreach (var spell in _spells)
+        {
+            InitSpell(spell, spell.IsBought, spell.Level);
         }
     }
 
@@ -58,6 +48,28 @@ public class Shop : MonoBehaviour, ISaveable
     {
         _back.onClick.RemoveListener(DeactivateScreen);
         _switch.onClick.RemoveListener(SwitchScreen);
+    }
+
+    private void InitSpell(Spell spell, bool isBought, int level)
+    {
+        var spellInstance = Instantiate(spell, transform);
+        spellInstance.Init(isBought, level);
+        _spellInstances.Add(spellInstance);
+        SpellFullView spellView;
+
+        if (spellInstance.IsBought)
+        {
+            spellView = Instantiate(_spellView, _upgradeContainer);
+            _player.AddSpell(spellInstance);
+            spellView.UpgradeButtonClicked += OnUpgradeButton;
+        }
+        else
+        {
+            spellView = Instantiate(_spellView, _buyContainer);
+            spellView.BuyButtonClicked += OnBuyButton;
+        }
+
+        spellView.Init(spellInstance);
     }
 
     public string SaveState()
@@ -99,7 +111,7 @@ public class Shop : MonoBehaviour, ISaveable
             view.UpgradeButtonClicked += OnUpgradeButton;
             view.transform.SetParent(_upgradeContainer);
 
-            _saveLoadSystem.Save();
+            _saveLoadSystem.Save(this);
         }
     }
 
@@ -110,7 +122,7 @@ public class Shop : MonoBehaviour, ISaveable
             _player.UpgradeSpell(spell);
             view.UpdateUpgradeGroup();
 
-            _saveLoadSystem.Save();
+            _saveLoadSystem.Save(this);
 
             if (spell.Level == int.MaxValue)
                 view.UpgradeButtonClicked -= OnUpgradeButton;
