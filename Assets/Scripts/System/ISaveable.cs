@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ISaveable
 {
-    public string SaveState();
-    public void LoadState(string jsonString);
+    public object SaveState();
+    public void LoadState(string jsonData);
     public void LoadByDefault();
 }

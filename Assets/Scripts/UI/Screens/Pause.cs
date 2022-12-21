@@ -16,26 +16,26 @@ public class Pause : Screen, ISaveable
     {
         RestartSceneButton.onClick.AddListener(RestartScene);
         _continue.onClick.AddListener(CloseScreen);
-        _sound.onValueChanged.AddListener(ToggleSound);
+        _sound.onValueChanged.AddListener(ToggleSoundWithSave);
     }
 
     private void OnDisable()
     {
         RestartSceneButton.onClick.RemoveListener(RestartScene);
         _continue.onClick.RemoveListener(CloseScreen);
-        _sound.onValueChanged.RemoveListener(ToggleSound);
+        _sound.onValueChanged.RemoveListener(ToggleSoundWithSave);
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         var data = new SaveData() { isSoundOn = _sound.isOn };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
-    public void LoadState(string jsonString)
+    public void LoadState(string saveData)
     {
-        var data = JsonUtility.FromJson<SaveData>(jsonString);
+        var data = JsonUtility.FromJson<SaveData>(saveData);
         ToggleSound(data.isSoundOn);
     }
 
@@ -60,9 +60,15 @@ public class Pause : Screen, ISaveable
     {
         AudioListener.pause = !isOn;
         _sound.isOn = isOn;
+    }
+
+    private void ToggleSoundWithSave(bool isOn)
+    {
+        ToggleSound(isOn);
         _saveLoad.Save(this);
     }
 
+    [Serializable]
     private struct SaveData
     {
         public bool isSoundOn;

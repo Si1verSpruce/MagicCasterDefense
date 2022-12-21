@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,16 +55,16 @@ public class Stage : MonoBehaviour, ISaveable
         }
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         SaveData data = new SaveData() { number = _number };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
-    public void LoadState(string state)
+    public void LoadState(string saveData)
     {
-        var savedData = JsonUtility.FromJson<SaveData>(state);
+        var savedData = JsonUtility.FromJson<SaveData>(saveData);
 
         _number = savedData.number;
     }
@@ -85,6 +86,7 @@ public class Stage : MonoBehaviour, ISaveable
         Time.timeScale = 0;
     }
 
+    [Serializable]
     private struct SaveData
     {
         public int number;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof(SpellPool))]
 public class Player : MonoBehaviour, ISaveable
@@ -24,12 +25,12 @@ public class Player : MonoBehaviour, ISaveable
     public int Money => _money;
     public int StageCoins => _gems;
 
-    public void LoadState(string state)
+    public void LoadState(string saveData)
     {
-        var savedData = JsonUtility.FromJson<SaveData>(state);
+        var data = JsonUtility.FromJson<SaveData>(saveData);
 
-        _money = savedData.money;
-        _gems = savedData.gems;
+        _money = data.money;
+        _gems = data.gems;
 
         AddMoney(0);
     }
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour, ISaveable
         SpellAdded?.Invoke(spell);
     }
 
-    public string SaveState()
+    public object SaveState()
     {
         SaveData data = new SaveData()
         {
@@ -112,9 +113,10 @@ public class Player : MonoBehaviour, ISaveable
             gems = _gems
         };
 
-        return JsonUtility.ToJson(data);
+        return data;
     }
 
+    [Serializable]
     private struct SaveData
     {
         public int money;

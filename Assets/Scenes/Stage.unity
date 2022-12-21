@@ -1860,7 +1860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveLoadSystem: {fileID: 557256534}
-  _timer: 20
+  _timer: 15
   _player: {fileID: 1832693274}
   _defeatScreen: {fileID: 678643197}
   _victoryScreen: {fileID: 883572300}

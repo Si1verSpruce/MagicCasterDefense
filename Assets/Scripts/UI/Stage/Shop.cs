@@ -1,8 +1,8 @@
-using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour, ISaveable
@@ -19,14 +19,16 @@ public class Shop : MonoBehaviour, ISaveable
 
     private List<Spell> _spellInstances = new List<Spell>();
 
-    public void LoadState(string stateJson)
+    public void LoadState(string saveData)
     {
-        var data = JsonConvert.DeserializeObject<SaveData>(stateJson);
+        var data = JsonUtility.FromJson<SaveData>(saveData);
 
         foreach (var spell in _spells)
         {
-            data.spells.TryGetValue(spell.GetType().ToString(), out SpellData spellData);
-            InitSpell(spell, spellData.isBought, spellData.level);
+            var dataIndex = data.spellDataList.FindIndex(spellData => spellData.typeName == spell.GetType().ToString());
+
+            if (dataIndex != -1)
+                InitSpell(spell, data.spellDataList[dataIndex].isBought, data.spellDataList[dataIndex].level);
         }
     }
 
@@ -72,23 +74,23 @@ public class Shop : MonoBehaviour, ISaveable
         spellView.Init(spellInstance);
     }
 
-    public string SaveState()
+    public object SaveState()
     {
-        Dictionary<string, SpellData> spellDictionary = new Dictionary<string, SpellData>();
+        SaveData saveData = new SaveData() { spellDataList = new List<SpellData>() };
 
         foreach (var spell in _spellInstances)
-            spellDictionary[spell.GetType().ToString()] = new SpellData()
+        {
+            var spellData = new SpellData()
             {
+                typeName = spell.GetType().ToString(),
                 isBought = spell.IsBought,
                 level = spell.Level
             };
 
-        SaveData data = new SaveData()
-        {
-            spells = spellDictionary
-        };
+            saveData.spellDataList.Add(spellData);
+        }
 
-        return JsonConvert.SerializeObject(data);
+        return saveData;
     }
 
     public void ActivateScreen()
@@ -143,13 +145,16 @@ public class Shop : MonoBehaviour, ISaveable
         }
     }
 
+    [Serializable]
     private struct SaveData
     {
-        public Dictionary<string, SpellData> spells;
+        public List<SpellData> spellDataList;
     }
 
+    [Serializable]
     private struct SpellData
     {
+        public string typeName;
         public bool isBought;
         public int level;
     }
