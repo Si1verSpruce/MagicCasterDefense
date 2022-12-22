@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DefeatScreen : Screen
@@ -11,7 +10,7 @@ public class DefeatScreen : Screen
 
     private void OnEnable()
     {
-        RestartSceneButton.onClick.AddListener(RestartScene);
+        RestartSceneButton.onClick.AddListener(RestartSession);
         _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
@@ -20,7 +19,7 @@ public class DefeatScreen : Screen
         if (gameObject.scene.isLoaded == false)
             return;
 
-        RestartSceneButton.onClick.RemoveListener(RestartScene);
+        RestartSceneButton.onClick.RemoveListener(RestartSession);
         _shopButton.onClick.RemoveListener(ActivateShopScreen);
     }
 

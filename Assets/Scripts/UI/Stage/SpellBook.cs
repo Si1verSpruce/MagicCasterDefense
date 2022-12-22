@@ -10,6 +10,7 @@ public class SpellBook : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Transform _container;
     [SerializeField] private Button _back;
+    [SerializeField] private GamePauseToggle _gamePauseToggle;
 
     private List<SpellShortView> _views = new List<SpellShortView>();
 
@@ -27,7 +28,7 @@ public class SpellBook : MonoBehaviour
 
     public void ActivateScreen()
     {
-        Time.timeScale = 0;
+        _gamePauseToggle.RequestPause();
         _screen.SetActive(true);
     }
 
@@ -41,7 +42,7 @@ public class SpellBook : MonoBehaviour
 
     private void DeactivateScreen()
     {
-        Time.timeScale = 1;
+        _gamePauseToggle.RequestPlay();
         _screen.SetActive(false);
     }
 }

@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public abstract class Screen : MonoBehaviour
 {
     [SerializeField] protected Button RestartSceneButton;
+    [SerializeField] protected SessionRestarter _restarter;
 
-    protected void RestartScene()
+    protected void RestartSession()
     {
-        Time.timeScale = 1;
+        _restarter.Restart();
         gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

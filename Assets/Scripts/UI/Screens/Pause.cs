@@ -11,17 +11,18 @@ public class Pause : Screen, ISaveable
     [SerializeField] private SaveLoadSystem _saveLoad;
     [SerializeField] private GameObject _screen;
     [SerializeField] private bool _isSoundOnByDefault;
+    [SerializeField] protected GamePauseToggle _gamePauseToggle;
 
     private void OnEnable()
     {
-        RestartSceneButton.onClick.AddListener(RestartScene);
+        RestartSceneButton.onClick.AddListener(RestartSession);
         _continue.onClick.AddListener(CloseScreen);
         _sound.onValueChanged.AddListener(ToggleSoundWithSave);
     }
 
     private void OnDisable()
     {
-        RestartSceneButton.onClick.RemoveListener(RestartScene);
+        RestartSceneButton.onClick.RemoveListener(RestartSession);
         _continue.onClick.RemoveListener(CloseScreen);
         _sound.onValueChanged.RemoveListener(ToggleSoundWithSave);
     }
@@ -46,13 +47,13 @@ public class Pause : Screen, ISaveable
 
     public void OpenScreen()
     {
-        Time.timeScale = 0;
+        _gamePauseToggle.RequestPause();
         _screen.SetActive(true);
     }
 
     private void CloseScreen()
     {
-        Time.timeScale = 1;
+        _gamePauseToggle.RequestPlay();
         _screen.SetActive(false);
     }
 

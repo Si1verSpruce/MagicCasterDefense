@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class GamePauseToggle : MonoBehaviour
 {
-    public void On()
-    {
+    private int _pauseRequests;
 
+    public void RequestPause()
+    {
+        _pauseRequests++;
+        Time.timeScale = 0;
     }
-
-    public void Off()
+    
+    public void RequestPlay()
     {
+        _pauseRequests--;
 
+        if (_pauseRequests == 0)
+            Time.timeScale = 1;
     }
 }

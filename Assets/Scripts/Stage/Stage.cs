@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,7 @@ public class Stage : MonoBehaviour, ISaveable
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
     [SerializeField] private int _stageCountBeforeBoss;
+    [SerializeField] private GamePauseToggle _gamePauseToggle;
 
     private int _number;
     private int _bossNumber;
@@ -83,7 +85,7 @@ public class Stage : MonoBehaviour, ISaveable
     private void OnGameOver()
     {
         _saveLoadSystem.SaveAll();
-        Time.timeScale = 0;
+        _gamePauseToggle.RequestPause();
     }
 
     [Serializable]

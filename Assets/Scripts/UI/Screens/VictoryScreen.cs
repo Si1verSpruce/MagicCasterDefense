@@ -11,7 +11,7 @@ public class VictoryScreen : Screen
 
     private void OnEnable()
     {
-        RestartSceneButton.onClick.AddListener(RestartScene);
+        RestartSceneButton.onClick.AddListener(RestartSession);
         _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 
@@ -20,7 +20,7 @@ public class VictoryScreen : Screen
         if (gameObject.scene.isLoaded == false)
             return;
 
-        RestartSceneButton.onClick.RemoveListener(RestartScene);
+        RestartSceneButton.onClick.RemoveListener(RestartSession);
         _shopButton.onClick.AddListener(ActivateShopScreen);
     }
 

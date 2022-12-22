@@ -47,8 +47,8 @@ public class SaveLoadSystem : MonoBehaviour
 
     private void SaveFile(SaveData data)
     {
-        if (System.IO.Directory.Exists(_saveDirectory) == false)
-            System.IO.Directory.CreateDirectory(_saveDirectory);
+        if (Directory.Exists(_saveDirectory) == false)
+            Directory.CreateDirectory(_saveDirectory);
 
         File.WriteAllText(_saveDirectory + _fileName, JsonUtility.ToJson(data));
     }
