@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerSpellMaker : MonoBehaviour
+public class PlayerSpellMaker : MonoBehaviour, IResetOnRestart
 {
     [SerializeField] private ElementBar _elementBar;
 
@@ -43,6 +43,11 @@ public class PlayerSpellMaker : MonoBehaviour
             _selectedCells[0].ToggleSelection();
 
         _selectedElements.Clear();
+    }
+
+    public void Reset()
+    {
+        UnselectCurrentCombination();
     }
 
     private void OnCellAdded(MagicElementCell cell)

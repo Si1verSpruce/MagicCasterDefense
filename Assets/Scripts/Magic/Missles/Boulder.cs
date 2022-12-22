@@ -14,17 +14,22 @@ public class Boulder : Missle
     private BoxCollider _collider;
     private Rigidbody _rigidbody;
     private bool _isGrounded;
+    private float _defaultGlideDistance;
+    private float _defaultGlideTime;
 
-    private void Awake()
+    protected override void Init()
     {
+        base.Init();
         _collider = GetComponent<BoxCollider>();
         _rigidbody = GetComponent<Rigidbody>();
+        _defaultGlideDistance = _glideDistance;
+        _defaultGlideTime = _glideTime;
     }
 
     public override void Scale(float modifier)
     {
-        _glideDistance *= modifier;
-        _glideTime *= modifier;
+        _glideDistance = _defaultGlideDistance * modifier;
+        _glideTime = _defaultGlideTime * modifier;
     }
 
     protected override void ResetState()

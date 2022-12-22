@@ -10,12 +10,15 @@ public class FireballSpawner : Spawner, IScaleble
     [SerializeField] private Vector3 _maxLocalTargetPosition;
     [SerializeField] private int _missleCount;
     [SerializeField] private float _timeToTarget;
+    [SerializeField] private float _scalePerLevel;
 
     private int _misslesLeft;
     private Vector3 _lastTargetPosition;
+    private int _defaultMissleCount;
 
     private void Awake()
     {
+        _defaultMissleCount = _missleCount;
         Init(new SpawnedObject[1] { _fireball });
     }
 
@@ -26,7 +29,7 @@ public class FireballSpawner : Spawner, IScaleble
 
     public void Scale(float modifier)
     {
-        _missleCount = (int)Mathf.Round(_missleCount * modifier);
+        _missleCount = (int)Mathf.Round(_defaultMissleCount * modifier);
     }
 
     protected override void SpawnPerInterval()

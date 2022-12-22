@@ -8,11 +8,14 @@ public class Explosion : Missle
     [SerializeField] private float _damage;
 
     private SphereCollider _damageArea;
+    private Vector3 _defaultScale;
 
-    private void Awake()
+    protected override void Init()
     {
+        base.Init();
         _damageArea = GetComponent<SphereCollider>();
         IsActive = true;
+        _defaultScale = transform.localScale;
 
         if (Duration <= 0.1f)
             Duration = 0.1f;
@@ -20,7 +23,7 @@ public class Explosion : Missle
 
     public override void Scale(float modifier)
     {
-        transform.localScale *= modifier;
+        transform.localScale = _defaultScale * modifier;
     }
 
     protected override void Deactivate()

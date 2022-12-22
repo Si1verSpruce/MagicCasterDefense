@@ -81,6 +81,7 @@ public abstract class Spell : MonoBehaviour
     public void OnLevelIncrease()
     {
         _level++;
+        _scaleModifier += _scalePerLevel;
         SetUpgradePrice(_level);
     }
 

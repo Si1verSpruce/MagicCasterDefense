@@ -11,10 +11,18 @@ public class ElectricTrap : Missle
     [SerializeField] private ParticleSystem _spark;
 
     private int _currentTriggerCount;
+    private float _defaultDuration;
+
+    protected override void Init()
+    {
+        base.Init();
+        _defaultDuration = BaseDuration;
+    }
 
     public override void Scale(float modifier)
     {
-        Duration *= modifier;
+        BaseDuration = _defaultDuration * modifier;
+        Duration = BaseDuration;
     }
 
     protected override void ResetState()
@@ -26,8 +34,6 @@ public class ElectricTrap : Missle
         _spark.Stop();
         _spark.gameObject.SetActive(false);
     }
-
-    protected override void Deactivate() { }
 
     private void OnTriggerEnter(Collider collider)
     {

@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public abstract class Missle : Instance, IScaleble
 {
-    [SerializeField] protected float Duration;
+    [SerializeField] protected float BaseDuration;
     [SerializeField] private float _lifetime;
 
     protected bool IsActive;
+    protected float Duration;
     private float _currentLifetime;
 
     public void Launch(Vector3 targetPosition, float timeToTarget)
@@ -16,12 +16,20 @@ public abstract class Missle : Instance, IScaleble
         StartCoroutine(MoveToTarget(targetPosition, timeToTarget));
     }
 
+    private void Awake()
+    {
+        Init();
+    }
+
+    protected virtual void Init()
+    {
+        Duration = BaseDuration;
+    }
+
     private void OnEnable()
     {
         ResetState();
     }
-
-    public abstract void Scale(float modifier);
 
     private void Update()
     {
@@ -39,8 +47,8 @@ public abstract class Missle : Instance, IScaleble
         _currentLifetime += Time.deltaTime;
     }
 
-    protected abstract void Deactivate();
-
+    public virtual void Scale(float modifier) { }
+    protected virtual void Deactivate() { }
     protected virtual void OnTargetAchieved() { }
 
     protected virtual void ResetState()

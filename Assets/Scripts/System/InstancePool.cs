@@ -37,4 +37,9 @@ public class InstancePool : MonoBehaviour
         else
             return instance;
     }
+
+    public Instance[] GetInstances(Instance requestedInstance)
+    {
+        return Pool[requestedInstance].ToArray();
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Screen : MonoBehaviour
+public abstract class RestartScreen : MonoBehaviour
 {
     [SerializeField] protected Button RestartSceneButton;
     [SerializeField] protected SessionRestarter _restarter;

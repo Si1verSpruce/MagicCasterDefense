@@ -10,8 +10,9 @@ public class Fireball : Missle
 
     private MeshRenderer _renderer;
 
-    private void Awake()
+    protected override void Init()
     {
+        base.Init();
         _renderer = GetComponent<MeshRenderer>();
     }
 

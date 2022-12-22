@@ -16,6 +16,7 @@ public class Shop : MonoBehaviour, ISaveable
     [SerializeField] private Button _back;
     [SerializeField] private Player _player;
     [SerializeField] private Button _switch;
+    [SerializeField] private Transform _spellContainer;
 
     private List<Spell> _spellInstances = new List<Spell>();
 
@@ -54,24 +55,24 @@ public class Shop : MonoBehaviour, ISaveable
 
     private void InitSpell(Spell spell, bool isBought, int level)
     {
-        var spellInstance = Instantiate(spell, transform);
+        var spellInstance = Instantiate(spell, _spellContainer);
         spellInstance.Init(isBought, level);
         _spellInstances.Add(spellInstance);
-        SpellFullView spellView;
+        SpellFullView view;
 
         if (spellInstance.IsBought)
         {
-            spellView = Instantiate(_spellView, _upgradeContainer);
+            view = Instantiate(_spellView, _upgradeContainer);
             _player.AddSpell(spellInstance);
-            spellView.UpgradeButtonClicked += OnUpgradeButton;
+            view.UpgradeButtonClicked += OnUpgradeButton;
         }
         else
         {
-            spellView = Instantiate(_spellView, _buyContainer);
-            spellView.BuyButtonClicked += OnBuyButton;
+            view = Instantiate(_spellView, _buyContainer);
+            view.BuyButtonClicked += OnBuyButton;
         }
 
-        spellView.Init(spellInstance);
+        view.Init(spellInstance);
     }
 
     public object SaveState()

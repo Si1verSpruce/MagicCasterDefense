@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DefeatScreen : Screen
+public class DefeatScreen : RestartScreen
 {
     [SerializeField] private Button _shopButton;
     [SerializeField] private Shop _shop;

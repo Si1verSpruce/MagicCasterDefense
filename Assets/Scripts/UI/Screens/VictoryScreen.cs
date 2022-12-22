@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class VictoryScreen : Screen
+public class VictoryScreen : RestartScreen
 {
     [SerializeField] private Button _shopButton;
     [SerializeField] private Shop _shop;

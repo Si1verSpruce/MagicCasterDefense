@@ -6,11 +6,12 @@ using UnityEngine.Events;
 using System;
 
 [RequireComponent(typeof(SpellPool))]
-public class Player : MonoBehaviour, ISaveable
+public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 {
     [SerializeField] private int _health;
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
 
+    private int _currentHealth;
     private List<Spell> _spells = new List<Spell>();
     private int _money;
     private int _gems;
@@ -21,9 +22,14 @@ public class Player : MonoBehaviour, ISaveable
     public UnityAction<int> GemsChanged;
     public UnityAction<Spell> SpellAdded;
 
-    public int Health => _health;
+    public int Health => _currentHealth;
     public int Money => _money;
     public int StageCoins => _gems;
+
+    private void Awake()
+    {
+        _currentHealth = Health;
+    }
 
     public void LoadState(string saveData)
     {
@@ -66,9 +72,9 @@ public class Player : MonoBehaviour, ISaveable
     {
         if (damage >= 0)
         {
-            _health -= damage;
+            _currentHealth -= damage;
 
-            HealthChanged?.Invoke(_health);
+            HealthChanged?.Invoke(_currentHealth);
         }
     }
 
@@ -86,7 +92,7 @@ public class Player : MonoBehaviour, ISaveable
         _gems -= spell.BuyPrice;
         GemsChanged?.Invoke(_gems);
         spell.Buy();
-        _spells.Add(spell);
+        AddSpell(spell);
 
         _saveLoadSystem.Save(this);
     }
@@ -114,6 +120,11 @@ public class Player : MonoBehaviour, ISaveable
         };
 
         return data;
+    }
+
+    public void Reset()
+    {
+        _currentHealth = _health;
     }
 
     [Serializable]

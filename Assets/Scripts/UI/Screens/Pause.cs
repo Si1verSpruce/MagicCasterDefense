@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pause : Screen, ISaveable
+public class Pause : RestartScreen, ISaveable
 {
     [SerializeField] private Button _continue;
     [SerializeField] private Toggle _sound;
