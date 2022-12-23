@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +8,7 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private float _time;
     [SerializeField] private Player _player;
+    [SerializeField] private MenuScreen _menuScreen;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
     [SerializeField] private int _stageCountBeforeBoss;
@@ -38,9 +37,10 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 
     private void Start()
     {
-        _currentTime = _time;
         _saveLoadSystem.Load();
         _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
+        _menuScreen.OpenScreen();
+        _currentTime = _time;
     }
 
     private void Update()

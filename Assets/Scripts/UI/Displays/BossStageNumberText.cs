@@ -13,12 +13,13 @@ public class BossStageNumberText : StageNumberText
 
     private void OnEnable()
     {
-        Phrase = $"Boss on stage {Stage.BossNumber + 1}";
         UpdateText();
     }
 
     private void UpdateText()
     {
+        Phrase = $"Boss on stage {Stage.BossNumber + 1}";
+
         if (Stage.Number == Stage.BossNumber)
             SetText(AlternativePhrase);
         else

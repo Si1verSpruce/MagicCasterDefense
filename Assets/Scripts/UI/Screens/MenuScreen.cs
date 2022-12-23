@@ -1,27 +1,30 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Pause : SettingsScreen
+public class MenuScreen : SettingsScreen
 {
-    [SerializeField] private GameObject _screen;
+    [SerializeField] private Shop _shop;
+
+    public void ActivateShopScreen()
+    {
+        _shop.ActivateScreen();
+    }
 
     public override void OpenScreen()
     {
         base.OpenScreen();
-        _screen.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public override void CloseScreen()
     {
         base.CloseScreen();
-        _screen.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     protected override void Deactivate()
     {
-        _screen.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public abstract class RestartScreen : MonoBehaviour
 {
-    [SerializeField] protected Button RestartSceneButton;
-    [SerializeField] protected SessionRestarter _restarter;
+    [SerializeField] protected SessionRestarter Restarter;
 
     protected abstract void Deactivate();
 
-    protected void RestartSession()
+    public void RestartSession()
     {
-        _restarter.Restart();
+        Restarter.Restart();
         Deactivate();
     }
 }

@@ -28,7 +28,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Load()
     {
-        _saveDirectory = Application.dataPath + _localSaveDirectory;
+        _saveDirectory = Application.persistentDataPath + _localSaveDirectory;
         var data = LoadFile();
         LoadData(data);
     }
