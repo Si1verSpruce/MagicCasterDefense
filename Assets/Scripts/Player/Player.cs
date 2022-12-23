@@ -28,7 +28,7 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 
     private void Awake()
     {
-        _currentHealth = Health;
+        SetDefaultHealth();
     }
 
     public void LoadState(string saveData)
@@ -83,6 +83,8 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
         _money -= spell.UpgradePrice;
         spell.OnLevelIncrease();
         MoneyChanged?.Invoke(_money);
+        var instances = _pool.GetInstances(spell.InstanceToCreate);
+        ScalePoolInstances(instances, spell.ScaleModifier);
 
         _saveLoadSystem.Save(this);
     }
@@ -103,10 +105,7 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 
         _spells.Add(spell);
         var instances = _pool.Expand(spell.InstanceToCreate);
-
-        foreach (var instance in instances)
-            if (instance.TryGetComponent<IScaleble>(out IScaleble scaleble))
-                scaleble.Scale(spell.ScaleModifier);
+        ScalePoolInstances(instances, spell.ScaleModifier);
 
         SpellAdded?.Invoke(spell);
     }
@@ -124,7 +123,20 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 
     public void Reset()
     {
+        SetDefaultHealth();
+    }
+
+    private void SetDefaultHealth()
+    {
         _currentHealth = _health;
+        HealthChanged?.Invoke(_currentHealth);
+    }
+
+    private void ScalePoolInstances(Instance[] instances, float modifier)
+    {
+        foreach (var instance in instances)
+            if (instance.TryGetComponent(out IScaleble scaleble))
+                scaleble.Scale(modifier);
     }
 
     [Serializable]

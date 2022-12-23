@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemySpawner : Spawner
+public class EnemySpawner : Spawner, IResetOnRestart
 {
     [SerializeField] private SpawnedObject _baseEnemy;
     [SerializeField] private SpawnedEnemy[] _advancedEnemies;
@@ -16,13 +16,17 @@ public class EnemySpawner : Spawner
     [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
 
     private Dictionary<Instance, Vector2> _spawnNumbersByInstances = new Dictionary<Instance, Vector2>();
+    private Instance _currentBoss;
+    private float _defaultInterval;
 
     private void Awake()
     {
         SpawnedObject[] spawnedObjects = new SpawnedObject[1 + _advancedEnemies.Length];
         spawnedObjects[0] = _baseEnemy;
+        int advancedEnemiesFirstPosition = 1;
+        _defaultInterval = Interval;
 
-        for (int i = 1; i < spawnedObjects.Length; i++)
+        for (int i = advancedEnemiesFirstPosition; i < spawnedObjects.Length; i++)
         {
             spawnedObjects[i] = _advancedEnemies[i - 1];
         }
@@ -32,15 +36,21 @@ public class EnemySpawner : Spawner
 
     private void Start()
     {
-        Interval /= 1 + _stage.Number * _perStageSpawnFrequencyDivider;
-
+        ScaleInterval();
         FillSpawnNumberDictionary();
+        TrySpawnBoss();
+    }
 
-        if (_stage.Number == _stage.BossNumber)
+    public void Reset()
+    {
+        if (_currentBoss != null)
         {
-            var boss = Instantiate(_boss, _bossSpawnPosition, GetSpawnedObjectRotation(), transform);
-            ((Enemy)boss).Init(_player);
+            Destroy(_currentBoss.gameObject);
+            _currentBoss = null;
         }
+
+        ScaleInterval();
+        TrySpawnBoss();
     }
 
     protected override Instance GetSpawnedInstance()
@@ -71,6 +81,20 @@ public class EnemySpawner : Spawner
     protected override void OnInstantiated(Instance instance)
     {
         instance.GetComponent<Enemy>().Init(_player);
+    }
+
+    private void ScaleInterval()
+    {
+        Interval = _defaultInterval / (1 + _stage.Number * _perStageSpawnFrequencyDivider);
+    }
+
+    private void TrySpawnBoss()
+    {
+        if (_stage.Number == _stage.BossNumber)
+        {
+            _currentBoss = Instantiate(_boss, _bossSpawnPosition, GetSpawnedObjectRotation(), transform);
+            ((Enemy)_currentBoss).Init(_player);
+        }
     }
 
     private Dictionary<Instance, float> GetSpawnChancesByInstances()

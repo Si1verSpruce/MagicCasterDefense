@@ -8,16 +8,21 @@ public class StageNumberText : MonoBehaviour
 {
     [SerializeField] protected Stage Stage;
 
+    protected string Phrase;
     private TextMeshProUGUI _text;
 
     private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
+        Init();
     }
 
-    private void Start()
+    protected virtual void Init() { }
+
+    private void OnEnable()
     {
-        SetText($"Stage {(Stage.Number + 1)}");
+        Phrase = $"Stage {Stage.Number + 1}";
+        SetText(Phrase);
     }
 
     protected void SetText(string text)

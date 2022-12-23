@@ -5,10 +5,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Stage : MonoBehaviour, ISaveable
+public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 {
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
-    [SerializeField] private float _timer;
+    [SerializeField] private float _time;
     [SerializeField] private Player _player;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
@@ -19,6 +19,7 @@ public class Stage : MonoBehaviour, ISaveable
     private int _number;
     private int _bossNumber;
     private bool _isGameOver;
+    private float _currentTime;
 
     public UnityAction<int> TimeChanged;
 
@@ -37,21 +38,23 @@ public class Stage : MonoBehaviour, ISaveable
 
     private void Start()
     {
+        _currentTime = _time;
         _saveLoadSystem.Load();
         _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
     }
 
     private void Update()
     {
-        if (_timer > 0)
+        if (_currentTime > 0)
         {
-            _timer -= Time.deltaTime;
-            TimeChanged?.Invoke((int)Mathf.Round(_timer));
+            _currentTime -= Time.deltaTime;
+            TimeChanged?.Invoke((int)Mathf.Round(_currentTime));
         }
         else if (_isGameOver == false)
         {
             _isGameOver = true;
             _number++;
+            _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
             _player.AddGem();
             OnGameOver();
             _victoryScreen.gameObject.SetActive(true);
@@ -74,6 +77,12 @@ public class Stage : MonoBehaviour, ISaveable
 
     public void LoadByDefault() { }
 
+    public void Reset()
+    {
+        _currentTime = _time;
+        _isGameOver = false;
+    }
+
     private void OnHealthChanged(int _health)
     {
         if (_health <= 0)
@@ -85,8 +94,8 @@ public class Stage : MonoBehaviour, ISaveable
 
     private void OnGameOver()
     {
+        _gamePauseToggle.RequestPause(gameObject);
         _saveLoadSystem.SaveAll();
-        _gamePauseToggle.RequestPause();
     }
 
     [Serializable]

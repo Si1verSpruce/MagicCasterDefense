@@ -28,7 +28,7 @@ public class SpellBook : MonoBehaviour
 
     public void ActivateScreen()
     {
-        _gamePauseToggle.RequestPause();
+        _gamePauseToggle.RequestPause(gameObject);
         _screen.SetActive(true);
     }
 
@@ -42,7 +42,7 @@ public class SpellBook : MonoBehaviour
 
     private void DeactivateScreen()
     {
-        _gamePauseToggle.RequestPlay();
+        _gamePauseToggle.RequestPlay(gameObject);
         _screen.SetActive(false);
     }
 }

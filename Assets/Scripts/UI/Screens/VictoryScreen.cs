@@ -9,6 +9,11 @@ public class VictoryScreen : RestartScreen
     [SerializeField] private Button _shopButton;
     [SerializeField] private Shop _shop;
 
+    protected override void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnEnable()
     {
         RestartSceneButton.onClick.AddListener(RestartSession);

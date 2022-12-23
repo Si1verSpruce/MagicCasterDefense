@@ -36,8 +36,18 @@ public class SpellFullView : SpellShortView
 
     private void OnEnable()
     {
-        _buy.onClick.AddListener(OnBuyButtonClick);
-        _upgrade.onClick.AddListener(OnUpgradeButtonClick);
+        if (Spell.IsBought == false)
+            _buy.onClick.AddListener(OnBuyButtonClick);
+        else
+            _upgrade.onClick.AddListener(OnUpgradeButtonClick);
+    }
+
+    private void OnDisable()
+    {
+        if (Spell.IsBought == false)
+            _buy.onClick.RemoveListener(OnBuyButtonClick);
+        else
+            _upgrade.onClick.RemoveListener(OnUpgradeButtonClick);
     }
 
     public void ActivateUpgradeGroup()

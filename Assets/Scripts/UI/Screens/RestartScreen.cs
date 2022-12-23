@@ -8,9 +8,11 @@ public abstract class RestartScreen : MonoBehaviour
     [SerializeField] protected Button RestartSceneButton;
     [SerializeField] protected SessionRestarter _restarter;
 
+    protected abstract void Deactivate();
+
     protected void RestartSession()
     {
         _restarter.Restart();
-        gameObject.SetActive(false);
+        Deactivate();
     }
 }

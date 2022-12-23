@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MagicElementCell : MonoBehaviour
+public class MagicElementCell : MonoBehaviour, IResetOnRestart
 {
     [SerializeField] private MagicElement[] _elements;
     [SerializeField] private Image _element;
@@ -19,8 +19,7 @@ public class MagicElementCell : MonoBehaviour
 
     private void Awake()
     {
-        _frame.enabled = false;
-        SetRandomElement();
+        Reset();
     }
 
     public void ToggleSelection()
@@ -35,6 +34,12 @@ public class MagicElementCell : MonoBehaviour
 
     public void ChangeElement()
     {
+        SetRandomElement();
+    }
+
+    public void Reset()
+    {
+        _frame.enabled = false;
         SetRandomElement();
     }
 

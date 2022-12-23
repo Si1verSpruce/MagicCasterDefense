@@ -47,13 +47,18 @@ public class Pause : RestartScreen, ISaveable
 
     public void OpenScreen()
     {
-        _gamePauseToggle.RequestPause();
+        _gamePauseToggle.RequestPause(gameObject);
         _screen.SetActive(true);
+    }
+
+    protected override void Deactivate()
+    {
+        _screen.SetActive(false);
     }
 
     private void CloseScreen()
     {
-        _gamePauseToggle.RequestPlay();
+        _gamePauseToggle.RequestPlay(gameObject);
         _screen.SetActive(false);
     }
 
