@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 630534754018677400}
   - component: {fileID: 630534754018677401}
   - component: {fileID: 630534754018677402}
+  - component: {fileID: 7836744460937903415}
   m_Layer: 5
   m_Name: Cell
   m_TagString: Untagged
@@ -96,6 +97,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ea44f5431c44b847a696efd3549a320, type: 2}
   _element: {fileID: 630534754877491776}
   _frame: {fileID: 1905407003144927231}
+--- !u!114 &7836744460937903415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630534754018677380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a4365797b60e84f8de418a32204c57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 630534754018677402}
+        m_TargetAssemblyTypeName: MagicElementCell, Assembly-CSharp
+        m_MethodName: ToggleSelection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &630534754877491778
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class PlayerCastInput : MonoBehaviour
 {
     private PlayerCaster _caster;
     private Camera _camera;
-    private bool _isOverUI;
+    private bool _isCastReady;
     private Vector2 _displaySize;
 
     private void Awake()
@@ -22,34 +22,52 @@ public class PlayerCastInput : MonoBehaviour
         _displaySize = new Vector2(_displayWidth, _displayHeight);
     }
 
-    private void Update()
-    {
-        _isOverUI = EventSystem.current.IsPointerOverGameObject();
-    }
-
     public void OnCast(InputAction.CallbackContext context)
     {
-        if (_isOverUI)
-            return;
+        if (context.performed)
+        {
+            _isCastReady = !CheckIsOverUI();
+        }
 
-        if (context.canceled)
+        if (context.canceled && _isCastReady)
         {
             var pointerPosition = Pointer.current.position.ReadValue();
 
-            if (pointerPosition.x >= 0 && pointerPosition.x < _displaySize.x &&
-                pointerPosition.y >= 0 && pointerPosition.y < _displaySize.y)
+            if (CheckIsInsideDisplay(pointerPosition) && CheckIsOverUI() == false)
             {
                 Ray ray = _camera.ScreenPointToRay(pointerPosition);
                 RaycastHit[] hits = Physics.RaycastAll(ray);
 
                 foreach (var hit in hits)
-                    if (hit.transform.TryGetComponent<Ground>(out Ground ground))
+                {
+                    if (hit.transform.TryGetComponent(out Ground ground))
                     {
                         _caster.OnCastInput(hit.point);
 
                         return;
                     }
+                }
             }
         }
+    }
+
+    private bool CheckIsOverUI()
+    {
+        PointerEventData data = new PointerEventData(EventSystem.current);
+        List<RaycastResult> hits = new List<RaycastResult>();
+        var pointerPosition = Pointer.current.position.ReadValue();
+        data.position = pointerPosition;
+        EventSystem.current.RaycastAll(data, hits);
+
+        if (hits.Count > 0)
+            return true;
+
+        return false;
+    }
+
+    private bool CheckIsInsideDisplay(Vector2 position)
+    {
+        return position.x >= 0 && position.x < _displaySize.x &&
+               position.y >= 0 && position.y < _displaySize.y;
     }
 }
