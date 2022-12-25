@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public abstract class SettingsScreen : RestartScreen, ISaveable
 {
-    [SerializeField] protected GamePauseToggle GamePauseToggle;
+    [SerializeField] protected GamePause GamePauseToggle;
     [SerializeField] private Toggle _sound;
     [SerializeField] private SaveLoadSystem _saveLoad;
     [SerializeField] private bool _isSoundOnByDefault;

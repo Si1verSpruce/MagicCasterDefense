@@ -10,7 +10,7 @@ public class SpellBook : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Transform _container;
     [SerializeField] private Button _back;
-    [SerializeField] private GamePauseToggle _gamePauseToggle;
+    [SerializeField] private GamePause _gamePauseToggle;
 
     private List<SpellShortView> _views = new List<SpellShortView>();
 

@@ -12,7 +12,7 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
     [SerializeField] private int _stageCountBeforeBoss;
-    [SerializeField] private GamePauseToggle _gamePauseToggle;
+    [SerializeField] private GamePause _gamePauseToggle;
     [SerializeField] private SessionRestarter _restarter;
 
     private int _number;

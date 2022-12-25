@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePauseToggle : MonoBehaviour, IResetOnRestart
+public class GamePause : MonoBehaviour, IResetOnRestart
 {
     private List<GameObject> _requestingObjects = new List<GameObject>();
 
