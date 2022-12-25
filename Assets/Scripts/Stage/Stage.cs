@@ -79,6 +79,8 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 
     public void Reset()
     {
+        _saveLoadSystem.SaveAll();
+
         _currentTime = _time;
         _isGameOver = false;
     }

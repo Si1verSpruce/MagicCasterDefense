@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pause : SettingsScreen
+public class Pause : PauseScreen
 {
     [SerializeField] private GameObject _screen;
 
