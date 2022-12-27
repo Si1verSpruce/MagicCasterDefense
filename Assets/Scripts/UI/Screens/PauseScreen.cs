@@ -14,11 +14,9 @@ public abstract class PauseScreen : RestartScreen
         Banner.Show();
     }
 
-    public virtual void CloseScreen()
+    public override void CloseScreen()
     {
         GamePauseToggle.RequestPlay(gameObject);
         Banner.Hide();
     }
-
-    protected override void Deactivate() { }
 }

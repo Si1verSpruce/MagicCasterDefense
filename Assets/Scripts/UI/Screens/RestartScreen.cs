@@ -6,11 +6,11 @@ public abstract class RestartScreen : MonoBehaviour
 {
     [SerializeField] protected SessionRestarter Restarter;
 
-    protected abstract void Deactivate();
-
     public void RestartSession()
     {
+        CloseScreen();
         Restarter.Restart();
-        Deactivate();
     }
+
+    public abstract void CloseScreen();
 }

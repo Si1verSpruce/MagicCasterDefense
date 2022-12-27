@@ -21,6 +21,7 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
     private float _currentTime;
 
     public UnityAction<int> TimeChanged;
+    public UnityAction<bool> SessionActivityChanged;
 
     public int Number => _number;
     public int BossNumber => _bossNumber;
@@ -52,7 +53,6 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
         }
         else if (_isGameOver == false)
         {
-            _isGameOver = true;
             _number++;
             _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
             _player.AddGem();
@@ -83,6 +83,7 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 
         _currentTime = _time;
         _isGameOver = false;
+        SessionActivityChanged?.Invoke(_isGameOver);
     }
 
     private void OnHealthChanged(int _health)
@@ -96,6 +97,8 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 
     private void OnGameOver()
     {
+        _isGameOver = true;
+        SessionActivityChanged?.Invoke(_isGameOver);
         _gamePauseToggle.RequestPause(gameObject);
         _saveLoadSystem.SaveAll();
     }

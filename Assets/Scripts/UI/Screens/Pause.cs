@@ -19,9 +19,4 @@ public class Pause : PauseScreen
         base.CloseScreen();
         _screen.SetActive(false);
     }
-
-    protected override void Deactivate()
-    {
-        _screen.SetActive(false);
-    }
 }

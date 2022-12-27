@@ -22,9 +22,4 @@ public class MenuScreen : PauseScreen
         base.CloseScreen();
         gameObject.SetActive(false);
     }
-
-    protected override void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
 }

@@ -14,7 +14,7 @@ public class VictoryScreen : RestartScreen
         _shop.ActivateScreen();
     }
 
-    protected override void Deactivate()
+    public override void CloseScreen()
     {
         gameObject.SetActive(false);
     }
