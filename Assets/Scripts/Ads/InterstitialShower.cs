@@ -6,8 +6,7 @@ public class InterstitialShower : MonoBehaviour
 {
     [SerializeField] private float _sessionsTimeToShow;
     [SerializeField] private float _gameStartedTime;
-    [SerializeField] private Stage _stage;
-    [SerializeField] private AdInterstitial _interstitial;
+    [SerializeField] private Session _stage;
 
     private float _time;
     private bool _isSessionActive;
@@ -39,10 +38,10 @@ public class InterstitialShower : MonoBehaviour
     {
         _isSessionActive = isSessionActive;
 
-        if (isSessionActive == false && _time == _sessionsTimeToShow)
+        if (isSessionActive == false && _time >= _sessionsTimeToShow)
         {
             _time = 0;
-            _interstitial.Show();
+            //_interstitial.Show();
         }
     }
 }

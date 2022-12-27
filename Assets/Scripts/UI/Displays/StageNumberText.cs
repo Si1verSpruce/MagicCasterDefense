@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class StageNumberText : MonoBehaviour
 {
-    [SerializeField] protected Stage Stage;
+    [SerializeField] protected Session Stage;
 
     protected string Phrase;
     private TextMeshProUGUI _text;

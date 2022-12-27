@@ -12,7 +12,7 @@ public class EnemySpawner : Spawner, IResetOnRestart
     [SerializeField] private Vector3 _maxWorldPosition;
     [SerializeField] private Vector3 _bossSpawnPosition;
     [SerializeField] private Player _player;
-    [SerializeField] private Stage _stage;
+    [SerializeField] private Session _stage;
     [SerializeField, Min(0)] private float _perStageSpawnFrequencyDivider;
 
     private Dictionary<Instance, Vector2> _spawnNumbersByInstances = new Dictionary<Instance, Vector2>();
@@ -36,9 +36,7 @@ public class EnemySpawner : Spawner, IResetOnRestart
 
     private void Start()
     {
-        ScaleInterval();
-        FillSpawnNumberDictionary();
-        TrySpawnBoss();
+        Reset();
     }
 
     public void Reset()
@@ -50,6 +48,7 @@ public class EnemySpawner : Spawner, IResetOnRestart
         }
 
         ScaleInterval();
+        FillSpawnNumberDictionary();
         TrySpawnBoss();
     }
 

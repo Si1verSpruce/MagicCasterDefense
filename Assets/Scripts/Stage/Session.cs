@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
+public class Session : MonoBehaviour, ISaveable, IResetOnRestart
 {
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private float _time;
@@ -17,7 +17,7 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
 
     private int _number;
     private int _bossNumber;
-    private bool _isGameOver;
+    private bool _isSessionActive;
     private float _currentTime;
 
     public UnityAction<int> TimeChanged;
@@ -51,12 +51,12 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
             _currentTime -= Time.deltaTime;
             TimeChanged?.Invoke((int)Mathf.Round(_currentTime));
         }
-        else if (_isGameOver == false)
+        else if (_isSessionActive == true)
         {
             _number++;
             _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
             _player.AddGem();
-            OnGameOver();
+            OnSessionOver();
             _victoryScreen.gameObject.SetActive(true);
         }
     }
@@ -82,23 +82,23 @@ public class Stage : MonoBehaviour, ISaveable, IResetOnRestart
         _saveLoadSystem.SaveAll();
 
         _currentTime = _time;
-        _isGameOver = false;
-        SessionActivityChanged?.Invoke(_isGameOver);
+        _isSessionActive = true;
+        SessionActivityChanged?.Invoke(_isSessionActive);
     }
 
     private void OnHealthChanged(int _health)
     {
         if (_health <= 0)
         {
-            OnGameOver();
+            OnSessionOver();
             _defeatScreen.gameObject.SetActive(true);
         }
     }
 
-    private void OnGameOver()
+    private void OnSessionOver()
     {
-        _isGameOver = true;
-        SessionActivityChanged?.Invoke(_isGameOver);
+        _isSessionActive = false;
+        SessionActivityChanged?.Invoke(_isSessionActive);
         _gamePauseToggle.RequestPause(gameObject);
         _saveLoadSystem.SaveAll();
     }

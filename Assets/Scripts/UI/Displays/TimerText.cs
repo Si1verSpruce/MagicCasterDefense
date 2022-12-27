@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class TimerText : MonoBehaviour
 {
-    [SerializeField] private Stage _stage;
+    [SerializeField] private Session _stage;
 
     private TextMeshProUGUI _textMeshPro;
 
