@@ -6,16 +6,17 @@ using UnityEngine;
 public abstract class PauseScreen : RestartScreen
 {
     [SerializeField] protected GamePause GamePauseToggle;
+    [SerializeField] private AdSettings _ads;
 
     public virtual void OpenScreen()
     {
         GamePauseToggle.RequestPause(gameObject);
-        //Banner.Show();
+        _ads.ShowBanner();
     }
 
     public override void CloseScreen()
     {
         GamePauseToggle.RequestPlay(gameObject);
-        //Banner.Hide();
+        _ads.HideBanner();
     }
 }

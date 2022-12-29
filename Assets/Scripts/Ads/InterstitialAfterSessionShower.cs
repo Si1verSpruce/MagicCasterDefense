@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InterstitialShower : MonoBehaviour
+public class InterstitialAfterSessionShower : MonoBehaviour
 {
     [SerializeField] private float _sessionsTimeToShow;
     [SerializeField] private float _gameStartedTime;
     [SerializeField] private Session _stage;
+    [SerializeField] private AdSettings _ads;
 
     private float _time;
     private bool _isSessionActive;
@@ -41,7 +42,7 @@ public class InterstitialShower : MonoBehaviour
         if (isSessionActive == false && _time >= _sessionsTimeToShow)
         {
             _time = 0;
-            //_interstitial.Show();
+            _ads.ShowInterstitial();
         }
     }
 }

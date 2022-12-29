@@ -9,17 +9,44 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
     [SerializeField] private MagicElement[] _elements;
     [SerializeField] private Image _element;
     [SerializeField] private Image _frame;
+    [SerializeField] private Button _lock;
 
     private MagicElement _currentElement;
     private bool _isSelected;
 
     public UnityAction<MagicElementCell, bool> Toggled;
+    public UnityAction Clicked;
 
     public ElementType CurrentElement => _currentElement.Type;
 
     private void Awake()
     {
         Reset();
+    }
+
+    private void OnEnable()
+    {
+        _lock.onClick.AddListener(OnLockClick);
+    }
+
+    private void OnDisable()
+    {
+        _lock.onClick.RemoveListener(OnLockClick);
+    }
+
+    private void OnLockClick()
+    {
+        Clicked?.Invoke();
+    }
+
+    public void Lock()
+    {
+        _lock.gameObject.SetActive(true);
+    }
+
+    public void Unlock()
+    {
+        _lock.gameObject.SetActive(false);
     }
 
     public void ToggleSelection()
