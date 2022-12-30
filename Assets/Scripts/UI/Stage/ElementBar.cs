@@ -10,16 +10,11 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private MagicElementCell _cell;
     [SerializeField] private int _cellCount;
     [SerializeField] private Transform _bar;
-    [SerializeField] private AdSettings _ads;
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
-    [SerializeField] private Button _adNotLoadedWindow;
-    [SerializeField] private Button _adFailedWindow;
-    [SerializeField] private Button _adCompletedWindow;
-    [SerializeField] private GamePause _pause;
     [SerializeField] private SaveLoadSystem _saveLoad;
+    [SerializeField] RewardedAd _ad;
 
     private int _sessionCountWithFirstCellUnlocked;
-    private Button _activeWindow;
     private MagicElementCell _firstCell;
 
     public UnityAction<MagicElementCell> CellAdded;
@@ -59,16 +54,27 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
             {
                 cell.Lock();
                 _firstCell = cell;
-                cell.Clicked += ShowRewardedAd;
+                cell.Clicked += ShowAd;
             }
         }
     }
 
-    private void ShowRewardedAd()
+    private void ShowAd()
     {
-        _pause.RequestPause(gameObject);
-        _ads.RewardedAdCompleted += OnRewardedAdCompleted;
-        _ads.ShowRewarded();
+        _ad.Rewarded += TryGetReward;
+        _ad.Show();
+        _ad.SetRewardValues(new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() });
+    }
+
+    private void TryGetReward(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            _sessionCountWithFirstCellUnlocked = _rewardSessionCountWithFirstCellUnlocked;
+            TryToUnlockFirstCell();
+        }
+
+        _ad.Rewarded -= TryGetReward;
     }
 
     private void TryToUnlockFirstCell()
@@ -79,40 +85,6 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
             _firstCell.Unlock();
             _saveLoad.Save(this);
         }
-    }
-
-    private void OnRewardedAdCompleted(RewardedAdResult result)
-    {
-        switch (result)
-        {
-            case RewardedAdResult.FailedToLoad:
-                ActivatePopupWindow(_adNotLoadedWindow);
-                break;
-            case RewardedAdResult.ShowFailed:
-                ActivatePopupWindow(_adFailedWindow);
-                break;
-            case RewardedAdResult.Finished:
-                ActivatePopupWindow(_adCompletedWindow);
-                _sessionCountWithFirstCellUnlocked = _rewardSessionCountWithFirstCellUnlocked;
-                TryToUnlockFirstCell();
-                break;
-        }
-
-        _ads.RewardedAdCompleted -= OnRewardedAdCompleted;
-    }
-
-    private void ActivatePopupWindow(Button window)
-    {
-        _activeWindow = window;
-        window.gameObject.SetActive(true);
-        window.onClick.AddListener(PopupWindowClosed);
-    }
-
-    private void PopupWindowClosed()
-    {
-        _activeWindow.onClick.RemoveListener(PopupWindowClosed);
-        _activeWindow.gameObject.SetActive(false);
-        _pause.RequestPlay(gameObject);
     }
 
     [Serializable]
