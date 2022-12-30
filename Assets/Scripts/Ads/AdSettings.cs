@@ -66,6 +66,10 @@ public class AdSettings : MonoBehaviour, IRewardedVideoAdListener
             Debug.Log("Interstitial loaded");
             Appodeal.Show(AppodealShowStyle.Interstitial);
         }
+        else
+        {
+            Debug.Log("Interstitial doesn't loaded");
+        }
     }
 
     public void ShowRewarded()
@@ -114,8 +118,20 @@ public class AdSettings : MonoBehaviour, IRewardedVideoAdListener
         RewardedAdCompleted?.Invoke(RewardedAdResult.Finished);
     }
 
-    public void OnRewardedVideoClosed(bool finished) { }
-    public void OnRewardedVideoLoaded(bool isPrecache) { }
-    public void OnRewardedVideoShown() { }
-    public void OnRewardedVideoClicked() { }
+    public void OnRewardedVideoClosed(bool finished)
+    {
+        Debug.Log("Rewarded closed");
+    }
+    public void OnRewardedVideoLoaded(bool isPrecache)
+    {
+        Debug.Log("Rewarded loaded");
+    }
+    public void OnRewardedVideoShown()
+    {
+        Debug.Log("Rewarded Shown");
+    }
+    public void OnRewardedVideoClicked()
+    {
+        Debug.Log("Rewarded clicked");
+    }
 }

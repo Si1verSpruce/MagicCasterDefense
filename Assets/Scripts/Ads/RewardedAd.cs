@@ -7,9 +7,9 @@ using UnityEngine.Events;
 
 public class RewardedAd : MonoBehaviour
 {
-    [SerializeField] private PopupMessage _adNotLoadedWindow;
-    [SerializeField] private PopupMessage _adFailedWindow;
-    [SerializeField] private PopupMessage _adCompletedWindow;
+    [SerializeField] private PopupMessage _adNotLoaded;
+    [SerializeField] private PopupMessage _adFailed;
+    [SerializeField] private PopupMessage _adCompleted;
     [SerializeField] private AdSettings _ads;
     [SerializeField] private GamePause _pause;
 
@@ -20,7 +20,7 @@ public class RewardedAd : MonoBehaviour
 
     public void SetRewardValues(string[] values)
     {
-        _adCompletedWindow.values = values;
+        _adCompleted.values = values;
     }
 
     public void Show()
@@ -35,15 +35,15 @@ public class RewardedAd : MonoBehaviour
         switch (result)
         {
             case RewardedAdResult.FailedToLoad:
-                ActivatePopupWindow(_adNotLoadedWindow);
+                ActivatePopupWindow(_adNotLoaded);
                 Rewarded?.Invoke(false);
                 break;
             case RewardedAdResult.ShowFailed:
-                ActivatePopupWindow(_adFailedWindow);
+                ActivatePopupWindow(_adFailed);
                 Rewarded?.Invoke(false);
                 break;
             case RewardedAdResult.Finished:
-                ActivatePopupWindow(_adCompletedWindow);
+                ActivatePopupWindow(_adCompleted);
                 Rewarded?.Invoke(true);
                 break;
         }

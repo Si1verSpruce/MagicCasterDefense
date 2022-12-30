@@ -14416,15 +14416,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2057b4552265ba843ade467e03dd6189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _adNotLoadedWindow:
+  _adNotLoaded:
     message: There are currently no ads to view
     window: {fileID: 507688444}
     values: []
-  _adFailedWindow:
+  _adFailed:
     message: An error occurred while viewing an ad
     window: {fileID: 695825656}
     values: []
-  _adCompletedWindow:
+  _adCompleted:
     message: You have unlocked an additional element for #value# games!
     window: {fileID: 1254056718}
     values: []
