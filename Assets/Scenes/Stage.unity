@@ -4463,8 +4463,8 @@ RectTransform:
   - {fileID: 467376645}
   - {fileID: 1637795417}
   - {fileID: 243747851}
-  - {fileID: 1723350560}
   - {fileID: 2041451276}
+  - {fileID: 1723350560}
   - {fileID: 720940593}
   - {fileID: 678643194}
   - {fileID: 883572299}
@@ -11462,7 +11462,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Restarter: {fileID: 868498668}
   GamePauseToggle: {fileID: 479659524}
-  _ads: {fileID: 207205607}
   _shop: {fileID: 545488381}
 --- !u!4 &1521622876 stripped
 Transform:
@@ -12818,7 +12817,7 @@ RectTransform:
   m_Children:
   - {fileID: 1765805019}
   m_Father: {fileID: 467270675}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12839,8 +12838,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Restarter: {fileID: 868498668}
   GamePauseToggle: {fileID: 479659524}
-  _ads: {fileID: 207205607}
   _screen: {fileID: 1765805018}
+  _ads: {fileID: 207205607}
 --- !u!4 &1734372540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7405846476849834440, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
@@ -15105,7 +15104,7 @@ RectTransform:
   m_Children:
   - {fileID: 302250791}
   m_Father: {fileID: 467270675}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}

@@ -16,9 +16,12 @@ public class AdSettings : MonoBehaviour
 {
     [SerializeField] private float _delayBetweenBannerLoads;
 
-    private List<BannerView> _bannerViews = new List<BannerView>();
+    private BannerView _bottomBanner;
+    private BannerView _topBanner;
     private string _bannerId = "ca-app-pub-3940256099942544/6300978111";
+    private InterstitialAd _interstitial;
     private string _interstitialId = "ca-app-pub-3940256099942544/1033173712";
+    private RewardedAd _rewarded;
     private string _rewardedId = "ca-app-pub-3940256099942544/5224354917";
 
     public UnityAction<RewardedAdResult> RewardedAdCompleted;
@@ -27,63 +30,105 @@ public class AdSettings : MonoBehaviour
     private void Start()
     {
         MobileAds.Initialize(initStatus => { });
+
+        LoadBanner(ref _bottomBanner);
+        LoadBanner(ref _topBanner);
+        LoadInterstitial();
+        LoadRewarded();
     }
 
-    public void ShowBanner(AdPosition adPosition)
+    public void ShowBanners()
     {
-        _bannerViews.Add(new BannerView(_bannerId, AdSize.Banner, adPosition));
-        AdRequest request = new AdRequest.Builder().Build();
-        _bannerViews[_bannerViews.Count - 1].LoadAd(request);
+        ShowBanner(_bottomBanner, AdPosition.Bottom);
+        ShowBanner(_topBanner, AdPosition.Top);
     }
 
-    public void DestroyBanners()
+    public void HideBanners()
     {
-        foreach (var view in _bannerViews)
-            view.Destroy();
+        _bottomBanner.Hide();
+        _topBanner.Hide();
     }
 
     public void TryToShowInterstitial()
     {
-        var interstitial = new InterstitialAd(_interstitialId);
-        AdRequest request = new AdRequest.Builder().Build();
-        interstitial.LoadAd(request);
-        interstitial.OnAdClosed += InvokeAdClosed;
-
-        if (interstitial.IsLoaded())
-            interstitial.Show();
+        if (_interstitial.IsLoaded())
+        {
+            _interstitial.Show();
+            _interstitial.OnAdClosed += OnInterstitialClosed;
+        }
     }
 
     public void ShowRewarded()
     {
-        var rewarded = new RewardedAd(_rewardedId);
+        if (_rewarded.IsLoaded())
+        {
+            _rewarded.Show();
+            _rewarded.OnAdFailedToLoad += OnFailedToLoad;
+            _rewarded.OnAdFailedToShow += OnFailedToShow;
+            _rewarded.OnUserEarnedReward += OnUserEarnedReward;
+        }
+    }
+
+    private void ShowBanner(BannerView view, AdPosition position)
+    {
+        view.Show();
+        view.SetPosition(position);
+    }
+
+    private void LoadBanner(ref BannerView view)
+    {
+        view = new BannerView(_bannerId, AdSize.Banner, AdPosition.Bottom);
         AdRequest request = new AdRequest.Builder().Build();
-        rewarded.LoadAd(request);
+        view.LoadAd(request);
+        view.Hide();
+    }
 
-        rewarded.OnAdFailedToLoad += OnFailedToLoad;
-        rewarded.OnAdFailedToShow += OnFailedToShow;
-        rewarded.OnUserEarnedReward += OnUserEarnedReward;
+    private void LoadInterstitial()
+    {
+        _interstitial = new InterstitialAd(_interstitialId);
+        AdRequest request = new AdRequest.Builder().Build();
+        _interstitial.LoadAd(request);
+    }
 
-        if (rewarded.IsLoaded())
-            rewarded.Show();
+    private void LoadRewarded()
+    {
+        _rewarded = new RewardedAd(_rewardedId);
+        AdRequest request = new AdRequest.Builder().Build();
+        _rewarded.LoadAd(request);
+    }
+
+    private void OnInterstitialClosed(object sender, EventArgs args)
+    {
+        AdClosed?.Invoke();
+        _interstitial.OnAdClosed -= OnInterstitialClosed;
+
+        LoadInterstitial();
     }
 
     private void OnFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         RewardedAdCompleted?.Invoke(RewardedAdResult.FailedToLoad);
+        OnRewardedCompleted();
     }
 
     private void OnFailedToShow(object sender, AdErrorEventArgs args)
     {
         RewardedAdCompleted?.Invoke(RewardedAdResult.ShowFailed);
+        OnRewardedCompleted();
     }
 
     private void OnUserEarnedReward(object sender, Reward args)
     {
         RewardedAdCompleted?.Invoke(RewardedAdResult.Finished);
+        OnRewardedCompleted();
     }
 
-    private void InvokeAdClosed(object sender, EventArgs args)
+    private void OnRewardedCompleted()
     {
-        AdClosed?.Invoke();
+        _rewarded.OnAdFailedToLoad -= OnFailedToLoad;
+        _rewarded.OnAdFailedToShow -= OnFailedToShow;
+        _rewarded.OnUserEarnedReward -= OnUserEarnedReward;
+
+        LoadRewarded();
     }
 }
