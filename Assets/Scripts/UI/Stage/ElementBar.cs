@@ -12,7 +12,7 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private Transform _bar;
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
     [SerializeField] private SaveLoadSystem _saveLoad;
-    [SerializeField] RewardedAd _ad;
+    [SerializeField] RewardedPopupAd _ad;
 
     private int _sessionCountWithFirstCellUnlocked;
     private MagicElementCell _firstCell;

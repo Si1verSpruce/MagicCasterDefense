@@ -1,8 +1,9 @@
-using AppodealStack.Monetization.Api;
-using AppodealStack.Monetization.Common;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using GoogleMobileAds.Api;
+using System.Collections.Generic;
+using System;
 
 public enum RewardedAdResult
 {
@@ -11,127 +12,78 @@ public enum RewardedAdResult
     Finished
 }
 
-public class AdSettings : MonoBehaviour, IRewardedVideoAdListener
+public class AdSettings : MonoBehaviour
 {
     [SerializeField] private float _delayBetweenBannerLoads;
 
-    private int _adTypes = AppodealAdType.Interstitial | AppodealAdType.Banner | AppodealAdType.RewardedVideo | AppodealAdType.Mrec;
-    private string _appKey = "4f54607ca7caae8faaa00f996cb161d5f7d7fa5314e97797";
-    private Coroutine _tryToShowBanner;
+    private List<BannerView> _bannerViews = new List<BannerView>();
+    private string _bannerId = "ca-app-pub-3940256099942544/6300978111";
+    private string _interstitialId = "ca-app-pub-3940256099942544/1033173712";
+    private string _rewardedId = "ca-app-pub-3940256099942544/5224354917";
 
     public UnityAction<RewardedAdResult> RewardedAdCompleted;
+    public UnityAction AdClosed;
 
     private void Start()
     {
-        Appodeal.SetRewardedVideoCallbacks(this);
-        Appodeal.Initialize(_appKey, _adTypes);
+        MobileAds.Initialize(initStatus => { });
     }
 
-    public void ShowBanner()
+    public void ShowBanner(AdPosition adPosition)
     {
-        Debug.Log("ShowBanner request");
-        if (Appodeal.IsLoaded(AppodealAdType.Banner))
-        {
-            Debug.Log("Banner loaded");
-            Appodeal.Show(AppodealShowStyle.BannerBottom);
-        }
-        else
-        {
-            Debug.Log("TryToShowBanner");
-            _tryToShowBanner = StartCoroutine(TryToShowBanner());
-        }
+        _bannerViews.Add(new BannerView(_bannerId, AdSize.Banner, adPosition));
+        AdRequest request = new AdRequest.Builder().Build();
+        _bannerViews[_bannerViews.Count - 1].LoadAd(request);
     }
 
-    public void HideBanner()
+    public void DestroyBanners()
     {
-        Debug.Log("HideBanner request");
-        if (_tryToShowBanner != null)
-        {
-            Debug.Log("TryToShowBanner coroutine stopped");
-            StopCoroutine(_tryToShowBanner);
-            _tryToShowBanner = null;
-        }
-        else
-        {
-            Debug.Log("Banner hided");
-            Appodeal.Hide(AppodealAdType.Banner);
-        }
+        foreach (var view in _bannerViews)
+            view.Destroy();
     }
 
-    public void ShowInterstitial()
+    public void TryToShowInterstitial()
     {
-        Debug.Log("ShowIntertitial request");
-        if (Appodeal.IsLoaded(AppodealAdType.Banner))
-        {
-            Debug.Log("Interstitial loaded");
-            Appodeal.Show(AppodealShowStyle.Interstitial);
-        }
-        else
-        {
-            Debug.Log("Interstitial doesn't loaded");
-        }
+        var interstitial = new InterstitialAd(_interstitialId);
+        AdRequest request = new AdRequest.Builder().Build();
+        interstitial.LoadAd(request);
+        interstitial.OnAdClosed += InvokeAdClosed;
+
+        if (interstitial.IsLoaded())
+            interstitial.Show();
     }
 
     public void ShowRewarded()
     {
-        Debug.Log("Rewarded request");
-        if (Appodeal.IsLoaded(AppodealAdType.RewardedVideo))
-        {
-            Debug.Log("Rewarded loaded");
-            Appodeal.Show(AppodealShowStyle.RewardedVideo);
-        }
+        var rewarded = new RewardedAd(_rewardedId);
+        AdRequest request = new AdRequest.Builder().Build();
+        rewarded.LoadAd(request);
+
+        rewarded.OnAdFailedToLoad += OnFailedToLoad;
+        rewarded.OnAdFailedToShow += OnFailedToShow;
+        rewarded.OnUserEarnedReward += OnUserEarnedReward;
+
+        if (rewarded.IsLoaded())
+            rewarded.Show();
     }
 
-    private IEnumerator TryToShowBanner()
+    private void OnFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        while (Appodeal.IsLoaded(AppodealAdType.Banner) == false)
-        {
-            yield return new WaitForSecondsRealtime(_delayBetweenBannerLoads);
-            Debug.Log("Trying to load banner");
-        }
-
-        Debug.Log("Banner loaded");
-        Appodeal.Show(AppodealAdType.Banner);
-    }
-
-    public void OnRewardedVideoFailedToLoad()
-    {
-        Debug.Log("Rewarded failed to load");
         RewardedAdCompleted?.Invoke(RewardedAdResult.FailedToLoad);
     }
 
-    public void OnRewardedVideoShowFailed()
+    private void OnFailedToShow(object sender, AdErrorEventArgs args)
     {
-        Debug.Log("Rewarded show failed");
         RewardedAdCompleted?.Invoke(RewardedAdResult.ShowFailed);
     }
 
-    public void OnRewardedVideoExpired()
+    private void OnUserEarnedReward(object sender, Reward args)
     {
-        Debug.Log("Rewarded expired");
-        RewardedAdCompleted?.Invoke(RewardedAdResult.ShowFailed);
-    }
-
-    public void OnRewardedVideoFinished(double amount, string currency)
-    {
-        Debug.Log("Rewarded finished");
         RewardedAdCompleted?.Invoke(RewardedAdResult.Finished);
     }
 
-    public void OnRewardedVideoClosed(bool finished)
+    private void InvokeAdClosed(object sender, EventArgs args)
     {
-        Debug.Log("Rewarded closed");
-    }
-    public void OnRewardedVideoLoaded(bool isPrecache)
-    {
-        Debug.Log("Rewarded loaded");
-    }
-    public void OnRewardedVideoShown()
-    {
-        Debug.Log("Rewarded Shown");
-    }
-    public void OnRewardedVideoClicked()
-    {
-        Debug.Log("Rewarded clicked");
+        AdClosed?.Invoke();
     }
 }

@@ -8,6 +8,7 @@ public class InterstitialAfterSessionShower : MonoBehaviour
     [SerializeField] private float _gameStartedTime;
     [SerializeField] private Session _stage;
     [SerializeField] private AdSettings _ads;
+    [SerializeField] private float _delay;
 
     private float _time;
     private bool _isSessionActive;
@@ -20,11 +21,13 @@ public class InterstitialAfterSessionShower : MonoBehaviour
     private void OnEnable()
     {
         _stage.SessionActivityChanged += OnSessionActivityChanged;
+        _ads.AdClosed += PauseGame;
     }
 
     private void OnDisable()
     {
         _stage.SessionActivityChanged -= OnSessionActivityChanged;
+        _ads.AdClosed -= PauseGame;
     }
 
     private void Update()
@@ -42,7 +45,27 @@ public class InterstitialAfterSessionShower : MonoBehaviour
         if (isSessionActive == false && _time >= _sessionsTimeToShow)
         {
             _time = 0;
-            _ads.ShowInterstitial();
+            StartCoroutine(ShowAfterDelay());
         }
+    }
+
+    private IEnumerator ShowAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(_delay);
+
+        _ads.TryToShowInterstitial();
+        Time.timeScale = 0;
+    }
+
+    private void PauseGame()
+    {
+        StartCoroutine(PauseGameNextFrame());
+    }
+
+    private IEnumerator PauseGameNextFrame()
+    {
+        yield return null;
+
+        Time.timeScale = 0;
     }
 }

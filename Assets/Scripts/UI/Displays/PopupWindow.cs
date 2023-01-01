@@ -10,10 +10,11 @@ public class PopupWindow : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Button _button;
+    [SerializeField] private GamePause _pause;
 
     public UnityAction OnClick;
 
-    public void Init(string message, string[] values, string valueTag)
+    public void SetMessage(string message, string[] values, string valueTag)
     {
         var regex = new Regex(Regex.Escape(valueTag));
 
@@ -26,11 +27,13 @@ public class PopupWindow : MonoBehaviour
     private void OnEnable()
     {
         _button.onClick.AddListener(OnButtonClick);
+        _pause.RequestPause(gameObject);
     }
 
     private void OnDisable()
     {
         _button.onClick.RemoveListener(OnButtonClick);
+        _pause.RequestPlay(gameObject);
     }
 
     private void OnButtonClick()
