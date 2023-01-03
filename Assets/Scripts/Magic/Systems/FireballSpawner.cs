@@ -9,8 +9,7 @@ public class FireballSpawner : Spawner, IScaleble
     [SerializeField] private Vector3 _minLocalTargetPosition;
     [SerializeField] private Vector3 _maxLocalTargetPosition;
     [SerializeField] private int _missleCount;
-    [SerializeField] private float _timeToTarget;
-    [SerializeField] private float _scalePerLevel;
+    [SerializeField] private float _fireballSpeed;
 
     private int _misslesLeft;
     private Vector3 _lastTargetPosition;
@@ -68,7 +67,7 @@ public class FireballSpawner : Spawner, IScaleble
 
     protected override void OnInstantiated(Instance instance)
     {
-        instance.GetComponent<Missle>().Launch(_lastTargetPosition, _timeToTarget);
+        instance.GetComponent<Missle>().Launch(_lastTargetPosition, _fireballSpeed);
         instance.transform.LookAt(_lastTargetPosition);
 
         if (_misslesLeft == 0)

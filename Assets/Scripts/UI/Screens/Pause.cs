@@ -20,6 +20,6 @@ public class Pause : PauseScreen
     {
         base.CloseScreen();
         _screen.SetActive(false);
-        _ads.HideBanners();
+        _ads.DestroyBanners();
     }
 }

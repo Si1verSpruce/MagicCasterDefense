@@ -24,33 +24,35 @@ public class RewardedPopupAd : MonoBehaviour
 
     public void Show()
     {
-        _ads.RewardedAdCompleted += OnRewardedAdCompleted;
+        _ads.RewardedAdStateChanged += OnRewardedAdCompleted;
         _ads.ShowRewarded();
     }
 
-    private void OnRewardedAdCompleted(RewardedAdResult result)
+    private void OnRewardedAdCompleted(RewardedAdState result)
     {
         switch (result)
         {
-            case RewardedAdResult.FailedToLoad:
-                ActivatePopupWindow(_adNotLoaded);
+            case RewardedAdState.FailedToLoad:
                 Rewarded?.Invoke(false);
+                StartCoroutine(ActivatePopupWindowEndFrame(_adNotLoaded));
                 break;
-            case RewardedAdResult.ShowFailed:
-                ActivatePopupWindow(_adFailed);
+            case RewardedAdState.ShowFailed:
                 Rewarded?.Invoke(false);
+                StartCoroutine(ActivatePopupWindowEndFrame(_adFailed));
                 break;
-            case RewardedAdResult.Finished:
-                ActivatePopupWindow(_adCompleted);
+            case RewardedAdState.Finished:
                 Rewarded?.Invoke(true);
+                StartCoroutine(ActivatePopupWindowEndFrame(_adCompleted));
                 break;
         }
 
-        _ads.RewardedAdCompleted -= OnRewardedAdCompleted;
+        _ads.RewardedAdStateChanged -= OnRewardedAdCompleted;
     }
 
-    private void ActivatePopupWindow(PopupMessage popup)
+    private IEnumerator ActivatePopupWindowEndFrame(PopupMessage popup)
     {
+        yield return new WaitForEndOfFrame();
+
         _window.SetMessage(popup.message, popup.values, _valueTag);
         _window.gameObject.SetActive(true);
         _window.OnClick += PopupWindowClosed;

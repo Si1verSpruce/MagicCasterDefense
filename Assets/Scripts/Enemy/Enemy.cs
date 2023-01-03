@@ -8,7 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : Instance
 {
-    [SerializeField] private float _health;
     [SerializeField] private EnemyParameters _parameters;
     [SerializeField] private Rigidbody[] _ragdollRigidbodies;
     [SerializeField] private Rigidbody[] _weapons;
@@ -17,6 +16,7 @@ public class Enemy : Instance
     private Player _player;
     private Collider _collider;
     private Rigidbody _mainRigidbody;
+    private float _currentHealth;
     private float _currentMoveSpeed;
     private Vector3[] _weaponStartPositions;
     private Quaternion[] _weaponStartRotations;
@@ -50,6 +50,7 @@ public class Enemy : Instance
     {
         UpdateState(true);
         _mainRigidbody.isKinematic = true;
+        _currentHealth = _parameters.Health;
 
         for (int i = 0; i < _weapons.Length; i++)
         {
@@ -60,9 +61,9 @@ public class Enemy : Instance
 
     public void ApplyDamage(float damage)
     {
-        _health -= damage;
+        _currentHealth -= damage;
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
             Die();
     }
 

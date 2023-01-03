@@ -8,14 +8,13 @@ public class Boulder : Missle
 {
     [SerializeField] private float _damage;
     [SerializeField] private float _glideDistance;
-    [SerializeField] private float _glideTime;
+    [SerializeField] private float _glideSpeed;
     [SerializeField] private ParticleSystem _groundHitEffect;
 
     private BoxCollider _collider;
     private Rigidbody _rigidbody;
     private bool _isGrounded;
     private float _defaultGlideDistance;
-    private float _defaultGlideTime;
 
     protected override void Init()
     {
@@ -23,13 +22,11 @@ public class Boulder : Missle
         _collider = GetComponent<BoxCollider>();
         _rigidbody = GetComponent<Rigidbody>();
         _defaultGlideDistance = _glideDistance;
-        _defaultGlideTime = _glideTime;
     }
 
     public override void Scale(float modifier)
     {
         _glideDistance = _defaultGlideDistance * modifier;
-        _glideTime = _defaultGlideTime * modifier;
     }
 
     protected override void ResetState()
@@ -50,7 +47,7 @@ public class Boulder : Missle
         {
             _groundHitEffect.transform.SetParent(null);
             _groundHitEffect.gameObject.SetActive(true);
-            StartCoroutine(MoveToTarget(transform.position + Vector3.forward * _glideDistance, _glideTime));
+            StartCoroutine(MoveToTarget(transform.position + Vector3.forward * _glideDistance, _glideSpeed));
             _isGrounded = true;
         }
         else
@@ -69,7 +66,7 @@ public class Boulder : Missle
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.TryGetComponent<Enemy>(out Enemy enemy))
+        if (collider.TryGetComponent(out Enemy enemy))
             enemy.ApplyDamage(_damage);
     }
 }

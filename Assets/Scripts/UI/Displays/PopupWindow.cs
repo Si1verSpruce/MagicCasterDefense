@@ -11,6 +11,7 @@ public class PopupWindow : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Button _button;
     [SerializeField] private GamePause _pause;
+    [SerializeField] private float _enableButtonDelay;
 
     public UnityAction OnClick;
 

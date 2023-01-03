@@ -16,8 +16,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private bool _isBought = false;
     [SerializeField] private MagicElement[] _combination;
     [SerializeField] private float _scalePerLevel;
-
-    [SerializeField] protected float TimeToTarget;
+    [SerializeField] protected float SpeedToTarget;
     [SerializeField] protected Instance CreatedInstance;
 
     private int _upgradePrice;

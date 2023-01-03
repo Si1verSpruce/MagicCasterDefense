@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef4b8c4226e6b44dacf22513817c678, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
+  _health: 1
   _moveSpeed: 2
   _damage: 1
   _reward: 1
   _fallUndergroundDelay: 2
   _deactivateDelay: 2.2
-  _baseSpawnChance: 1
-  _spawnChanceChange: 0
-  _spawnChancePerStageModifier: 0

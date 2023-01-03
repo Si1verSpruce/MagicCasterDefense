@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.12716618, y: -0.55141634, z: -11.027239}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,7 +53,7 @@ MonoBehaviour:
   _minLocalTargetPosition: {x: -3, y: 0, z: -3}
   _maxLocalTargetPosition: {x: 3, y: 0, z: 3}
   _missleCount: 10
-  _timeToTarget: 0.5
+  _fireballSpeed: 25
 --- !u!114 &7108165137845026979
 MonoBehaviour:
   m_ObjectHideFlags: 0

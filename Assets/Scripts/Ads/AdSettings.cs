@@ -5,7 +5,7 @@ using GoogleMobileAds.Api;
 using System.Collections.Generic;
 using System;
 
-public enum RewardedAdResult
+public enum RewardedAdState
 {
     FailedToLoad,
     ShowFailed,
@@ -24,15 +24,14 @@ public class AdSettings : MonoBehaviour
     private RewardedAd _rewarded;
     private string _rewardedId = "ca-app-pub-3940256099942544/5224354917";
 
-    public UnityAction<RewardedAdResult> RewardedAdCompleted;
+    public UnityAction<RewardedAdState> RewardedAdStateChanged;
     public UnityAction AdClosed;
 
     private void Start()
     {
         MobileAds.Initialize(initStatus => { });
 
-        LoadBanner(ref _bottomBanner);
-        LoadBanner(ref _topBanner);
+        LoadBanners();
         LoadInterstitial();
         LoadRewarded();
     }
@@ -43,10 +42,12 @@ public class AdSettings : MonoBehaviour
         ShowBanner(_topBanner, AdPosition.Top);
     }
 
-    public void HideBanners()
+    public void DestroyBanners()
     {
-        _bottomBanner.Hide();
-        _topBanner.Hide();
+        _bottomBanner.Destroy();
+        _topBanner.Destroy();
+
+        LoadBanners();
     }
 
     public void TryToShowInterstitial()
@@ -65,7 +66,7 @@ public class AdSettings : MonoBehaviour
             _rewarded.Show();
             _rewarded.OnAdFailedToLoad += OnFailedToLoad;
             _rewarded.OnAdFailedToShow += OnFailedToShow;
-            _rewarded.OnUserEarnedReward += OnUserEarnedReward;
+            _rewarded.OnUserEarnedReward += OnEarnedReward;
         }
     }
 
@@ -73,6 +74,12 @@ public class AdSettings : MonoBehaviour
     {
         view.Show();
         view.SetPosition(position);
+    }
+
+    private void LoadBanners()
+    {
+        LoadBanner(ref _bottomBanner);
+        LoadBanner(ref _topBanner);
     }
 
     private void LoadBanner(ref BannerView view)
@@ -107,27 +114,27 @@ public class AdSettings : MonoBehaviour
 
     private void OnFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        RewardedAdCompleted?.Invoke(RewardedAdResult.FailedToLoad);
-        OnRewardedCompleted();
+        RewardedAdStateChanged?.Invoke(RewardedAdState.FailedToLoad);
+        OnRewardedCompletedEndFrame();
     }
 
     private void OnFailedToShow(object sender, AdErrorEventArgs args)
     {
-        RewardedAdCompleted?.Invoke(RewardedAdResult.ShowFailed);
-        OnRewardedCompleted();
+        RewardedAdStateChanged?.Invoke(RewardedAdState.ShowFailed);
+        OnRewardedCompletedEndFrame();
     }
 
-    private void OnUserEarnedReward(object sender, Reward args)
+    private void OnEarnedReward(object sender, Reward args)
     {
-        RewardedAdCompleted?.Invoke(RewardedAdResult.Finished);
-        OnRewardedCompleted();
+        RewardedAdStateChanged?.Invoke(RewardedAdState.Finished);
+        OnRewardedCompletedEndFrame();
     }
 
-    private void OnRewardedCompleted()
+    private void OnRewardedCompletedEndFrame()
     {
         _rewarded.OnAdFailedToLoad -= OnFailedToLoad;
         _rewarded.OnAdFailedToShow -= OnFailedToShow;
-        _rewarded.OnUserEarnedReward -= OnUserEarnedReward;
+        _rewarded.OnUserEarnedReward -= OnEarnedReward;
 
         LoadRewarded();
     }

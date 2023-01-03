@@ -13,6 +13,6 @@ public class ThrowBoulder : Spell
         Vector3 castPosition = new Vector3(targetPosition.x, _worldPositionY, _worldPositionZ);
 
         ResetInstance(createdInstance, castPosition, Quaternion.identity);
-        ((Boulder)createdInstance).Launch(targetPosition, TimeToTarget);
+        ((Boulder)createdInstance).Launch(targetPosition, SpeedToTarget);
     }
 }

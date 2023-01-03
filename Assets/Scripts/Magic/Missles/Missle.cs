@@ -11,9 +11,9 @@ public abstract class Missle : Instance, IScaleble
     protected float Duration;
     private float _currentLifetime;
 
-    public void Launch(Vector3 targetPosition, float timeToTarget)
+    public void Launch(Vector3 targetPosition, float speed)
     {
-        StartCoroutine(MoveToTarget(targetPosition, timeToTarget));
+        StartCoroutine(MoveToTarget(targetPosition, speed));
     }
 
     private void Awake()
@@ -56,9 +56,9 @@ public abstract class Missle : Instance, IScaleble
         _currentLifetime = 0;
     }
 
-    protected IEnumerator MoveToTarget(Vector3 targetPosition, float timeToTarget)
+    protected IEnumerator MoveToTarget(Vector3 targetPosition, float speed)
     {
-        float scaledVelocity = Vector3.Distance(transform.position, targetPosition) / timeToTarget * Time.deltaTime;
+        float scaledVelocity = speed * Time.deltaTime;
 
         while (transform.position != targetPosition)
         {

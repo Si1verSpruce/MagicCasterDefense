@@ -59,12 +59,12 @@ public class InterstitialAfterSessionShower : MonoBehaviour
 
     private void PauseGame()
     {
-        StartCoroutine(PauseGameNextFrame());
+        StartCoroutine(PauseGameEndFrame());
     }
 
-    private IEnumerator PauseGameNextFrame()
+    private IEnumerator PauseGameEndFrame()
     {
-        yield return null;
+        yield return new WaitForEndOfFrame();
 
         Time.timeScale = 0;
     }
