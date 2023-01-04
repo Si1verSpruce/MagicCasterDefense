@@ -9,11 +9,10 @@ using UnityEngine.UI;
 public class PopupWindow : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Button _button;
+    [SerializeField] private Button _confirm;
     [SerializeField] private GamePause _pause;
-    [SerializeField] private float _enableButtonDelay;
 
-    public UnityAction OnClick;
+    public UnityAction ConfirmClick;
 
     public void SetMessage(string message, string[] values, string valueTag)
     {
@@ -25,21 +24,36 @@ public class PopupWindow : MonoBehaviour
         _text.text = message;
     }
 
+    public void SetMessage(string message)
+    {
+        _text.text = message;
+    }
+
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnButtonClick);
-        _pause.RequestPause(gameObject);
+        Activate();
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnButtonClick);
-        _pause.RequestPlay(gameObject);
+        Deactivate();
     }
 
-    private void OnButtonClick()
+    protected virtual void OnConfirmClick()
     {
-        OnClick?.Invoke();
         gameObject.SetActive(false);
+        ConfirmClick?.Invoke();
+    }
+
+    protected virtual void Activate()
+    {
+        _confirm.onClick.AddListener(OnConfirmClick);
+        _pause.RequestPause(gameObject);
+    }
+
+    protected virtual void Deactivate()
+    {
+        _confirm.onClick.RemoveListener(OnConfirmClick);
+        _pause.RequestPlay(gameObject);
     }
 }

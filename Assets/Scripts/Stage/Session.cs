@@ -9,6 +9,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private float _time;
     [SerializeField] private Player _player;
     [SerializeField] private MenuScreen _menuScreen;
+    [SerializeField] private Ressurection _ressurection;
     [SerializeField] private DefeatScreen _defeatScreen;
     [SerializeField] private VictoryScreen _victoryScreen;
     [SerializeField] private int _stageCountBeforeBoss;
@@ -18,6 +19,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     private int _number;
     private int _bossNumber;
     private bool _isSessionActive;
+    private bool _isRessurectionAvailable = true;
     private float _currentTime;
 
     public UnityAction<int> TimeChanged;
@@ -48,7 +50,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     {
         if (_currentTime > 0)
         {
-            _currentTime -= Time.deltaTime;
+            _currentTime -= Time.deltaTime * Convert.ToInt32(EnemyTime.IsActive);
             TimeChanged?.Invoke((int)Mathf.Round(_currentTime));
         }
         else if (_isSessionActive == true)
@@ -84,14 +86,23 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
         _currentTime = _time;
         _isSessionActive = true;
         SessionActivityChanged?.Invoke(_isSessionActive);
+        _isRessurectionAvailable = true;
     }
 
     private void OnHealthChanged(int _health)
     {
         if (_health <= 0)
         {
-            OnSessionOver();
-            _defeatScreen.gameObject.SetActive(true);
+            if (_isRessurectionAvailable)
+            {
+                _ressurection.RequestAd();
+                _isRessurectionAvailable = false;
+            }
+            else
+            {
+                OnSessionOver();
+                _defeatScreen.gameObject.SetActive(true);
+            }
         }
     }
 

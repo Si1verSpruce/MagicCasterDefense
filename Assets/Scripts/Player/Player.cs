@@ -9,6 +9,7 @@ using System;
 public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 {
     [SerializeField] private int _health;
+    [SerializeField, Range(0, 1)] private float _healthFractionAfterRessurection;
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
 
     private int _currentHealth;
@@ -49,6 +50,12 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
     public Spell GetSpell(List<ElementType> combination)
     {
         return _spells.FirstOrDefault(spell => spell.CompareCombinations(combination));
+    }
+
+    public void Ressurect()
+    {
+        _currentHealth = (int)(_health * _healthFractionAfterRessurection);
+        HealthChanged?.Invoke(_currentHealth);
     }
 
     public void AddMoney(int money)

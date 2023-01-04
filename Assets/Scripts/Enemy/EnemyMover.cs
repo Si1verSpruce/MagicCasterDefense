@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class EnemyMover : MonoBehaviour
     private void Update()
     {
         float moveSpeed = _enemy.MoveSpeed;
-        float scaledMoveSpeed = moveSpeed * Time.deltaTime;
+        float scaledMoveSpeed = moveSpeed * Time.deltaTime * Convert.ToInt32(EnemyTime.IsActive);
         transform.Translate(Vector3.forward * scaledMoveSpeed);
     }
 }

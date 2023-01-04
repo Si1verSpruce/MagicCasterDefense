@@ -12,6 +12,8 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
     [SerializeField] private SaveLoadSystem _saveLoad;
     [SerializeField] RewardedPopupAd _ad;
+    [SerializeField] private YesNoPopupWindow _confirmationWindow;
+    [SerializeField] private string _confirmationWindowMessage;
 
     private int _sessionCountWithFirstCellUnlocked;
     private MagicElementCell _firstCell;
@@ -34,6 +36,17 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
         FillBar(_cellCount);
     }
 
+    private void OnEnable()
+    {
+        _confirmationWindow.ConfirmClick += ShowAd;
+    }
+
+    private void OnDisable()
+    {
+        _confirmationWindow.ConfirmClick -= ShowAd;
+        _firstCell.Clicked -= RequestAd;
+    }
+
     public void Reset()
     {
         if (_sessionCountWithFirstCellUnlocked == 0)
@@ -53,9 +66,16 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
             {
                 cell.Lock();
                 _firstCell = cell;
-                cell.Clicked += ShowAd;
+                cell.Clicked += RequestAd;
             }
         }
+    }
+
+    private void RequestAd()
+    {
+        _confirmationWindow.gameObject.SetActive(true);
+        _confirmationWindow.SetMessage(_confirmationWindowMessage, 
+            new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() }, PopupWindowParameters.ValueTag);
     }
 
     private void ShowAd()

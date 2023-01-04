@@ -7,13 +7,11 @@ using UnityEngine.Events;
 
 public class RewardedPopupAd : MonoBehaviour
 {
-    [SerializeField] private PopupMessage _adNotLoaded;
-    [SerializeField] private PopupMessage _adFailed;
-    [SerializeField] private PopupMessage _adCompleted;
+    [SerializeField] private PopupWindowParameters _adNotLoaded;
+    [SerializeField] private PopupWindowParameters _adFailed;
+    [SerializeField] private PopupWindowParameters _adCompleted;
     [SerializeField] private PopupWindow _window;
     [SerializeField] private AdSettings _ads;
-
-    private string _valueTag = "#value#";
 
     public UnityAction<bool> Rewarded;
 
@@ -49,27 +47,21 @@ public class RewardedPopupAd : MonoBehaviour
         _ads.RewardedAdStateChanged -= OnRewardedAdCompleted;
     }
 
-    private IEnumerator ActivatePopupWindowEndFrame(PopupMessage popup)
+    private IEnumerator ActivatePopupWindowEndFrame(PopupWindowParameters popup)
     {
         yield return new WaitForEndOfFrame();
 
-        _window.SetMessage(popup.message, popup.values, _valueTag);
-        _window.gameObject.SetActive(true);
-        _window.OnClick += PopupWindowClosed;
+        if (popup.isShowWindow)
+        {
+            _window.SetMessage(popup.message, popup.values, PopupWindowParameters.ValueTag);
+            _window.gameObject.SetActive(true);
+            _window.ConfirmClick += PopupWindowClosed;
+        }
     }
 
     private void PopupWindowClosed()
     {
-        _window.OnClick -= PopupWindowClosed;
+        _window.ConfirmClick -= PopupWindowClosed;
         _window.gameObject.SetActive(false);
-    }
-
-    [Serializable]
-    private struct PopupMessage
-    {
-        [Header("To insert values in the text use tag: #value#")]
-        public string message;
-
-        [HideInInspector] public string[] values;
     }
 }

@@ -52,6 +52,12 @@ public class EnemySpawner : Spawner, IResetOnRestart
         TrySpawnBoss();
     }
 
+    protected override void SpawnPerInterval()
+    {
+        if (EnemyTime.IsActive)
+            base.SpawnPerInterval();
+    }
+
     protected override Instance GetSpawnedInstance()
     {
         float value = Random.Range(0f, 1f);

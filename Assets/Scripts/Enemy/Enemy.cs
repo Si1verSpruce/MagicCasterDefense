@@ -48,6 +48,7 @@ public class Enemy : Instance
 
     private void OnEnable()
     {
+        EnemyTime.TimeActivityChanged += OnTimeActivityChanged;
         UpdateState(true);
         _mainRigidbody.isKinematic = true;
         _currentHealth = _parameters.Health;
@@ -57,6 +58,11 @@ public class Enemy : Instance
             _weapons[i].transform.localPosition = _weaponStartPositions[i];
             _weapons[i].transform.localRotation = _weaponStartRotations[i];
         }
+    }
+
+    private void OnDisable()
+    {
+        EnemyTime.TimeActivityChanged -= OnTimeActivityChanged;
     }
 
     public void ApplyDamage(float damage)
@@ -117,5 +123,13 @@ public class Enemy : Instance
         _currentMoveSpeed = _parameters.MoveSpeed * Convert.ToInt32(isActive);
         _animator.enabled = isActive;
         SetRagdollKinematic(isActive);
+    }
+
+    private void OnTimeActivityChanged(bool isTimeActive)
+    {
+        if (isTimeActive == false)
+            _animator.enabled = false;
+        else if (_currentHealth > 0)
+            _animator.enabled = true;
     }
 }
