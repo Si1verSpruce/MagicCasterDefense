@@ -61,7 +61,6 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
 
     public void Reset()
     {
-        _frame.gameObject.SetActive(false);
         SetRandomElement();
     }
 
