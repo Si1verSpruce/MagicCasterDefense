@@ -45,8 +45,15 @@ public class Ressurection : MonoBehaviour
     {
         if (isRewarded)
         {
-            _pause.Pause();
-            _player.Ressurect();
+            StartCoroutine(GetRewardEndFrame());
         }
+    }
+
+    private IEnumerator GetRewardEndFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        _pause.Pause();
+        _player.Ressurect();
     }
 }
