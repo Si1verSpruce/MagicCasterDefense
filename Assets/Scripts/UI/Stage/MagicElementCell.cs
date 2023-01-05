@@ -10,19 +10,14 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
     [SerializeField] private Image _element;
     [SerializeField] private Image _frame;
     [SerializeField] private Button _lock;
+    [SerializeField] private MagicElement _currentElement;
 
-    private MagicElement _currentElement;
     private bool _isSelected;
 
     public UnityAction<MagicElementCell, bool> Toggled;
     public UnityAction Clicked;
 
     public ElementType CurrentElement => _currentElement.Type;
-
-    private void Awake()
-    {
-        Reset();
-    }
 
     private void OnEnable()
     {
@@ -66,7 +61,7 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
 
     public void Reset()
     {
-        _frame.enabled = false;
+        _frame.gameObject.SetActive(false);
         SetRandomElement();
     }
 
@@ -80,6 +75,6 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
     private void UpdateSelection(bool isSelected)
     {
         _isSelected = isSelected;
-        _frame.enabled = isSelected;
+        _frame.gameObject.SetActive(isSelected);
     }
 }

@@ -52,6 +52,11 @@ public class EnemySpawner : Spawner, IResetOnRestart
         TrySpawnBoss();
     }
 
+    public void SpawnUnit(Instance instance, Vector3 position, Quaternion rotation)
+    {
+        Spawn(instance, position, rotation);
+    }
+
     protected override void SpawnPerInterval()
     {
         if (EnemyTime.IsActive)

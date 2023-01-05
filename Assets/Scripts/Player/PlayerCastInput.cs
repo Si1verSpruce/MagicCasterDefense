@@ -31,21 +31,29 @@ public class PlayerCastInput : MonoBehaviour
 
         if (context.canceled && _isCastReady)
         {
-            var pointerPosition = Pointer.current.position.ReadValue();
-
-            if (CheckIsInsideDisplay(pointerPosition) && CheckIsOverUI() == false)
+            if (CheckIsOverUI() == false)
             {
-                Ray ray = _camera.ScreenPointToRay(pointerPosition);
-                RaycastHit[] hits = Physics.RaycastAll(ray);
+                TryToCast();
+            }
+        }
+    }
 
-                foreach (var hit in hits)
+    public void TryToCast()
+    {
+        var pointerPosition = Pointer.current.position.ReadValue();
+
+        if (CheckIsInsideDisplay(pointerPosition))
+        {
+            Ray ray = _camera.ScreenPointToRay(pointerPosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+
+            foreach (var hit in hits)
+            {
+                if (hit.transform.TryGetComponent(out Ground ground))
                 {
-                    if (hit.transform.TryGetComponent(out Ground ground))
-                    {
-                        _caster.OnCastInput(hit.point);
+                    _caster.OnCastInput(hit.point);
 
-                        return;
-                    }
+                    return;
                 }
             }
         }

@@ -6,9 +6,7 @@ using UnityEngine.Events;
 
 public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
 {
-    [SerializeField] private MagicElementCell _cell;
-    [SerializeField] private int _cellCount;
-    [SerializeField] private Transform _bar;
+    [SerializeField] private MagicElementCell[] _cells;
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
     [SerializeField] private SaveLoadSystem _saveLoad;
     [SerializeField] RewardedPopupAd _ad;
@@ -27,23 +25,25 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
 
     public void LoadState(string jsonData)
     {
-        FillBar(_cellCount);
+        Init();
         _sessionCountWithFirstCellUnlocked = JsonUtility.FromJson<SaveData>(jsonData).sessionCountWithFirstCellUnlocked;
     }
 
     public void LoadByDefault()
     {
-        FillBar(_cellCount);
+        Init();
     }
 
     private void OnEnable()
     {
         _confirmationWindow.ConfirmClick += ShowAd;
+        _confirmationWindow.RejectClick += OnRejectClick;
     }
 
     private void OnDisable()
     {
         _confirmationWindow.ConfirmClick -= ShowAd;
+        _confirmationWindow.RejectClick -= OnRejectClick;
         _firstCell.Clicked -= RequestAd;
     }
 
@@ -55,20 +55,24 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
             TryToUnlockFirstCell();
     }
 
-    private void FillBar(int cellCount)
+    private void Init()
     {
-        for (int i = 0; i < cellCount; i++)
+        for (int i = 0; i < _cells.Length; i++)
         {
-            var cell = Instantiate(_cell, _bar);
-            CellAdded?.Invoke(cell);
+            CellAdded?.Invoke(_cells[i]);
 
             if (i == 0)
             {
-                cell.Lock();
-                _firstCell = cell;
-                cell.Clicked += RequestAd;
+                _cells[i].Lock();
+                _firstCell = _cells[i];
+                _cells[i].Clicked += RequestAd;
             }
         }
+    }
+
+    private void OnRejectClick()
+    {
+        Time.timeScale = 1;
     }
 
     private void RequestAd()

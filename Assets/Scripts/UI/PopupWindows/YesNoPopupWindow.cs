@@ -25,7 +25,7 @@ public class YesNoPopupWindow : PopupWindow
 
     private void OnRejectClick()
     {
-        RejectClick?.Invoke();
         gameObject.SetActive(false);
+        RejectClick?.Invoke();
     }
 }

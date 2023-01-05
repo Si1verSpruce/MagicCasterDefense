@@ -32,17 +32,17 @@ public class SpellBook : MonoBehaviour
         _screen.SetActive(true);
     }
 
+    public void DeactivateScreen()
+    {
+        _gamePauseToggle.RequestPlay(gameObject);
+        _screen.SetActive(false);
+    }
+
     private void InstantiateSpellView(Spell spell)
     {
         var newView = Instantiate(_view, _container);
 
         _views.Add(newView);
         newView.Init(spell);
-    }
-
-    private void DeactivateScreen()
-    {
-        _gamePauseToggle.RequestPlay(gameObject);
-        _screen.SetActive(false);
     }
 }

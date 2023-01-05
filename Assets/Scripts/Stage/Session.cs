@@ -8,6 +8,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private float _time;
     [SerializeField] private Player _player;
+    [SerializeField] private Tutorial _tutorial;
     [SerializeField] private MenuScreen _menuScreen;
     [SerializeField] private Ressurection _ressurection;
     [SerializeField] private DefeatScreen _defeatScreen;
@@ -18,8 +19,9 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
 
     private int _number;
     private int _bossNumber;
-    private bool _isSessionActive;
+    private bool _isSessionActive = true;
     private bool _isRessurectionAvailable = true;
+    private bool _isGameNew;
     private float _currentTime;
 
     public UnityAction<int> TimeChanged;
@@ -42,7 +44,10 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     {
         _saveLoadSystem.Load();
         _bossNumber = (_number / _stageCountBeforeBoss + 1) * _stageCountBeforeBoss - 1;
-        _menuScreen.OpenScreen();
+
+        if (_isGameNew == false)
+            _menuScreen.OpenScreen();
+
         _currentTime = _time;
     }
 
@@ -73,11 +78,15 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     public void LoadState(string saveData)
     {
         var savedData = JsonUtility.FromJson<SaveData>(saveData);
-
+        _tutorial.DestroyScreen();
         _number = savedData.number;
     }
 
-    public void LoadByDefault() { }
+    public void LoadByDefault()
+    {
+        _isGameNew = true;
+        _tutorial.gameObject.SetActive(true);
+    }
 
     public void Reset()
     {

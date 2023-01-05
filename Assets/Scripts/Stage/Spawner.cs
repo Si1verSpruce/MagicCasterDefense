@@ -50,10 +50,19 @@ public abstract class Spawner : Instance
         var instance = _pool.GetInstance(GetSpawnedInstance());
         var position = GetSpawnPosition();
         var rotation = GetSpawnedObjectRotation();
+        InstantiateObject(instance, position, rotation);
+    }
+
+    protected void Spawn(Instance instance, Vector3 position, Quaternion rotation)
+    {
+        InstantiateObject(_pool.GetInstance(instance), position, rotation);
+    }
+
+    private void InstantiateObject(Instance instance, Vector3 position, Quaternion rotation)
+    {
         instance.transform.position = position;
         instance.transform.rotation = rotation;
         instance.gameObject.SetActive(true);
-
         OnInstantiated(instance);
     }
 
