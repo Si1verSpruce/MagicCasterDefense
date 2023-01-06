@@ -3130,7 +3130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveLoadSystem: {fileID: 557256534}
-  _time: 5
+  _time: 60
   _player: {fileID: 1832693274}
   _tutorial: {fileID: 857017293}
   _menuScreen: {fileID: 1517388687}

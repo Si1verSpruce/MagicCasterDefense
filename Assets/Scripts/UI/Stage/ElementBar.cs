@@ -9,7 +9,8 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private MagicElementCell[] _cells;
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
     [SerializeField] private SaveLoadSystem _saveLoad;
-    [SerializeField] RewardedPopupAd _ad;
+    [SerializeField] private AdSettings _ad;
+    [SerializeField] private RewardedPopupAd _popupAd;
     [SerializeField] private YesNoPopupWindow _confirmationWindow;
     [SerializeField] private string _confirmationWindowMessage;
 
@@ -77,16 +78,19 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
 
     private void RequestAd()
     {
-        _confirmationWindow.gameObject.SetActive(true);
-        _confirmationWindow.SetMessage(_confirmationWindowMessage, 
-            new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() }, PopupWindowParameters.ValueTag);
+        if (_ad.GetRewardedLoadState())
+        {
+            _confirmationWindow.gameObject.SetActive(true);
+            _confirmationWindow.SetMessage(_confirmationWindowMessage,
+                new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() }, PopupWindowParameters.ValueTag);
+        }
     }
 
     private void ShowAd()
     {
-        _ad.Rewarded += TryGetReward;
-        _ad.Show();
-        _ad.SetRewardValues(new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() });
+        _popupAd.Rewarded += TryGetReward;
+        _popupAd.Show();
+        _popupAd.SetRewardValues(new string[] { _rewardSessionCountWithFirstCellUnlocked.ToString() });
     }
 
     private void TryGetReward(bool isRewarded)
@@ -97,7 +101,7 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
             TryToUnlockFirstCell();
         }
 
-        _ad.Rewarded -= TryGetReward;
+        _popupAd.Rewarded -= TryGetReward;
     }
 
     private void TryToUnlockFirstCell()

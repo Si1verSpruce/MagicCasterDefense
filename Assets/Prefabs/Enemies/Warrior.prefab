@@ -5512,6 +5512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parameters: {fileID: 11400000, guid: 9a31d2d58d1178641a4068fb4d3615b5, type: 2}
+  _animationSpeed: 1
+  _animationNames: []
   _ragdollRigidbodies:
   - {fileID: 642837218385704395}
   - {fileID: 6156029499673205239}

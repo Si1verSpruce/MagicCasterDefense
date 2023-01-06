@@ -9,6 +9,7 @@ using UnityEngine;
 public class Enemy : Instance
 {
     [SerializeField] private EnemyParameters _parameters;
+    [SerializeField] private float _animationSpeed;
     [SerializeField] private Rigidbody[] _ragdollRigidbodies;
     [SerializeField] private Rigidbody[] _weapons;
 
@@ -34,6 +35,8 @@ public class Enemy : Instance
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _mainRigidbody = GetComponent<Rigidbody>();
+
+        _animator.speed = _animationSpeed;
 
         int weaponCount = _weapons.Length;
         _weaponStartPositions = new Vector3[weaponCount];
