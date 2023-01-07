@@ -14,10 +14,10 @@ public class PauseForEnemies : MonoBehaviour
     {
         OnTimeActivityChanged(false);
         _text.text = _pauseDuration.ToString();
-        StartCoroutine(UnpauseAfterDelay());
+        StartCoroutine(UnpauseEndFrame());
     }
 
-    private IEnumerator UnpauseAfterDelay()
+    private IEnumerator UnpauseEndFrame()
     {
         float time = _pauseDuration;
 

@@ -8,10 +8,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : Instance
 {
+    private const string AnimatorDefaultState = "Run";
+    private const string AnimatorSpeedFloat = "Speed";
+    private const string AnimatorDiedTrigger = "Died";
+
     [SerializeField] private EnemyParameters _parameters;
     [SerializeField] private float _animationSpeed;
-    [SerializeField] private Rigidbody[] _ragdollRigidbodies;
-    [SerializeField] private Rigidbody[] _weapons;
 
     private Animator _animator;
     private Player _player;
@@ -19,8 +21,6 @@ public class Enemy : Instance
     private Rigidbody _mainRigidbody;
     private float _currentHealth;
     private float _currentMoveSpeed;
-    private Vector3[] _weaponStartPositions;
-    private Quaternion[] _weaponStartRotations;
 
     public float MoveSpeed => _currentMoveSpeed;
     public int Damage => _parameters.Damage;
@@ -37,30 +37,15 @@ public class Enemy : Instance
         _mainRigidbody = GetComponent<Rigidbody>();
 
         _animator.speed = _animationSpeed;
-
-        int weaponCount = _weapons.Length;
-        _weaponStartPositions = new Vector3[weaponCount];
-        _weaponStartRotations = new Quaternion[weaponCount];
-
-        for (int i = 0; i < _weapons.Length; i++)
-        {
-            _weaponStartPositions[i] = _weapons[i].transform.localPosition;
-            _weaponStartRotations[i] = _weapons[i].transform.localRotation;
-        }
     }
 
     private void OnEnable()
     {
         EnemyTime.TimeActivityChanged += OnTimeActivityChanged;
         UpdateState(true);
+        _animator.Play(AnimatorDefaultState);
         _mainRigidbody.isKinematic = true;
         _currentHealth = _parameters.Health;
-
-        for (int i = 0; i < _weapons.Length; i++)
-        {
-            _weapons[i].transform.localPosition = _weaponStartPositions[i];
-            _weapons[i].transform.localRotation = _weaponStartRotations[i];
-        }
     }
 
     private void OnDisable()
@@ -76,18 +61,10 @@ public class Enemy : Instance
             Die();
     }
 
-    private void SetRagdollKinematic(bool isKinematic)
-    {
-        foreach (var ragdollRigidbody in _ragdollRigidbodies)
-            ragdollRigidbody.isKinematic = isKinematic;
-
-        foreach (var weapon in _weapons)
-            weapon.isKinematic = isKinematic;
-    }
-
     private void Die()
     {
         UpdateState(false);
+        _animator.SetTrigger(AnimatorDiedTrigger);
 
         StartCoroutine(DoAfterDelay(FallUnderground, _parameters.FallUndergroundDelay));
         StartCoroutine(DoAfterDelay(DisableThis, _parameters.DeactivateDelay));
@@ -111,7 +88,6 @@ public class Enemy : Instance
 
     private void FallUnderground()
     {
-        SetRagdollKinematic(true);
         _mainRigidbody.isKinematic = false;
     }
 
@@ -124,15 +100,13 @@ public class Enemy : Instance
     {
         _collider.enabled = isActive;
         _currentMoveSpeed = _parameters.MoveSpeed * Convert.ToInt32(isActive);
-        _animator.enabled = isActive;
-        SetRagdollKinematic(isActive);
     }
 
     private void OnTimeActivityChanged(bool isTimeActive)
     {
         if (isTimeActive == false)
-            _animator.enabled = false;
+            _animator.SetFloat(AnimatorSpeedFloat, 0);
         else if (_currentHealth > 0)
-            _animator.enabled = true;
+            _animator.SetFloat(AnimatorSpeedFloat, 1);
     }
 }

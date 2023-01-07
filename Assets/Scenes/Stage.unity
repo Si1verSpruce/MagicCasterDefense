@@ -9615,7 +9615,8 @@ MonoBehaviour:
   - {fileID: 632778496}
   _rewardSessionCountWithFirstCellUnlocked: 2
   _saveLoad: {fileID: 557256534}
-  _ad: {fileID: 851026601}
+  _ad: {fileID: 0}
+  _popupAd: {fileID: 0}
   _confirmationWindow: {fileID: 1168216774}
   _confirmationWindowMessage: Open an additional magic element for #value# tries
 --- !u!4 &851266681 stripped
@@ -15190,8 +15191,8 @@ MonoBehaviour:
     CopyCount: 50
     SpawnChancePerStageModifier: 0.03
   _boss: {fileID: 6716042562889546053, guid: 368673a0474ac7444aed692da5db0485, type: 3}
-  _minWorldPosition: {x: -3, y: 0, z: 0}
-  _maxWorldPosition: {x: 3, y: 0, z: 0}
+  _minWorldPosition: {x: -3, y: 0, z: -30}
+  _maxWorldPosition: {x: 3, y: 0, z: -30}
   _bossSpawnPosition: {x: 0, y: 0, z: 0}
   _player: {fileID: 1832693274}
   _stage: {fileID: 276486214}
