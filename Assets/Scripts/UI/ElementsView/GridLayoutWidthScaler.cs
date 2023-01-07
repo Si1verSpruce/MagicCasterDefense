@@ -19,6 +19,7 @@ public class GridLayoutWidthScaler : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(Camera.main.pixelWidth);
         float spacingsWidth = (_layoutGroup.constraintCount - 1) * _layoutGroup.spacing.x;
         float defaultRatio = (_defaultDisplaySize.x - spacingsWidth) / _defaultDisplaySize.y;
         float displayRatio = (float)Camera.main.pixelWidth / Camera.main.pixelHeight;
