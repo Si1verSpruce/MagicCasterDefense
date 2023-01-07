@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6753165354502432781
+--- !u!1 &3802450686301924842
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,62 +8,62 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6753165354502432783}
-  - component: {fileID: 6753165354502432780}
-  - component: {fileID: 7108165137845026979}
+  - component: {fileID: 3802450686301924841}
+  - component: {fileID: 3802450686301924840}
+  - component: {fileID: 3802450686301924843}
   m_Layer: 0
-  m_Name: MeteorRain
+  m_Name: FireBreaths
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6753165354502432783
+--- !u!4 &3802450686301924841
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753165354502432781}
+  m_GameObject: {fileID: 3802450686301924842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12716618, y: -0.55141634, z: -11.027239}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6753165354502432780
+--- !u!114 &3802450686301924840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753165354502432781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2145bd37d946f541ad05e3975775c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interval: 0.7
-  _missle:
-    Instance: {fileID: 8072917513134765061, guid: a027415d32c9e504d9ad8fe7fd6852ec, type: 3}
-    CopyCount: 7
-  _startPositionOffset: {x: 5, y: 10, z: 0}
-  _minLocalTargetPosition: {x: -3, y: 0, z: -3}
-  _maxLocalTargetPosition: {x: 3, y: 0, z: 3}
-  _missleCount: 10
-  _fireballSpeed: 25
---- !u!114 &7108165137845026979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753165354502432781}
+  m_GameObject: {fileID: 3802450686301924842}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b1aa7f91bf9174bae57fa49297ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 6753165354502432783}
+  _container: {fileID: 3802450686301924841}
+--- !u!114 &3802450686301924843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802450686301924842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2145bd37d946f541ad05e3975775c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interval: 0.3
+  _missle:
+    Instance: {fileID: 8496851677098560300, guid: 35e09a41ba16b9942b6a8c8f3f120eb3, type: 3}
+    CopyCount: 15
+  _startPositionOffset: {x: 0, y: 0, z: 0}
+  _minLocalTargetPosition: {x: -3, y: 0, z: 0}
+  _maxLocalTargetPosition: {x: 3, y: 0, z: -34}
+  _missleCount: 15
+  _fireballSpeed: 0

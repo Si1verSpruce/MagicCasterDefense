@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDuration: 0
   _lifetime: 0.2
+  _lifetimeAfterDuration: 0.2
   _damage: 1
   _glideDistance: 4
   _glideSpeed: 30

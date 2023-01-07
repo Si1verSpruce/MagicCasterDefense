@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Boulder : Missle
 {
-    [SerializeField] private float _damage;
     [SerializeField] private float _glideDistance;
     [SerializeField] private float _glideSpeed;
     [SerializeField] private ParticleSystem _groundHitEffect;
@@ -67,6 +66,6 @@ public class Boulder : Missle
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.TryGetComponent(out Enemy enemy))
-            enemy.ApplyDamage(_damage);
+            enemy.ApplyDamage(Damage);
     }
 }

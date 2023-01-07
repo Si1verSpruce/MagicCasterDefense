@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Missle : Instance, IScaleble
+public abstract class Missle : Instance, IScaleable
 {
+    protected const int Damage = 1;
+
     [SerializeField] protected float BaseDuration;
-    [SerializeField] private float _lifetime;
+    [SerializeField] private float _lifetimeAfterDuration;
 
     protected bool IsActive;
     protected float Duration;
-    private float _currentLifetime;
+    protected float CurrentLifetime;
+    private bool _isDeactivated;
 
     public void Launch(Vector3 targetPosition, float speed)
     {
@@ -33,18 +36,7 @@ public abstract class Missle : Instance, IScaleble
 
     private void Update()
     {
-        if (IsActive == false)
-            return;
-
-        if (_currentLifetime >= Duration)
-        {
-            Deactivate();
-
-            if (_currentLifetime >= _lifetime)
-                gameObject.SetActive(false);
-        }
-
-        _currentLifetime += Time.deltaTime;
+        DoWhileAlive();
     }
 
     public virtual void Scale(float modifier) { }
@@ -53,7 +45,28 @@ public abstract class Missle : Instance, IScaleble
 
     protected virtual void ResetState()
     {
-        _currentLifetime = 0;
+        CurrentLifetime = 0;
+        _isDeactivated = false;
+    }
+
+    protected virtual void DoWhileAlive()
+    {
+        if (IsActive == false)
+            return;
+
+        if (CurrentLifetime >= Duration)
+        {
+            if (_isDeactivated == false)
+            {
+                Deactivate();
+                _isDeactivated = true;
+            }
+
+            if (CurrentLifetime >= _lifetimeAfterDuration)
+                gameObject.SetActive(false);
+        }
+
+        CurrentLifetime += Time.deltaTime;
     }
 
     protected IEnumerator MoveToTarget(Vector3 targetPosition, float speed)

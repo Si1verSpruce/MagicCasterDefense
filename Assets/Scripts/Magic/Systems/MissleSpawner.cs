@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireballSpawner : Spawner, IScaleble
+public class MissleSpawner : Spawner, IScaleable
 {
-    [SerializeField] private SpawnedObject _fireball;
+    [SerializeField] private SpawnedObject _missle;
     [SerializeField] private Vector3 _startPositionOffset;
     [SerializeField] private Vector3 _minLocalTargetPosition;
     [SerializeField] private Vector3 _maxLocalTargetPosition;
@@ -18,7 +18,7 @@ public class FireballSpawner : Spawner, IScaleble
     private void Awake()
     {
         _defaultMissleCount = _missleCount;
-        Init(new SpawnedObject[1] { _fireball });
+        Init(new SpawnedObject[1] { _missle });
     }
 
     private void OnEnable()
@@ -47,7 +47,7 @@ public class FireballSpawner : Spawner, IScaleble
 
     protected override Instance GetSpawnedInstance()
     {
-        return _fireball.Instance;
+        return _missle.Instance;
     }
 
     protected override Vector3 GetSpawnPosition()

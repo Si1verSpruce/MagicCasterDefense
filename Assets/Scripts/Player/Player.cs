@@ -142,7 +142,7 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
     private void ScalePoolInstances(Instance[] instances, float modifier)
     {
         foreach (var instance in instances)
-            if (instance.TryGetComponent(out IScaleble scaleble))
+            if (instance.TryGetComponent(out IScaleable scaleble))
                 scaleble.Scale(modifier);
     }
 

@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Explosion : Missle
 {
-    [SerializeField] private float _damage;
-
     private SphereCollider _damageArea;
     private Vector3 _defaultScale;
 
@@ -33,8 +31,8 @@ public class Explosion : Missle
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.TryGetComponent<Enemy>(out Enemy enemy))
-            enemy.ApplyDamage(_damage);
+        if (collider.TryGetComponent(out Enemy enemy))
+            enemy.ApplyDamage(Damage);
     }
 
     protected override void ResetState()

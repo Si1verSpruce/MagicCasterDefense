@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ElectricTrap : Missle
 {
-    private const float _delayAfterAllTriggers = 1;
-
-    [SerializeField] private int _damage;
     [SerializeField] private int _triggerCount;
     [SerializeField] private ParticleSystem _spark;
 
@@ -35,33 +32,27 @@ public class ElectricTrap : Missle
         _spark.gameObject.SetActive(false);
     }
 
+    protected override void Deactivate()
+    {
+        if (_spark.gameObject.activeSelf == false)
+            gameObject.SetActive(false);
+
+        _currentTriggerCount = 0;
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         if (_currentTriggerCount > 0)
-            if (collider.TryGetComponent<Enemy>(out Enemy enemy))
+            if (collider.TryGetComponent(out Enemy enemy))
             {
-                enemy.ApplyDamage(_damage);
+                enemy.ApplyDamage(Damage);
                 _spark.gameObject.SetActive(true);
                 _spark.time = 0;
                 _spark.Play();
                 _currentTriggerCount--;
 
                 if (_currentTriggerCount <= 0)
-                    StartCoroutine(DeactivateAfterDelay());
+                    CurrentLifetime = Duration;
             }
-    }
-
-    private IEnumerator DeactivateAfterDelay()
-    {
-        float time = 0;
-
-        while (time <= _delayAfterAllTriggers)
-        {
-            yield return null;
-
-            time += Time.deltaTime;
-        }
-
-        gameObject.SetActive(false);
     }
 }
