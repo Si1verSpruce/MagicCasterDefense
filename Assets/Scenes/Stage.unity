@@ -12816,6 +12816,7 @@ MonoBehaviour:
   _player: {fileID: 1832693274}
   _ad: {fileID: 1122059544}
   _pause: {fileID: 1723535728}
+  _gamePause: {fileID: 479659524}
   _confirmationWindow: {fileID: 1162556982}
   _confirmationWindowMessage: Resurrect and stop enemies for watching ad video?
   _defeatScreen: {fileID: 678643197}
