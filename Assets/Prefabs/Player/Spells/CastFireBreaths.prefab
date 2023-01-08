@@ -47,8 +47,8 @@ MonoBehaviour:
   _label: Fire breath
   _upgradeDescription: Increase fire breath count
   _icon: {fileID: 21300000, guid: 609e368643362084c96dfd544c017c75, type: 3}
-  _buyPrice: 0
-  _isBought: 1
+  _buyPrice: 3
+  _isBought: 0
   _combination:
   - {fileID: 11400000, guid: 2ea44f5431c44b847a696efd3549a320, type: 2}
   - {fileID: 11400000, guid: 2ea44f5431c44b847a696efd3549a320, type: 2}

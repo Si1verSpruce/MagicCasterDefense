@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 540, y: 910, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,7 +47,7 @@ MonoBehaviour:
   _label: Meteor Rain
   _upgradeDescription: Increase fireball count
   _icon: {fileID: 21300000, guid: 609e368643362084c96dfd544c017c75, type: 3}
-  _buyPrice: 5
+  _buyPrice: 1
   _isBought: 0
   _combination:
   - {fileID: 11400000, guid: 70cf77084e8cec74e971c806c7ec99d4, type: 2}
@@ -54,5 +55,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 70cf77084e8cec74e971c806c7ec99d4, type: 2}
   - {fileID: 11400000, guid: f483e64302ff69f4c98120e83dc8287c, type: 2}
   _scalePerLevel: 0.1
-  TimeToTarget: 0
+  SpeedToTarget: 0
   CreatedInstance: {fileID: 6753165354502432780, guid: 8a8317cc21a788e40ae4558bb26cf643, type: 3}

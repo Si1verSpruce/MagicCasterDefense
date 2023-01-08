@@ -20,12 +20,11 @@ public class YesNoPopupWindow : PopupWindow
     {
         _reject.onClick.RemoveListener(OnRejectClick);
         base.Deactivate();
-        Time.timeScale = 0;
     }
 
     private void OnRejectClick()
     {
-        gameObject.SetActive(false);
         RejectClick?.Invoke();
+        gameObject.SetActive(false);
     }
 }

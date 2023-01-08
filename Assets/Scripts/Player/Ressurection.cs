@@ -7,6 +7,7 @@ public class Ressurection : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private RewardedPopupAd _ad;
     [SerializeField] private PauseForEnemies _pause;
+    [SerializeField] private GamePause _gamePause;
     [SerializeField] private YesNoPopupWindow _confirmationWindow;
     [SerializeField] private string _confirmationWindowMessage;
     [SerializeField] private DefeatScreen _defeatScreen;
@@ -38,6 +39,7 @@ public class Ressurection : MonoBehaviour
 
     private void OnRejectClick()
     {
+        _gamePause.RequestPause(gameObject);
         _defeatScreen.gameObject.SetActive(true);
     }
 

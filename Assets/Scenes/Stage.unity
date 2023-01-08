@@ -3130,7 +3130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveLoadSystem: {fileID: 557256534}
-  _time: 90
+  _time: 60
   _player: {fileID: 1832693274}
   _tutorial: {fileID: 857017293}
   _menuScreen: {fileID: 1517388687}
@@ -15256,8 +15256,8 @@ MonoBehaviour:
     CopyCount: 50
     SpawnChancePerStageModifier: 0.03
   _boss: {fileID: 6716042562889546053, guid: 368673a0474ac7444aed692da5db0485, type: 3}
-  _minWorldPosition: {x: -3, y: 0, z: 0}
-  _maxWorldPosition: {x: 3, y: 0, z: 0}
+  _minWorldPosition: {x: -3, y: 0, z: -30}
+  _maxWorldPosition: {x: 3, y: 0, z: -30}
   _bossSpawnPosition: {x: 0, y: 0, z: 0}
   _player: {fileID: 1832693274}
   _stage: {fileID: 276486214}
