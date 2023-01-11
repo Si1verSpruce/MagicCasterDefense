@@ -9,7 +9,7 @@ public class PlayerSpellMaker : MonoBehaviour, IResetOnRestart
 
     private List<MagicElementCell> _selectedCells = new List<MagicElementCell>();
 
-    public UnityAction<List<ElementType>> CombinationUpdated;
+    public event UnityAction<List<ElementType>> CombinationUpdated;
 
     private void OnEnable()
     {

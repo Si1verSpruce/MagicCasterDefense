@@ -74,14 +74,7 @@ public class Enemy : Instance
 
     private IEnumerator DoAfterDelay(Action action, float delay)
     {
-        float time = 0;
-
-        while (time <= delay)
-        {
-            yield return null;
-
-            time += Time.deltaTime;
-        }
+        yield return new WaitForSeconds(delay);
 
         action();
     }

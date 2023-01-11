@@ -14,7 +14,7 @@ public class SpellShortView : MonoBehaviour
     protected Spell Spell;
 
     public int Level => Spell.Level;
-    public UnityAction<int> LevelChanged;
+    public event UnityAction<int> LevelChanged;
 
     public virtual void Init(Spell spell)
     {

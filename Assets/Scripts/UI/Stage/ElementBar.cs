@@ -17,7 +17,7 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     private int _sessionCountWithFirstCellUnlocked;
     private MagicElementCell _firstCell;
 
-    public UnityAction<MagicElementCell> CellAdded;
+    public event UnityAction<MagicElementCell> CellAdded;
 
     public object SaveState()
     {

@@ -14,8 +14,8 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
 
     private bool _isSelected;
 
-    public UnityAction<MagicElementCell, bool> Toggled;
-    public UnityAction Clicked;
+    public event UnityAction<MagicElementCell, bool> Toggled;
+    public event UnityAction Clicked;
 
     public ElementType CurrentElement => _currentElement.Type;
 

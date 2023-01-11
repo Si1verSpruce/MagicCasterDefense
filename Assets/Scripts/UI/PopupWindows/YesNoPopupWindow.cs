@@ -8,7 +8,7 @@ public class YesNoPopupWindow : PopupWindow
 {
     [SerializeField] private Button _reject;
 
-    public UnityAction RejectClick;
+    public event UnityAction RejectClick;
 
     protected override void Activate()
     {

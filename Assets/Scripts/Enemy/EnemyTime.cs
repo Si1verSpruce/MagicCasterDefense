@@ -9,7 +9,7 @@ public static class EnemyTime
 
     public static bool IsActive => _isTimeActive;
 
-    public static UnityAction<bool> TimeActivityChanged;
+    public static event UnityAction<bool> TimeActivityChanged;
 
     public static void SetTimeActivity(bool isActive)
     {

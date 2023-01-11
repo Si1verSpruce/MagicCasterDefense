@@ -67,10 +67,7 @@ public class PlayerCastInput : MonoBehaviour
         data.position = pointerPosition;
         EventSystem.current.RaycastAll(data, hits);
 
-        if (hits.Count > 0)
-            return true;
-
-        return false;
+        return hits.Count > 0;
     }
 
     private bool CheckIsInsideDisplay(Vector2 position)

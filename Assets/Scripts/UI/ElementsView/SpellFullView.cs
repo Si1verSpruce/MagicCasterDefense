@@ -18,9 +18,10 @@ public class SpellFullView : SpellShortView
 
     public int UpgradePrice => Spell.UpgradePrice;
 
-    public UnityAction<Spell, SpellFullView> BuyButtonClicked;
-    public UnityAction<Spell, SpellFullView> UpgradeButtonClicked;
-    public UnityAction<int> UpgradePriceChanged;
+    public event UnityAction<Spell, SpellFullView> BuyButtonClicked;
+    public event UnityAction<Spell, SpellFullView> UpgradeButtonClicked;
+    public event UnityAction<int> UpgradePriceChanged;
+    new public event UnityAction<int> LevelChanged;
 
     public override void Init(Spell spell)
     {

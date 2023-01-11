@@ -13,7 +13,7 @@ public class PlayerCaster : MonoBehaviour
     private Spell _currentSpell;
     private SpellPool _pool;
 
-    public UnityAction<bool> SpellDone;
+    public event UnityAction<bool> SpellDone;
 
     public Spell CurrentSpell => _currentSpell;
 

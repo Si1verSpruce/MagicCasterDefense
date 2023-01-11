@@ -13,7 +13,7 @@ public class RewardedPopupAd : MonoBehaviour
     [SerializeField] private PopupWindow _window;
     [SerializeField] private AdSettings _ads;
 
-    public UnityAction<bool> Rewarded;
+    public event UnityAction<bool> Rewarded;
 
     public void SetRewardValues(string[] values)
     {

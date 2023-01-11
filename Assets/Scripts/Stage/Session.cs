@@ -24,8 +24,8 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     private bool _isGameNew;
     private float _currentTime;
 
-    public UnityAction<int> TimeChanged;
-    public UnityAction<bool> SessionActivityChanged;
+    public event UnityAction<int> TimeChanged;
+    public event UnityAction<bool> SessionActivityChanged;
 
     public int Number => _number;
     public int BossNumber => _bossNumber;

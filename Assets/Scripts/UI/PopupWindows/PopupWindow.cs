@@ -12,7 +12,7 @@ public class PopupWindow : MonoBehaviour
     [SerializeField] private Button _confirm;
     [SerializeField] private GamePause _pause;
 
-    public UnityAction ConfirmClick;
+    public event UnityAction ConfirmClick;
 
     public void SetMessage(string message, string[] values, string valueTag)
     {

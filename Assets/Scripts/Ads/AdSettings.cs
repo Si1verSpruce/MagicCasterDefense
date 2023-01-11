@@ -24,8 +24,8 @@ public class AdSettings : MonoBehaviour
     private RewardedAd _rewarded;
     private string _rewardedId = "ca-app-pub-3940256099942544/5224354917";
 
-    public UnityAction<RewardedAdState> RewardedAdStateChanged;
-    public UnityAction AdClosed;
+    public event UnityAction<RewardedAdState> RewardedAdStateChanged;
+    public event UnityAction AdClosed;
 
     private void Start()
     {
