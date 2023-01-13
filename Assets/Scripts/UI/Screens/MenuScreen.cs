@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MenuScreen : PauseScreen
 {
     [SerializeField] private Shop _shop;
+
+    public event UnityAction<bool> Activated;
 
     public void ActivateShopScreen()
     {
@@ -14,12 +17,18 @@ public class MenuScreen : PauseScreen
     public override void OpenScreen()
     {
         base.OpenScreen();
-        gameObject.SetActive(true);
+        OnScreenActivityChanged(true);
     }
 
     public override void CloseScreen()
     {
         base.CloseScreen();
-        gameObject.SetActive(false);
+        OnScreenActivityChanged(false);
+    }
+
+    private void OnScreenActivityChanged(bool isActivated)
+    {
+        gameObject.SetActive(isActivated);
+        Activated?.Invoke(isActivated);
     }
 }

@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _label: Meteor Rain
   _upgradeDescription: Increase fireball count
-  _icon: {fileID: 21300000, guid: 609e368643362084c96dfd544c017c75, type: 3}
-  _buyPrice: 1
+  _icon: {fileID: 21300000, guid: 2d0997ac1b1fd664e98202450e7ea2d7, type: 3}
+  _buyPrice: 7
   _isBought: 0
   _combination:
   - {fileID: 11400000, guid: 70cf77084e8cec74e971c806c7ec99d4, type: 2}

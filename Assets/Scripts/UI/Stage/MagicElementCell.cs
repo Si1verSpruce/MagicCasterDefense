@@ -11,6 +11,7 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
     [SerializeField] private Image _frame;
     [SerializeField] private Button _lock;
     [SerializeField] private MagicElement _currentElement;
+    [SerializeField] private GameObject _grayFilter;
 
     private bool _isSelected;
 
@@ -34,14 +35,15 @@ public class MagicElementCell : MonoBehaviour, IResetOnRestart
         Clicked?.Invoke();
     }
 
-    public void Lock()
+    public void SetLock(bool isLocked)
     {
-        _lock.gameObject.SetActive(true);
+        _lock.gameObject.SetActive(isLocked);
     }
 
-    public void Unlock()
+    public void SetButtonActive(bool isActive)
     {
-        _lock.gameObject.SetActive(false);
+        _lock.interactable = isActive;
+        _grayFilter.SetActive(!isActive);
     }
 
     public void ToggleSelection()

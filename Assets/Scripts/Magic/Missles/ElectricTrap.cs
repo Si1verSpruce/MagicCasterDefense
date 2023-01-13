@@ -6,6 +6,8 @@ public class ElectricTrap : Missle
 {
     [SerializeField] private int _triggerCount;
     [SerializeField] private ParticleSystem _spark;
+    [SerializeField] private AudioSource _sparkSound;
+    [SerializeField] private AudioSource _electricity;
 
     private int _currentTriggerCount;
     private float _defaultDuration;
@@ -25,6 +27,7 @@ public class ElectricTrap : Missle
     protected override void ResetState()
     {
         base.ResetState();
+        _electricity.Play();
         IsActive = true;
         _currentTriggerCount = _triggerCount;
         _spark.time = 0;
@@ -46,6 +49,7 @@ public class ElectricTrap : Missle
             if (collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.ApplyDamage(Damage);
+                _sparkSound.Play();
                 _spark.gameObject.SetActive(true);
                 _spark.time = 0;
                 _spark.Play();

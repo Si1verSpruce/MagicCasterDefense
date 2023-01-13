@@ -5,6 +5,8 @@ using UnityEngine;
 public class Firewall : Missle
 {
     [SerializeField] private ParticleSystem _fire;
+    [SerializeField] private AudioSource _fireBreakOut;
+    [SerializeField] private AudioSource _fireContinued;
 
     private float _defaultDuration;
 
@@ -30,6 +32,9 @@ public class Firewall : Missle
     protected override void ResetState()
     {
         base.ResetState();
+        StopAllCoroutines();
+        _fireBreakOut.Play();
+        _fireContinued.Play();
     }
 
     private void OnTriggerEnter(Collider collider)

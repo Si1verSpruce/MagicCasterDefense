@@ -9,6 +9,9 @@ public class Boulder : Missle
     [SerializeField] private float _glideDistance;
     [SerializeField] private float _glideSpeed;
     [SerializeField] private ParticleSystem _groundHitEffect;
+    [SerializeField] private AudioSource _audio;
+    [SerializeField] private AudioClip _lauch;
+    [SerializeField] private AudioClip _impact;
 
     private BoxCollider _collider;
     private Rigidbody _rigidbody;
@@ -31,6 +34,7 @@ public class Boulder : Missle
     protected override void ResetState()
     {
         base.ResetState();
+        PlayAudio(_lauch);
         IsActive = false;
         _isGrounded = false;
         _rigidbody.isKinematic = true;
@@ -44,6 +48,7 @@ public class Boulder : Missle
 
         if (_isGrounded == false)
         {
+            PlayAudio(_impact);
             _groundHitEffect.transform.SetParent(null);
             _groundHitEffect.gameObject.SetActive(true);
             StartCoroutine(MoveToTarget(transform.position + Vector3.forward * _glideDistance, _glideSpeed));
@@ -67,5 +72,11 @@ public class Boulder : Missle
     {
         if (collider.TryGetComponent(out Enemy enemy))
             enemy.ApplyDamage(Damage);
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        _audio.clip = clip;
+        _audio.Play();
     }
 }

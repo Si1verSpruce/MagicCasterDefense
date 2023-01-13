@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireBreath : Missle
 {
     [SerializeField] private ParticleSystem _fireBreath;
+    [SerializeField] private AudioSource _audio;
 
     protected override void Deactivate()
     {
@@ -21,6 +22,7 @@ public class FireBreath : Missle
     protected override void ResetState()
     {
         base.ResetState();
+        _audio.Play();
     }
 
     private void OnTriggerEnter(Collider collider)

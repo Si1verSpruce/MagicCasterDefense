@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LightningBall : ElectricTrap, IScaleable
 {
+    [SerializeField] private AudioSource _voltage;
     [SerializeField] private float _targetPositionZ;
     [SerializeField] private float _startPostionZ;
     [SerializeField] private float _minOffset;
@@ -51,6 +52,7 @@ public class LightningBall : ElectricTrap, IScaleable
     {
         base.ResetState();
         _targetPosition = transform.position;
+        _voltage.Play();
     }
 
     private void SetMoveDirection(bool isMovingForward)

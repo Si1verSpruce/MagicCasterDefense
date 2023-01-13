@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PauseForEnemies : MonoBehaviour
+public class PauseForEnemies : MonoBehaviour, IResetOnRestart
 {
     [SerializeField] private float _pauseDuration;
     [SerializeField] private int _decimalPlacesCount;
@@ -15,6 +15,12 @@ public class PauseForEnemies : MonoBehaviour
         OnTimeActivityChanged(false);
         _text.text = _pauseDuration.ToString();
         StartCoroutine(UnpauseEndFrame());
+    }
+
+    public void Reset()
+    {
+        OnTimeActivityChanged(true);
+        StopAllCoroutines();
     }
 
     private IEnumerator UnpauseEndFrame()

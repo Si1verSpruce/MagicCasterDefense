@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Switcher : MonoBehaviour
 {
-    [SerializeField] GameObject _firstObject;
-    [SerializeField] GameObject _secondObject;
+    [SerializeField] GameObject[] _firstGroup;
+    [SerializeField] GameObject[] _secondGroup;
 
     public void SwitchObjects()
     {
-        if (_firstObject.activeSelf)
+        if (_firstGroup[0].activeSelf)
         {
-            _firstObject.SetActive(false);
-            _secondObject.SetActive(true);
+            SetActiveObjects(_firstGroup, false);
+            SetActiveObjects(_secondGroup, true);
         }
         else
         {
-            _firstObject.SetActive(true);
-            _secondObject.SetActive(false);
+            SetActiveObjects(_firstGroup, true);
+            SetActiveObjects(_secondGroup, false);
         }
+    }
+
+    private void SetActiveObjects(GameObject[] items, bool isActive)
+    {
+        foreach (var item in items)
+            item.SetActive(isActive);
     }
 }

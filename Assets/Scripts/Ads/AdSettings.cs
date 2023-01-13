@@ -23,9 +23,13 @@ public class AdSettings : MonoBehaviour
     private string _interstitialId = "ca-app-pub-3940256099942544/1033173712";
     private RewardedAd _rewarded;
     private string _rewardedId = "ca-app-pub-3940256099942544/5224354917";
+    private bool _rewardedIsLoaded;
 
     public event UnityAction<RewardedAdState> RewardedAdStateChanged;
     public event UnityAction AdClosed;
+    public event UnityAction RewardedAdLoaded;
+
+    public bool RewardedIsLoaded => _rewardedIsLoaded;
 
     private void Start()
     {
@@ -68,6 +72,7 @@ public class AdSettings : MonoBehaviour
     {
         if (_rewarded.IsLoaded())
         {
+            _rewardedIsLoaded = false;
             _rewarded.Show();
             _rewarded.OnAdFailedToLoad += OnFailedToLoad;
             _rewarded.OnAdFailedToShow += OnFailedToShow;
@@ -107,6 +112,7 @@ public class AdSettings : MonoBehaviour
         _rewarded = new RewardedAd(_rewardedId);
         AdRequest request = new AdRequest.Builder().Build();
         _rewarded.LoadAd(request);
+        _rewarded.OnAdLoaded += OnLoaded;
     }
 
     private void OnInterstitialClosed(object sender, EventArgs args)
@@ -115,6 +121,12 @@ public class AdSettings : MonoBehaviour
         _interstitial.OnAdClosed -= OnInterstitialClosed;
 
         LoadInterstitial();
+    }
+
+    public void OnLoaded(object sender, EventArgs args)
+    {
+        RewardedAdLoaded?.Invoke();
+        _rewardedIsLoaded = true;
     }
 
     private void OnFailedToLoad(object sender, AdFailedToLoadEventArgs args)
@@ -140,6 +152,7 @@ public class AdSettings : MonoBehaviour
         _rewarded.OnAdFailedToLoad -= OnFailedToLoad;
         _rewarded.OnAdFailedToShow -= OnFailedToShow;
         _rewarded.OnUserEarnedReward -= OnEarnedReward;
+        _rewarded.OnAdLoaded -= OnLoaded;
 
         LoadRewarded();
     }

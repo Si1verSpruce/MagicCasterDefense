@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Explosion : Missle
 {
+    [SerializeField] private AudioSource _audio;
+
     private SphereCollider _damageArea;
     private Vector3 _defaultScale;
 
@@ -39,5 +41,6 @@ public class Explosion : Missle
     {
         base.ResetState();
         _damageArea.enabled = true;
+        _audio.Play();
     }
 }

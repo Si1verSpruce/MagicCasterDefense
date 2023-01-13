@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
 {
     [SerializeField] private MagicElementCell[] _cells;
+    [SerializeField] private Session _session;
     [SerializeField] private int _rewardSessionCountWithFirstCellUnlocked;
     [SerializeField] private SaveLoadSystem _saveLoad;
     [SerializeField] private AdSettings _ad;
@@ -14,20 +15,20 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private YesNoPopupWindow _confirmationWindow;
     [SerializeField] private string _confirmationWindowMessage;
 
-    private int _sessionCountWithFirstCellUnlocked;
+    private int _sessionUntilFirstCellUnlocked;
     private MagicElementCell _firstCell;
 
     public event UnityAction<MagicElementCell> CellAdded;
 
     public object SaveState()
     {
-        return new SaveData { sessionCountWithFirstCellUnlocked = _sessionCountWithFirstCellUnlocked };
+        return new SaveData { sessionUntilFirstCellUnlocked = _sessionUntilFirstCellUnlocked };
     }
 
     public void LoadState(string jsonData)
     {
         Init();
-        _sessionCountWithFirstCellUnlocked = JsonUtility.FromJson<SaveData>(jsonData).sessionCountWithFirstCellUnlocked;
+        _sessionUntilFirstCellUnlocked = JsonUtility.FromJson<SaveData>(jsonData).sessionUntilFirstCellUnlocked;
     }
 
     public void LoadByDefault()
@@ -39,6 +40,7 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     {
         _confirmationWindow.ConfirmClick += ShowAd;
         _confirmationWindow.RejectClick += OnRejectClick;
+        _ad.RewardedAdLoaded += SetActiveFirstCellButton;
     }
 
     private void OnDisable()
@@ -46,14 +48,20 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
         _confirmationWindow.ConfirmClick -= ShowAd;
         _confirmationWindow.RejectClick -= OnRejectClick;
         _firstCell.Clicked -= RequestAd;
+        _ad.RewardedAdLoaded -= SetActiveFirstCellButton;
     }
 
     public void Reset()
     {
-        if (_sessionCountWithFirstCellUnlocked == 0)
-            _firstCell.Lock();
+        if (_session.Number >= _sessionUntilFirstCellUnlocked)
+        {
+            _firstCell.SetLock(true);
+            _firstCell.SetButtonActive(_ad.RewardedIsLoaded);
+        }
         else
-            TryToUnlockFirstCell();
+        {
+            _firstCell.SetLock(false);
+        }
     }
 
     private void Init()
@@ -64,11 +72,16 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
 
             if (i == 0)
             {
-                _cells[i].Lock();
+                _cells[i].SetLock(true);
                 _firstCell = _cells[i];
                 _cells[i].Clicked += RequestAd;
             }
         }
+    }
+
+    private void SetActiveFirstCellButton()
+    {
+        _firstCell.SetButtonActive(true);
     }
 
     private void OnRejectClick()
@@ -97,26 +110,17 @@ public class ElementBar : MonoBehaviour, ISaveable, IResetOnRestart
     {
         if (isRewarded)
         {
-            _sessionCountWithFirstCellUnlocked = _rewardSessionCountWithFirstCellUnlocked;
-            TryToUnlockFirstCell();
+            _sessionUntilFirstCellUnlocked = _session.Number + _rewardSessionCountWithFirstCellUnlocked;
+            _firstCell.SetLock(false);
+            _saveLoad.Save(this);
         }
 
         _popupAd.Rewarded -= TryGetReward;
     }
 
-    private void TryToUnlockFirstCell()
-    {
-        if (_sessionCountWithFirstCellUnlocked > 0)
-        {
-            _sessionCountWithFirstCellUnlocked--;
-            _firstCell.Unlock();
-            _saveLoad.Save(this);
-        }
-    }
-
     [Serializable]
     private struct SaveData
     {
-        public int sessionCountWithFirstCellUnlocked;
+        public int sessionUntilFirstCellUnlocked;
     }
 }

@@ -16,6 +16,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     [SerializeField] private int _stageCountBeforeBoss;
     [SerializeField] private GamePause _gamePauseToggle;
     [SerializeField] private SessionRestarter _restarter;
+    [SerializeField] private AdSettings _ad;
 
     private int _number;
     private int _bossNumber;
@@ -102,7 +103,7 @@ public class Session : MonoBehaviour, ISaveable, IResetOnRestart
     {
         if (_health <= 0)
         {
-            if (_isRessurectionAvailable)
+            if (_isRessurectionAvailable && _ad.RewardedIsLoaded)
             {
                 _ressurection.RequestAd();
                 _isRessurectionAvailable = false;

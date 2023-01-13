@@ -7,6 +7,7 @@ public class Fireball : Missle
 {
     [SerializeField] private Explosion _explosion;
     [SerializeField] private ParticleSystem[] _fireEffects;
+    [SerializeField] private AudioSource _audio;
 
     private MeshRenderer _renderer;
 
@@ -44,6 +45,7 @@ public class Fireball : Missle
     protected override void ResetState()
     {
         base.ResetState();
+        _audio.Play();
         IsActive = false;
         _renderer.enabled = true;
         _explosion.gameObject.SetActive(false);
