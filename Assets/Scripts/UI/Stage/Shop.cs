@@ -17,6 +17,7 @@ public class Shop : MonoBehaviour, ISaveable
     [SerializeField] private Player _player;
     [SerializeField] private Button _switch;
     [SerializeField] private Transform _spellContainer;
+    [SerializeField] private AudioSource _moneySound;
 
     private List<Spell> _spellInstances = new List<Spell>();
 
@@ -106,9 +107,10 @@ public class Shop : MonoBehaviour, ISaveable
 
     private void OnBuyButton(Spell spell, SpellFullView view)
     {
-        if (_player.StageCoins >= spell.BuyPrice)
+        if (_player.Gems >= spell.BuyPrice)
         {
             _player.BuySpell(spell);
+            _moneySound.Play();
             view.ActivateUpgradeGroup();
             view.BuyButtonClicked -= OnBuyButton;
             view.UpgradeButtonClicked += OnUpgradeButton;
@@ -123,6 +125,7 @@ public class Shop : MonoBehaviour, ISaveable
         if (_player.Money >= spell.UpgradePrice)
         {
             _player.UpgradeSpell(spell);
+            _moneySound.Play();
             view.UpdateUpgradeGroup();
 
             _saveLoadSystem.Save(this);

@@ -39,6 +39,7 @@ public class Boulder : Missle
         _isGrounded = false;
         _rigidbody.isKinematic = true;
         _groundHitEffect.gameObject.SetActive(false);
+        _groundHitEffect.transform.SetParent(transform);
     }
 
     protected override void OnTargetAchieved()

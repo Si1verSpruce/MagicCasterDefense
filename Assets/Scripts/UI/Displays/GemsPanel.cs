@@ -10,7 +10,7 @@ public class GemsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        OnGemsChanged(_player.StageCoins);
+        OnGemsChanged(_player.Gems);
         _player.GemsChanged += OnGemsChanged;
     }
 

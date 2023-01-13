@@ -51,13 +51,21 @@ public class LightningBall : ElectricTrap, IScaleable
     protected override void ResetState()
     {
         base.ResetState();
+        _isMovingForward = true;
+        SetMoveDirection(_isMovingForward);
         _targetPosition = transform.position;
         _voltage.Play();
+
     }
 
     private void SetMoveDirection(bool isMovingForward)
     {
         _isMovingForward = isMovingForward;
-        _changeDirectionStep *= -1;
+
+        if ((_isMovingForward && _changeDirectionStep < 0) ||
+            (_isMovingForward == false && _changeDirectionStep > 0))
+        {
+            _changeDirectionStep *= -1;
+        }
     }
 }

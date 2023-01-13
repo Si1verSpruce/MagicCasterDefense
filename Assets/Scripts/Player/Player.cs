@@ -25,7 +25,7 @@ public class Player : MonoBehaviour, ISaveable, IResetOnRestart
 
     public int Health => _currentHealth;
     public int Money => _money;
-    public int StageCoins => _gems;
+    public int Gems => _gems;
 
     private void Awake()
     {
