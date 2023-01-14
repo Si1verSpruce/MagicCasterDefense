@@ -63,7 +63,7 @@ MonoBehaviour:
     Instance: {fileID: 8496851677098560300, guid: 35e09a41ba16b9942b6a8c8f3f120eb3, type: 3}
     CopyCount: 15
   _startPositionOffset: {x: 0, y: 0, z: 0}
-  _minLocalTargetPosition: {x: -3, y: 0, z: 0}
-  _maxLocalTargetPosition: {x: 3, y: 0, z: -34}
+  _minLocalTargetPosition: {x: -3, y: 0, z: -3}
+  _maxLocalTargetPosition: {x: 3, y: 0, z: 3}
   _missleCount: 15
   _fireballSpeed: 0
