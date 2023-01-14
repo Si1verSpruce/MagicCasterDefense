@@ -21,7 +21,6 @@ public class SpellFullView : SpellShortView
     public event UnityAction<Spell, SpellFullView> BuyButtonClicked;
     public event UnityAction<Spell, SpellFullView> UpgradeButtonClicked;
     public event UnityAction<int> UpgradePriceChanged;
-    new public event UnityAction<int> LevelChanged;
 
     public override void Init(Spell spell)
     {
@@ -59,7 +58,7 @@ public class SpellFullView : SpellShortView
 
     public void UpdateUpgradeGroup()
     {
-        LevelChanged?.Invoke(Spell.Level);
+        InvokeLevelChanged(Spell.Level);
         UpgradePriceChanged?.Invoke(Spell.UpgradePrice);
     }
 

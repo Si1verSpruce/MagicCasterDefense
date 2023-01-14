@@ -21,7 +21,7 @@ public class SpellShortView : MonoBehaviour
         Spell = spell;
 
         _label.text = Spell.Label;
-        LevelChanged?.Invoke(Spell.Level);
+        InvokeLevelChanged(Spell.Level);
         var combination = Spell.GetCombination();
 
         foreach (var element in combination)
@@ -29,5 +29,10 @@ public class SpellShortView : MonoBehaviour
             var view = Instantiate(_magicElementView, _combinationContainer);
             view.sprite = element.Sprite;
         }
+    }
+
+    protected void InvokeLevelChanged(int level)
+    {
+        LevelChanged?.Invoke(level);
     }
 }
